@@ -3,409 +3,681 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phonetic | Reading Training Wheels</title>
-  <meta name="description" content="Emoji above words teach anyone to read. Kids learn a first language. Adults learn a new one. Same app, same mechanic.">
+  <title>Inklings</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✋</text></svg>">
+  <meta name="description" content="Made for kids. Loved by adults. Private, accessible, on-device software from Inklings.">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-  <meta property="og:title" content="Phonetic | Reading Training Wheels">
-  <meta property="og:description" content="Emoji above words teach anyone to read. Kids learn a first language. Adults learn a new one.">
+  <meta property="og:title" content="Inklings">
+  <meta property="og:description" content="Made for kids. Loved by adults. Private, accessible, on-device software from Inklings.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://inkling.ink">
-  <link rel="stylesheet" href="../style.css">
+  <meta property="og:site_name" content="Inklings">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Inklings">
+  <meta name="twitter:description" content="Made for kids. Loved by adults. Private, accessible, on-device software from Inklings.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-rounded: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --color-text: #1d1d1f;
+      --color-text-secondary: #6e6e73;
+      --color-bg: #ffffff;
+      --color-bg-light: #f5f5f7;
+      --color-accent: #0071e3;
+      --color-accent-hover: #0077ed;
+      --color-border: #d2d2d7;
+      --max-width: 980px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      font: -apple-system-body;
+      font-family: var(--font);
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== Hero ===== */
+
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero-inner {
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ----- Wave Hello ----- */
+
+    .wave-hello {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      user-select: none;
+      margin-bottom: 3rem;
+    }
+
+    .wave-hand {
+      font-size: clamp(4rem, 12vw, 6rem);
+      line-height: 1;
+      transform-origin: 50% 90%;
+      animation: wave-cycle 45s ease-in-out infinite;
+    }
+
+    .wave-hand::after {
+      content: '';
+      display: inline-block;
+    }
+
+    /* Smooth, gentle wave — ✋ sits tilted at -30deg, waves arc from there */
+    @keyframes wave-cycle {
+      /* Wave 1 — gentle double */
+      0%      { transform: rotate(-30deg); }
+      1%      { transform: rotate(-50deg); }
+      2.2%    { transform: rotate(-30deg); }
+      3.2%    { transform: rotate(-44deg); }
+      4.2%    { transform: rotate(-30deg); }
+
+      11.1%   { transform: rotate(-30deg); }
+
+      /* Wave 2 — single soft nod */
+      11.11%  { transform: rotate(-30deg); }
+      12.2%   { transform: rotate(-46deg); }
+      13.3%   { transform: rotate(-30deg); }
+
+      22.21%  { transform: rotate(-30deg); }
+
+      /* Wave 3 — slow, wide double */
+      22.22%  { transform: rotate(-30deg); }
+      23.5%   { transform: rotate(-52deg); }
+      24.8%   { transform: rotate(-34deg); }
+      25.8%   { transform: rotate(-46deg); }
+      27%     { transform: rotate(-30deg); }
+
+      33.32%  { transform: rotate(-30deg); }
+
+      /* Wave 4 — single elegant */
+      33.33%  { transform: rotate(-30deg); }
+      34.5%   { transform: rotate(-48deg); }
+      35.7%   { transform: rotate(-30deg); }
+
+      44.43%  { transform: rotate(-30deg); }
+
+      /* Wave 5 — gentle triple */
+      44.44%  { transform: rotate(-30deg); }
+      45.2%   { transform: rotate(-48deg); }
+      46%     { transform: rotate(-34deg); }
+      46.6%   { transform: rotate(-44deg); }
+      47.2%   { transform: rotate(-32deg); }
+      47.8%   { transform: rotate(-38deg); }
+      48.5%   { transform: rotate(-30deg); }
+
+      55.55%  { transform: rotate(-30deg); }
+
+      /* Wave 6 — slow, wide single */
+      55.56%  { transform: rotate(-30deg); }
+      57%     { transform: rotate(-54deg); }
+      58.5%   { transform: rotate(-30deg); }
+
+      66.66%  { transform: rotate(-30deg); }
+
+      /* Wave 7 — quick little flick */
+      66.67%  { transform: rotate(-30deg); }
+      67.5%   { transform: rotate(-42deg); }
+      68.2%   { transform: rotate(-30deg); }
+
+      77.77%  { transform: rotate(-30deg); }
+
+      /* Wave 8 — double, warm */
+      77.78%  { transform: rotate(-30deg); }
+      78.8%   { transform: rotate(-50deg); }
+      79.8%   { transform: rotate(-34deg); }
+      80.6%   { transform: rotate(-44deg); }
+      81.5%   { transform: rotate(-30deg); }
+
+      88.88%  { transform: rotate(-30deg); }
+
+      /* Wave 9 — gentle farewell */
+      88.89%  { transform: rotate(-30deg); }
+      89.8%   { transform: rotate(-46deg); }
+      90.6%   { transform: rotate(-32deg); }
+      91.4%   { transform: rotate(-40deg); }
+      92.2%   { transform: rotate(-30deg); }
+
+      100%    { transform: rotate(-30deg); }
+    }
+
+    .wave-greetings {
+      position: relative;
+      min-height: 1.3em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 5ch;
+    }
+
+    .wave-greeting {
+      position: absolute;
+      white-space: nowrap;
+      font-family: var(--font-rounded);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      opacity: 0;
+      transform: translateY(0.35em);
+      animation: greeting-show 45s ease infinite;
+      animation-delay: calc(-45s + var(--i) * 5s);
+    }
+
+    @keyframes greeting-show {
+      0%      { opacity: 0; transform: translateY(0.35em); }
+      1.5%    { opacity: 1; transform: translateY(0); }
+      9.5%    { opacity: 1; transform: translateY(0); }
+      11%     { opacity: 0; transform: translateY(-0.2em); }
+      11.11%  { opacity: 0; transform: translateY(0.35em); }
+      100%    { opacity: 0; transform: translateY(0.35em); }
+    }
+
+    /* ----- Hero Text ----- */
+
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ===== Section ===== */
+
+    .section {
+      padding: 6rem 1.5rem;
+    }
+
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-text-secondary);
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    .section-light {
+      background: var(--color-bg-light);
+    }
+
+    .section-dark {
+      background: #1d1d1f;
+      color: #f5f5f7;
+    }
+
+    .section-dark .section-subtitle {
+      color: #a1a1a6;
+    }
+
+    /* ===== Values ===== */
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .value-card {
+      text-align: center;
+      padding: 2.5rem 2rem;
+    }
+
+    .value-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .value-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .value-card p {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== Quote ===== */
+
+    .quote {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 500;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      color: #f5f5f7;
+    }
+
+    .quote-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9375rem;
+    }
+
+    .quote-link a {
+      color: #2997ff;
+      transition: color 0.2s ease;
+    }
+
+    .quote-link a:hover {
+      color: #64b5f6;
+    }
+
+    /* ===== Products ===== */
+
+    .products-grid {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 200px;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .product-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 26.5%;
+      background: var(--color-bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-card h3 {
+      font-family: var(--font-rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 2.5rem;
+    }
+
+    .product-icon-mono {
+      filter: brightness(0);
+    }
+
+    .product-card .product-type {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card p {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .product-coming-soon {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .product-card.dimmed {
+      opacity: 0.4;
+    }
+
+    .product-card.dimmed:hover {
+      opacity: 0.55;
+    }
+
+    /* ===== About ===== */
+
+    .about-text {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-text p {
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .inline-link {
+      color: var(--color-accent);
+      transition: color 0.2s ease;
+    }
+
+    .inline-link:hover {
+      color: var(--color-accent-hover);
+    }
+
+    /* ===== Footer ===== */
+
+    .footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 3rem 1.5rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-link {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--color-accent);
+    }
+
+    .footer-copy {
+      width: 100%;
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* ===== Dark Mode ===== */
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-text: #f5f5f7;
+        --color-text-secondary: #a1a1a6;
+        --color-bg: #000000;
+        --color-bg-light: #1c1c1e;
+        --color-accent: #2997ff;
+        --color-accent-hover: #64b5f6;
+        --color-border: #38383a;
+      }
+
+      .section-dark {
+        background: #000000;
+      }
+
+      .section-light {
+        background: #1c1c1e;
+      }
+
+      .product-icon {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .product-icon-mono {
+        filter: brightness(0) invert(1);
+      }
+
+      .footer {
+        border-top-color: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    /* ===== Responsive ===== */
+
+    @media (max-width: 768px) {
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* ===== Accessibility: Reduce Motion ===== */
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      .wave-greeting:not([style*="--i:0"]) {
+        display: none;
+      }
+
+      .wave-greeting[style*="--i:0"] {
+        opacity: 1;
+        transform: none;
+        position: static;
+      }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Nav -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/preview/" class="nav-logo">Phonetic</a>
-      <div class="nav-links">
-        <a href="#how-it-works">How It Works</a>
-        <a href="#for-everyone">For Everyone</a>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-      </div>
-    </div>
-  </nav>
 
   <!-- Hero -->
   <section class="hero">
     <div class="hero-inner">
-      <h1 class="hero-title">Learning Anew</h1>
-      <p class="hero-subtitle">
-        Training wheels for children learning a first language,<br>
-        and adults learning a new one.
-      </p>
-
-      <div class="hero-demo" aria-label="Example: The cat sits on the chair, with emoji annotations above key words">
-        <div class="demo-sentence hero-sentence">
-          <div class="demo-word">
-            <span class="demo-plain">The</span>
-          </div>
-          <div class="demo-word scaffolded">
-            <span class="demo-emoji hero-cat" aria-hidden="true">🐱</span>
-            <span class="demo-text">cat</span>
-          </div>
-          <div class="demo-word">
-            <span class="demo-plain">sits on the</span>
-          </div>
-          <div class="demo-word scaffolded">
-            <span class="demo-emoji hero-chair" aria-hidden="true">🪑</span>
-            <span class="demo-text">chair</span>
-          </div>
+      <div class="wave-hello" aria-label="Waving hand greeting in many languages">
+        <div class="wave-hand" aria-hidden="true">✋</div>
+        <div class="wave-greetings">
+          <span class="wave-greeting" style="--i:0">Hello</span>
+          <span class="wave-greeting" style="--i:1">こんにちは</span>
+          <span class="wave-greeting" style="--i:2">Hola</span>
+          <span class="wave-greeting" style="--i:3">Bonjour</span>
+          <span class="wave-greeting" style="--i:4">Hallo</span>
+          <span class="wave-greeting" style="--i:5">你好</span>
+          <span class="wave-greeting" style="--i:6">Olá</span>
+          <span class="wave-greeting" style="--i:7">Ciao</span>
+          <span class="wave-greeting" style="--i:8">안녕하세요</span>
         </div>
       </div>
 
-      <a href="#" class="cta-button" aria-label="Download on the App Store">
-        <img src="/app-store-badge.svg" alt="Download on the App Store" class="app-store-badge">
-      </a>
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="section" id="how-it-works">
+  <!-- Name + Tagline -->
+  <section class="section">
     <div class="section-inner">
-      <h2 class="section-title">How it works</h2>
+      <h1 class="section-title">Inklings</h1>
+      <p class="section-subtitle" style="margin-bottom:0">Made for kids. Loved by adults.</p>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section section-light">
+    <div class="section-inner">
+      <h2 class="section-title">What We Build</h2>
       <p class="section-subtitle">
-        Emoji float above words, just like <ruby>猫<rt>ねこ</rt></ruby> reading guides in Japanese.
-        They give you instant meaning while you learn to decode the text underneath.
-        As you master each word, the training wheels come off.
+        Private, accessible, on-device software. Safe enough for a two-year-old.
+        Useful enough that you'll keep it for yourself.
       </p>
 
-      <div class="modes">
-        <div class="mode-card">
-          <h3 class="mode-label">Learn to Read</h3>
-          <p class="mode-description">For pre-literate children ages 2+. The emoji IS the meaning. No translation needed.</p>
-          <div class="mode-demo" aria-label="Native reading example: The dog found a bone">
-            <div class="demo-sentence">
-              <div class="demo-word">
-                <span class="demo-plain">The</span>
-              </div>
-              <div class="demo-word scaffolded">
-                <span class="demo-emoji" aria-hidden="true">🐶</span>
-                <span class="demo-text">dog</span>
-              </div>
-              <div class="demo-word">
-                <span class="demo-plain">found a</span>
-              </div>
-              <div class="demo-word scaffolded">
-                <span class="demo-emoji" aria-hidden="true">🦴</span>
-                <span class="demo-text">bone</span>
-              </div>
-            </div>
-          </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <span class="value-icon" aria-hidden="true">🔒</span>
+          <h3>Private by architecture</h3>
+          <p>No servers. No accounts. No analytics. Everything runs on your device. Your data never leaves your hands.</p>
         </div>
-
-        <div class="mode-card">
-          <h3 class="mode-label">Learn a Language</h3>
-          <p class="mode-description">For learners of any age. Source word + emoji let you read in a new language from day one.</p>
-          <div class="mode-demo" aria-label="Language learning example: sun and moon in Spanish with source language and emoji above">
-            <div class="demo-sentence">
-              <div class="demo-word scaffolded tri">
-                <span class="demo-source">sun</span>
-                <span class="demo-emoji" aria-hidden="true">☀️</span>
-                <span class="demo-text">sol</span>
-              </div>
-              <div class="demo-word">
-                <span class="demo-plain">y</span>
-              </div>
-              <div class="demo-word scaffolded tri">
-                <span class="demo-source">moon</span>
-                <span class="demo-emoji" aria-hidden="true">🌙</span>
-                <span class="demo-text">luna</span>
-              </div>
-            </div>
-          </div>
+        <div class="value-card">
+          <span class="value-icon" aria-hidden="true"><svg style="width:1em;height:1em;vertical-align:middle;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="5.5" r="1.75" fill="currentColor"/><path fill="currentColor" d="M12 9c-3 0-5.25.75-5.25.75l.75 2s1.75-.6 3.25-.75v3l-2.5 5 1.75.85L12 15.25l2 4.6 1.75-.85-2.5-5v-3c1.5.15 3.25.75 3.25.75l.75-2S15 9 12 9z"/></svg></span>
+          <h3>Accessible first</h3>
+          <p>Not a bolt-on. The core mechanic. Built for people with autism, dyslexia, and motor disabilities. Designed so everyone benefits from the same interface.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon" aria-hidden="true">🧸</span>
+          <h3>Montessori-aligned</h3>
+          <p>Follow the learner's interest. One concept at a time. Concrete before abstract. These aren't prompt tricks. They're product rules.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon" aria-hidden="true">🪵</span>
+          <h3>Deliberately not noisy</h3>
+          <p>No ads. No notifications begging for attention. No dark patterns. Soft-spoken software that respects your time.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon" aria-hidden="true">📡</span>
+          <h3>Works completely offline</h3>
+          <p>No internet required. No WiFi. No cell data. Instant install, under 10 MB. Everything your device needs is already there.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon" aria-hidden="true">🧪</span>
+          <h3>Research-backed</h3>
+          <p>Every design decision is grounded in cognitive science, developmental psychology, and accessibility research. <a href="/science/" class="inline-link">Read the research&nbsp;&rarr;</a></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Core Insight -->
-  <section class="section section-dark" id="insight">
+  <!-- Products -->
+  <section class="section">
     <div class="section-inner">
-      <blockquote class="insight-quote">
-        Learning to read and learning a new language are the same cognitive process:
-        decoding unfamiliar symbols into meaning. Emoji are the universal bridge.
-      </blockquote>
-      <p class="insight-link">
-        This isn't a guess. It's backed by decades of cognitive science research.
-        <a href="/science/" class="insight-link-anchor">Read the research &rarr;</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- For Everyone -->
-  <section class="section" id="for-everyone">
-    <div class="section-inner">
-      <h2 class="section-title">For everyone</h2>
+      <h2 class="section-title">Our Offerings</h2>
       <p class="section-subtitle">
-        One mechanic that grows with the learner. A child starts by learning to read
-        with emoji help, then graduates to learning a new language the same way.
-        Same app. Same mechanic. One subscription.
+        The App Store equivalent of wooden toys and good picture books.
       </p>
 
-      <div class="audience-grid">
-        <div class="audience-card">
-          <span class="audience-emoji" aria-hidden="true">👶</span>
-          <h3>Pre-literate children</h3>
-          <p>Ages 2+. A toddler who can't read sees 🐱 above "cat" and instantly understands. The emoji IS the meaning.</p>
-        </div>
-        <div class="audience-card">
-          <span class="audience-emoji" aria-hidden="true">🧒</span>
-          <h3>Early readers</h3>
-          <p>Ages 4&ndash;7. Strengthens native reading through emoji-scaffolded sentences. Then seamlessly transitions into a second language.</p>
-        </div>
-        <div class="audience-card">
-          <span class="audience-emoji" aria-hidden="true">🧑‍💼</span>
-          <h3>Adult learners</h3>
-          <p>Clean, low-pressure vocabulary acquisition. Emoji provides instant comprehension without routing through your native language. True immersion from word one.</p>
-        </div>
-        <div class="audience-card">
-          <span class="audience-emoji" aria-hidden="true"><svg class="icon-accessibility" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="5.5" r="1.75" fill="currentColor"/><path fill="currentColor" d="M12 9c-3 0-5.25.75-5.25.75l.75 2s1.75-.6 3.25-.75v3l-2.5 5 1.75.85L12 15.25l2 4.6 1.75-.85-2.5-5v-3c1.5.15 3.25.75 3.25.75l.75-2S15 9 12 9z"/></svg></span>
-          <h3>Accessible by design</h3>
-          <p>Emoji scaffolding reduces cognitive load for dyslexia. Large, colorful touch targets for motor disabilities. Predictable interactions for autism.</p>
-        </div>
+      <div class="products-grid">
+        <a href="/inkling/" class="product-card" title="A safe, voice-driven tool for looking things up, learning, and exploring. Stories, weather, math, drawing, and more.">
+          <div class="product-icon" aria-hidden="true"><span class="product-icon-mono">🐙</span></div>
+          <h3>Inkling</h3>
+          <p class="product-type">Voice-First Learning &amp; Accessibility</p>
+          <p class="product-coming-soon">Available May 1</p>
+        </a>
+        <a href="https://f.app" class="product-card dimmed" title="Kids learn a first language. Adults learn a new one.">
+          <div class="product-icon" aria-hidden="true"><span class="product-icon-mono">👋</span></div>
+          <h3>Funetic</h3>
+          <p class="product-type">Language Training Wheels</p>
+          <p class="product-coming-soon">Coming Soon</p>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Three Tiers -->
-  <section class="section section-light" id="tiers">
+  <!-- About -->
+  <section class="section section-light">
     <div class="section-inner">
-      <h2 class="section-title">Three layers of learning</h2>
-      <p class="section-subtitle">Not every word needs an emoji. The scaffold system matches the right tool to each word type.</p>
-
-      <div class="tiers-grid">
-        <div class="tier-card">
-          <div class="tier-icon" aria-hidden="true">🏠</div>
-          <h3>Objects &rarr; Emoji</h3>
-          <p>Concrete things get emoji. House, dog, sun, book, cat. Instant visual meaning that a toddler or language learner grasps immediately.</p>
-        </div>
-        <div class="tier-card">
-          <div class="tier-icon tier-icon-animated" aria-hidden="true">⬆️</div>
-          <h3>Actions &rarr; Animation</h3>
-          <p>Actions become motion. "Jumped" bounces. "Ran" slides. The child sees the action happen. No symbol needed. The movement IS the meaning.</p>
-        </div>
-        <div class="tier-card">
-          <div class="tier-icon" aria-hidden="true">···</div>
-          <h3>Function words &rarr; Repetition</h3>
-          <p>"The," "a," "in," "on." These words don't need scaffolding. They need exposure. Fifty sentences and "the" becomes a sight word.</p>
-        </div>
+      <h2 class="section-title">Who We Are</h2>
+      <div class="about-text">
+        <p>
+          Inklings is a team of parents, pediatricians, psychologists, educators, and designers
+          who build bespoke software for their own families first.
+        </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="section" id="features">
-    <div class="section-inner">
-      <h2 class="section-title">Built different</h2>
-      <p class="section-subtitle">Powered by Apple Intelligence. Entirely on your device.</p>
-
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon" aria-hidden="true">🔒</div>
-          <h3>100% on-device</h3>
-          <p>No servers. No accounts. No analytics. Your learning data never leaves your device. COPPA compliant by architecture.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" aria-hidden="true">🧠</div>
-          <h3>Apple Intelligence</h3>
-          <p>On-device AI generates personalized sentences, adapts difficulty, and creates quizzes. All without an internet connection.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" aria-hidden="true">🌍</div>
-          <h3>23 languages</h3>
-          <p>English, Spanish, French, German, Japanese, Korean, Chinese, and more. All translation happens on-device.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" aria-hidden="true">👨‍👩‍👧‍👦</div>
-          <h3>Family friendly</h3>
-          <p>No ads. No distractions. No gimmicks. Parents learning Spanish and kids learning to read. One subscription, one app.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" aria-hidden="true"><svg class="icon-accessibility" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="5.5" r="1.75" fill="currentColor"/><path fill="currentColor" d="M12 9c-3 0-5.25.75-5.25.75l.75 2s1.75-.6 3.25-.75v3l-2.5 5 1.75.85L12 15.25l2 4.6 1.75-.85-2.5-5v-3c1.5.15 3.25.75 3.25.75l.75-2S15 9 12 9z"/></svg></div>
-          <h3>Fully accessible</h3>
-          <p>VoiceOver, Voice Control, Dynamic Type, Reduced Motion. Accessibility isn't a bolt-on. It's the core mechanic. <a href="/accessibility/">Learn more &rarr;</a></p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" aria-hidden="true">✨</div>
-          <h3>Native design</h3>
-          <p>Built with SwiftUI for Apple's latest design language. Beautiful, fast, and native on iPhone and iPad.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Languages -->
-  <section class="section section-dark" id="languages">
-    <div class="section-inner">
-      <h2 class="section-title">Your next language</h2>
-      <p class="section-subtitle">All translation happens on-device. No internet required.</p>
-      <div class="languages-list">
-        <span class="lang-tag">🇬🇧 English (UK)</span>
-        <span class="lang-tag">🇺🇸 English (US)</span>
-        <span class="lang-tag">🇦🇺 English (AU)</span>
-        <span class="lang-tag">🇫🇷 French</span>
-        <span class="lang-tag">🇩🇪 German</span>
-        <span class="lang-tag">🇮🇹 Italian</span>
-        <span class="lang-tag">🇪🇸 Spanish (Spain)</span>
-        <span class="lang-tag">🌎 Spanish (LATAM)</span>
-        <span class="lang-tag">🇺🇸 Spanish (US)</span>
-        <span class="lang-tag">🇧🇷 Portuguese (Brazil)</span>
-        <span class="lang-tag">🇵🇹 Portuguese (Portugal)</span>
-        <span class="lang-tag">🇨🇳 Chinese (Simplified)</span>
-        <span class="lang-tag">🇭🇰 Chinese (HK)</span>
-        <span class="lang-tag">🇹🇼 Chinese (Traditional)</span>
-        <span class="lang-tag">🇯🇵 Japanese</span>
-        <span class="lang-tag">🇰🇷 Korean</span>
-        <span class="lang-tag">🇮🇳 Hindi</span>
-        <span class="lang-tag">🇩🇰 Danish</span>
-        <span class="lang-tag">🇳🇱 Dutch</span>
-        <span class="lang-tag">🇳🇴 Norwegian</span>
-        <span class="lang-tag">🇸🇪 Swedish</span>
-        <span class="lang-tag">🇹🇷 Turkish</span>
-        <span class="lang-tag">🇻🇳 Vietnamese</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Competitive -->
-  <section class="section" id="compare">
-    <div class="section-inner">
-      <h2 class="section-title">Nothing else like it</h2>
-      <p class="section-subtitle">No existing app uses emoji-as-scaffolding to teach both native reading and foreign language reading with the same mechanic.</p>
-
-      <div class="compare-table-wrap">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Emoji as scaffold</th>
-              <th>On-device AI</th>
-              <th>Fully accessible</th>
-              <th>Pre-literate</th>
-              <th>Language learning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="compare-app">Duolingo</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>✓</td>
-            </tr>
-            <tr>
-              <td class="compare-app">Babbel</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>✓</td>
-            </tr>
-            <tr>
-              <td class="compare-app">Homer</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>✓</td>
-              <td>—</td>
-            </tr>
-            <tr class="compare-highlight">
-              <td class="compare-app">Phonetic</td>
-              <td>✓</td>
-              <td>✓</td>
-              <td>✓</td>
-              <td>✓</td>
-              <td>✓</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section class="section section-light" id="pricing">
-    <div class="section-inner">
-      <h2 class="section-title">Simple pricing</h2>
-      <p class="section-subtitle">Start free. Upgrade when you're ready.</p>
-
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3 class="pricing-tier">Free</h3>
-          <p class="pricing-price">$0</p>
-          <ul class="pricing-features">
-            <li>1 language</li>
-            <li>Core vocabulary</li>
-            <li>Full accessibility</li>
-          </ul>
-        </div>
-        <div class="pricing-card pricing-featured">
-          <h3 class="pricing-tier">Pro</h3>
-          <p class="pricing-price">$4.99<span class="pricing-period">/mo</span></p>
-          <p class="pricing-annual">or $39.99/year</p>
-          <ul class="pricing-features">
-            <li>All 23 languages</li>
-            <li>Full vocabulary tracking</li>
-            <li>Advanced spaced repetition</li>
-            <li>Family Sharing</li>
-          </ul>
-        </div>
-        <div class="pricing-card">
-          <h3 class="pricing-tier">Lifetime</h3>
-          <p class="pricing-price">$79.99</p>
-          <ul class="pricing-features">
-            <li>Everything in Pro</li>
-            <li>One-time purchase</li>
-            <li>All future updates</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="section section-cta">
-    <div class="section-inner">
-      <div class="demo-sentence cta-sentence" aria-label="You got this, with emoji scaffolds above each word">
-        <div class="demo-word scaffolded">
-          <span class="demo-emoji" aria-hidden="true">🫵</span>
-          <span class="demo-text cta-word">You</span>
-        </div>
-        <div class="demo-word scaffolded">
-          <span class="demo-emoji" aria-hidden="true">🫴</span>
-          <span class="demo-text cta-word">got</span>
-        </div>
-        <div class="demo-word scaffolded">
-          <span class="demo-emoji" aria-hidden="true">👇</span>
-          <span class="demo-text cta-word">this.</span>
-        </div>
-      </div>
-      <a href="#" class="cta-button" aria-label="Download on the App Store">
-        <img src="/app-store-badge.svg" alt="Download on the App Store" class="app-store-badge">
-      </a>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-brand">
-        <span class="footer-logo">Phonetic</span>
-        <p class="footer-tagline">by <a href="https://lings.ink" class="footer-link">Inklings</a></p>
-      </div>
+      <span class="footer-logo">Inklings</span>
       <div class="footer-links">
-        <a href="mailto:hi@inkling.ink" class="footer-link">Contact</a>
+        <a href="mailto:ottoreply@inkling.ink" class="footer-link">Contact</a>
         <a href="/privacy/" class="footer-link">Privacy</a>
         <a href="/accessibility/" class="footer-link">Accessibility</a>
         <a href="/science/" class="footer-link">The Science</a>
-        <a href="#" class="footer-link">Press Kit</a>
       </div>
       <p class="footer-copy">&copy; 2025 Inklings, Inc. All rights reserved.</p>
     </div>
