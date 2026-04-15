@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inkling</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐙</text></svg>">
+  <meta name="description" content="A safe, voice-driven tool for looking things up, learning, and exploring. Available May 1.">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Inkling">
+  <meta property="og:description" content="A safe, voice-driven tool for looking things up, learning, and exploring. Available May 1.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://inkling.ink/inkling/">
+  <meta property="og:site_name" content="Inklings">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-rounded: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --color-text: #1d1d1f;
+      --color-text-secondary: #6e6e73;
+      --color-bg: #ffffff;
+      --color-bg-light: #f5f5f7;
+      --color-accent: #0071e3;
+      --color-accent-hover: #0077ed;
+      --color-border: #d2d2d7;
+      --max-width: 980px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      font: -apple-system-body;
+      font-family: var(--font);
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== Nav ===== */
+
+    .nav {
+      padding: 1rem 1.5rem;
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-logo:hover {
+      color: var(--color-text);
+    }
+
+    /* ===== Hero ===== */
+
+    .hero {
+      min-height: 80vh;
+      min-height: 80dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero-inner {
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-icon {
+      font-size: clamp(5rem, 15vw, 8rem);
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-rounded);
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      max-width: 520px;
+    }
+
+    .hero-availability {
+      margin-top: 2rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-secondary);
+    }
+
+    /* ===== Section ===== */
+
+    .section {
+      padding: 6rem 1.5rem;
+    }
+
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-text-secondary);
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    .section-light {
+      background: var(--color-bg-light);
+    }
+
+    .section-dark {
+      background: #1d1d1f;
+      color: #f5f5f7;
+    }
+
+    .section-dark .section-subtitle {
+      color: #a1a1a6;
+    }
+
+    /* ===== Features ===== */
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 2.5rem 2rem;
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== Quote ===== */
+
+    .quote {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 500;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      color: #f5f5f7;
+    }
+
+    .quote-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9375rem;
+    }
+
+    .quote-link a {
+      color: #2997ff;
+      transition: color 0.2s ease;
+    }
+
+    .quote-link a:hover {
+      color: #64b5f6;
+    }
+
+    /* ===== App Mockup ===== */
+
+    .app-frame {
+      max-width: 380px;
+      margin: 0 auto;
+      background: var(--color-bg-light);
+      border-radius: 2.5rem;
+      padding: 2rem 1.25rem 1.5rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .app-otto {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* --- Bubble area (Otto) --- */
+    .app-bubbles {
+      position: relative;
+      min-height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-bubble {
+      font-size: 0.8125rem;
+      color: var(--color-text);
+      text-align: center;
+      background: var(--color-bg);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+
+    /* Streaming word animation */
+    .w {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.3em);
+      filter: blur(2px);
+      animation: word-in 0.35s ease forwards;
+      animation-delay: calc(var(--w) * 0.1s + var(--t, 0s));
+    }
+
+    @keyframes word-in {
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    /* Otto greeting — fades out before user speaks */
+    .app-bubble-hi {
+      animation: fade-out 0.3s ease 3.5s forwards;
+    }
+
+    @keyframes fade-out {
+      to { opacity: 0; transform: scale(0.95); }
+    }
+
+    /* Otto reply 1 — fades in, then fades out before user speaks again */
+    .app-bubble-reply1 {
+      position: absolute;
+      opacity: 0;
+      animation: fade-in 0.3s ease 5.5s forwards, fade-out 0.3s ease 11s forwards;
+    }
+
+    /* Otto reply 2 — fades in, then fades out before user speaks again */
+    .app-bubble-reply2 {
+      position: absolute;
+      opacity: 0;
+      animation: fade-in 0.3s ease 13.5s forwards, fade-out 0.3s ease 18s forwards;
+    }
+
+    /* Otto reply 3 — fades in and stays */
+    .app-bubble-reply3 {
+      position: absolute;
+      opacity: 0;
+      animation: fade-in 0.3s ease 21s forwards;
+    }
+
+    @keyframes fade-in {
+      to { opacity: 1; }
+    }
+
+    /* --- Mic morph --- */
+    .app-mic {
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-mic-morph {
+      position: relative;
+      background: var(--color-bg);
+      border-radius: 9999px;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      animation: morph 24s ease-in-out forwards;
+    }
+
+    /* 24s — three morph cycles: mic → expand → mic × 3 */
+    @keyframes morph {
+      0%, 11%   { width: 4rem; transform: scale(1); }
+      11.5%     { transform: scale(1.1); }
+      12%       { transform: scale(1); }
+      13%       { width: 4rem; }
+      16%       { width: 17rem; }
+      20%       { width: 17rem; }
+      22%       { width: 4rem; }
+      44%       { width: 4rem; transform: scale(1); }
+      44.5%     { transform: scale(1.1); }
+      45%       { transform: scale(1); }
+      46%       { width: 4rem; }
+      49%       { width: 12rem; }
+      53%       { width: 12rem; }
+      55%       { width: 4rem; }
+      74%       { width: 4rem; transform: scale(1); }
+      74.5%     { transform: scale(1.1); }
+      75%       { transform: scale(1); }
+      76%       { width: 4rem; }
+      79%       { width: 21rem; }
+      84%       { width: 21rem; }
+      86%       { width: 4rem; }
+      100%      { width: 4rem; }
+    }
+
+    .mic-icon {
+      font-size: 1.125rem;
+      flex-shrink: 0;
+      animation: mic-icon 24s ease forwards;
+    }
+
+    @keyframes mic-icon {
+      0%, 12%   { opacity: 1; }
+      13%       { opacity: 0; }
+      21%       { opacity: 0; }
+      22%       { opacity: 1; }
+      45%       { opacity: 1; }
+      46%       { opacity: 0; }
+      54%       { opacity: 0; }
+      55%       { opacity: 1; }
+      75%       { opacity: 1; }
+      76%       { opacity: 0; }
+      85%       { opacity: 0; }
+      86%       { opacity: 1; }
+      100%      { opacity: 1; }
+    }
+
+    .mic-words {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 0.8125rem;
+      color: var(--color-text);
+    }
+
+    .mic-words1 {
+      opacity: 0;
+      animation: mic-w1 24s ease forwards;
+    }
+
+    @keyframes mic-w1 {
+      0%, 12%  { opacity: 0; }
+      13%      { opacity: 1; }
+      21%      { opacity: 1; }
+      22%      { opacity: 0; }
+      100%     { opacity: 0; }
+    }
+
+    .mic-words2 {
+      opacity: 0;
+      animation: mic-w2 24s ease forwards;
+    }
+
+    @keyframes mic-w2 {
+      0%, 45%  { opacity: 0; }
+      46%      { opacity: 1; }
+      54%      { opacity: 1; }
+      55%      { opacity: 0; }
+      100%     { opacity: 0; }
+    }
+
+    .mic-words3 {
+      opacity: 0;
+      animation: mic-w3 24s ease forwards;
+    }
+
+    @keyframes mic-w3 {
+      0%, 75%  { opacity: 0; }
+      76%      { opacity: 1; }
+      85%      { opacity: 1; }
+      86%      { opacity: 0; }
+      100%     { opacity: 0; }
+    }
+
+    .app-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .app-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.25rem;
+      border-radius: 9999px;
+      color: #fff;
+      font-size: 1.0625rem;
+      font-weight: 600;
+      font-family: var(--font-rounded);
+      letter-spacing: -0.01em;
+    }
+
+    .app-card-icon {
+      font-size: 1.125rem;
+      opacity: 0.9;
+    }
+
+    .app-card-today     { background: #ff3b30; }
+    .app-card-ottomatic { background: #ff9500; }
+    .app-card-inklings  { background: #ffcc00; }
+    .app-card-weather   { background: #34c759; }
+    .app-card-people    { background: #007aff; }
+    .app-card-ottotune  { background: #af52de; }
+    .app-card-sketches  { background: #8e8ce6; }
+
+    /* Animated card slot — out card stays in flow for natural height */
+    .app-card-slot {
+      position: relative;
+      overflow: hidden;
+      border-radius: 9999px;
+    }
+
+    .app-card-slot .app-card-out {
+      animation: slot-out 0.5s ease var(--slot-t, 7s) forwards;
+    }
+
+    .app-card-slot .app-card-in {
+      position: absolute;
+      inset: 0;
+      transform: translateX(110%);
+      animation: slot-in 0.5s ease var(--slot-t, 7s) forwards;
+    }
+
+    .app-card-slot .app-card-in .app-card-label {
+      opacity: 0;
+      animation: label-reveal 0.3s ease calc(var(--slot-t, 7s) + 0.4s) forwards;
+    }
+
+    @keyframes slot-out {
+      to { transform: translateX(-110%); }
+    }
+
+    @keyframes slot-in {
+      to { transform: translateX(0); }
+    }
+
+    @keyframes label-reveal {
+      to { opacity: 1; }
+    }
+
+    /* --- Replay button --- */
+    .app-replay {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.5rem;
+      opacity: 0;
+      animation: fade-in 0.5s ease 24.5s forwards;
+      color: var(--color-text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .app-replay:hover {
+      color: var(--color-accent);
+    }
+
+    /* ===== Inline Link ===== */
+
+    .inline-link {
+      color: var(--color-accent);
+      transition: color 0.2s ease;
+    }
+
+    .inline-link:hover {
+      color: var(--color-accent-hover);
+    }
+
+    /* ===== Footer ===== */
+
+    .footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 3rem 1.5rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-link {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--color-accent);
+    }
+
+    .footer-copy {
+      width: 100%;
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* ===== Dark Mode ===== */
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-text: #f5f5f7;
+        --color-text-secondary: #a1a1a6;
+        --color-bg: #000000;
+        --color-bg-light: #1c1c1e;
+        --color-accent: #2997ff;
+        --color-accent-hover: #64b5f6;
+        --color-border: #38383a;
+      }
+
+      .section-dark {
+        background: #000000;
+      }
+
+      .section-light {
+        background: #1c1c1e;
+      }
+
+      .app-frame {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      }
+
+      .footer {
+        border-top-color: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    /* ===== Responsive ===== */
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* ===== Accessibility: Reduce Motion ===== */
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Inklings</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-icon" aria-hidden="true">🐙</div>
+      <h1 class="hero-name">Inkling</h1>
+      <p class="hero-tagline">
+        An accessible, agentic AI focused on keeping things simple (and safe).
+        For any age.
+      </p>
+      <p class="hero-availability">Available May 1</p>
+    </div>
+  </section>
+
+  <!-- What It Does -->
+  <section class="section section-light">
+    <div class="section-inner">
+      <h2 class="section-title">Meet Otto</h2>
+      <p class="section-subtitle">
+        Otto the Autodidact knows a little bit about everything.
+        Ask anything, or tap the big colorful buttons to do things yourself.
+      </p>
+
+      <div id="demo" class="app-frame" aria-label="Inkling app interface preview">
+        <div class="app-header">
+          <span class="app-otto">🐙</span>
+          <div class="app-bubbles">
+            <p class="app-bubble app-bubble-hi"><span class="w" style="--w:0;--t:0.6s">Hi!</span> <span class="w" style="--w:1;--t:0.6s">I'm</span> <span class="w" style="--w:2;--t:0.6s">Otto.</span> <span class="w" style="--w:3;--t:0.6s">Ask</span> <span class="w" style="--w:4;--t:0.6s">me</span> <span class="w" style="--w:5;--t:0.6s">anything.</span></p>
+            <p class="app-bubble app-bubble-reply1"><span class="w" style="--w:0;--t:5.5s">Dinosaurs</span> <span class="w" style="--w:1;--t:5.5s">were</span> <span class="w" style="--w:2;--t:5.5s">large</span> <span class="w" style="--w:3;--t:5.5s">reptiles</span> <span class="w" style="--w:4;--t:5.5s">that</span> <span class="w" style="--w:5;--t:5.5s">lived</span> <span class="w" style="--w:6;--t:5.5s">long</span> <span class="w" style="--w:7;--t:5.5s">ago...</span></p>
+            <p class="app-bubble app-bubble-reply2"><span class="w" style="--w:0;--t:13.5s">Here's</span> <span class="w" style="--w:1;--t:13.5s">a</span> <span class="w" style="--w:2;--t:13.5s">cool</span> <span class="w" style="--w:3;--t:13.5s">dinosaur</span> <span class="w" style="--w:4;--t:13.5s">drawing</span> <span class="w" style="--w:5;--t:13.5s">for</span> <span class="w" style="--w:6;--t:13.5s">you!</span></p>
+            <p class="app-bubble app-bubble-reply3"><span class="w" style="--w:0;--t:21s">No,</span> <span class="w" style="--w:1;--t:21s">London</span> <span class="w" style="--w:2;--t:21s">should</span> <span class="w" style="--w:3;--t:21s">be</span> <span class="w" style="--w:4;--t:21s">nice</span> <span class="w" style="--w:5;--t:21s">tomorrow</span> <span class="w" style="--w:6;--t:21s">with</span> <span class="w" style="--w:7;--t:21s">a</span> <span class="w" style="--w:8;--t:21s">high</span> <span class="w" style="--w:9;--t:21s">of</span> <span class="w" style="--w:10;--t:21s">62.</span></p>
+          </div>
+        </div>
+        <div class="app-cards">
+          <div class="app-card app-card-today"><span class="app-card-icon">📅</span> Today</div>
+          <div class="app-card app-card-ottomatic"><span class="app-card-icon">↕️</span> Ottomatic</div>
+          <div class="app-card-slot" style="--slot-t:6s">
+            <div class="app-card app-card-inklings app-card-out"><span class="app-card-icon">✨</span> Inklings</div>
+            <div class="app-card app-card-inklings app-card-in"><span class="app-card-icon">🦕</span> <span class="app-card-label">Dinosaurs</span></div>
+          </div>
+          <div class="app-card-slot" style="--slot-t:21.5s">
+            <div class="app-card app-card-weather app-card-out"><span class="app-card-icon">☁️</span> Ottopilot</div>
+            <div class="app-card app-card-weather app-card-in"><span class="app-card-icon">☀️</span> <span class="app-card-label">London 62°</span></div>
+          </div>
+          <div class="app-card app-card-people"><span class="app-card-icon">👤</span> Connections</div>
+          <div class="app-card app-card-ottotune"><span class="app-card-icon">🎵</span> Ottotune</div>
+          <div class="app-card-slot" style="--slot-t:14s">
+            <div class="app-card app-card-sketches app-card-out"><span class="app-card-icon">🎨</span> Sketches</div>
+            <div class="app-card app-card-sketches app-card-in"><span class="app-card-icon">🦖</span> <span class="app-card-label">Green Dinosaur Near a Volcano</span></div>
+          </div>
+        </div>
+        <div class="app-mic">
+          <div class="app-mic-morph">
+            <span class="mic-icon">🎙️</span>
+            <span class="mic-words mic-words1"><span class="w" style="--w:0;--t:3.3s">Tell</span> <span class="w" style="--w:1;--t:3.3s">me</span> <span class="w" style="--w:2;--t:3.3s">about</span> <span class="w" style="--w:3;--t:3.3s">dinosaurs</span></span>
+            <span class="mic-words mic-words2"><span class="w" style="--w:0;--t:11.1s">Can</span> <span class="w" style="--w:1;--t:11.1s">you</span> <span class="w" style="--w:2;--t:11.1s">draw</span> <span class="w" style="--w:3;--t:11.1s">one?</span></span>
+            <span class="mic-words mic-words3"><span class="w" style="--w:0;--t:18.3s">Will</span> <span class="w" style="--w:1;--t:18.3s">I</span> <span class="w" style="--w:2;--t:18.3s">need</span> <span class="w" style="--w:3;--t:18.3s">a</span> <span class="w" style="--w:4;--t:18.3s">raincoat</span> <span class="w" style="--w:5;--t:18.3s">in</span> <span class="w" style="--w:6;--t:18.3s">London</span> <span class="w" style="--w:7;--t:18.3s">tomorrow?</span></span>
+          </div>
+        </div>
+      </div>
+      <a href="/inkling/" class="app-replay" aria-label="Replay animation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">
+        A safe, voice-driven tool for looking things up, learning, and exploring.
+        Designed for kids and adults who benefit from hands-free, accessible interaction.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🎙️</span>
+          <h3>Voice-First</h3>
+          <p>Talk to Inkling like you'd talk to a person. No keyboard. No menus. Just speak.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🔒</span>
+          <h3>Completely Private</h3>
+          <p>No servers. No accounts. No analytics. All processing happens on-device with Apple Intelligence. Your conversations never leave your hands.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">📡</span>
+          <h3>Works Offline</h3>
+          <p>No internet required. No WiFi. No cell data. Instant install, under 10 MB. Everything your device needs is already there.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true"><svg style="width:1em;height:1em;vertical-align:middle;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="5.5" r="1.75" fill="currentColor"/><path fill="currentColor" d="M12 9c-3 0-5.25.75-5.25.75l.75 2s1.75-.6 3.25-.75v3l-2.5 5 1.75.85L12 15.25l2 4.6 1.75-.85-2.5-5v-3c1.5.15 3.25.75 3.25.75l.75-2S15 9 12 9z"/></svg></span>
+          <h3>Accessible First</h3>
+          <p>VoiceOver, Voice Control, Dynamic Type, Reduced Motion. Built for people with autism, dyslexia, and motor disabilities. Everyone benefits from the same interface.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🧒</span>
+          <h3>Safe for Kids</h3>
+          <p>No ads. No in-app purchases. No social features. No links out. COPPA-compliant by architecture because there is no data to collect.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🧑</span>
+          <h3>Useful for Adults</h3>
+          <p>Not a toy. A genuinely useful hands-free tool for anyone who benefits from voice-first, accessible interaction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <blockquote class="quote">
+        Learning to read and learning a new language are the same cognitive process:
+        decoding unfamiliar symbols into meaning.
+      </blockquote>
+      <p class="quote-link">
+        <a href="/science/">The science behind what we build&nbsp;&rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="section section-light">
+    <div class="section-inner">
+      <h2 class="section-title">Built on Principles</h2>
+      <p class="section-subtitle">
+        Montessori-aligned. Research-backed. Deliberately calm.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🪵</span>
+          <h3>Deliberately Quiet</h3>
+          <p>No notifications begging for attention. No streaks. No dark patterns. Soft-spoken software that respects your time and your child's attention.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🧪</span>
+          <h3>Research-Backed</h3>
+          <p>Every design decision is grounded in cognitive science, developmental psychology, and accessibility research. <a href="/science/" class="inline-link">Read the research&nbsp;&rarr;</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">Inklings</a>
+      <div class="footer-links">
+        <a href="mailto:ottoreply@inkling.ink" class="footer-link">Contact</a>
+        <a href="/privacy/" class="footer-link">Privacy</a>
+        <a href="/accessibility/" class="footer-link">Accessibility</a>
+        <a href="/science/" class="footer-link">The Science</a>
+      </div>
+      <p class="footer-copy">Made for kids. Loved by adults.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
