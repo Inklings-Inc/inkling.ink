@@ -1,65 +1,45 @@
 /**
- * Cloudflare Worker for inkling.ink
+ * Cloudflare Worker for inkling.ink — Option B split
  *
- * Responsibility: serve Apple universal-links / App Clip metadata with the
- * exact Content-Type Apple's CDN fetcher requires, which GitHub Pages will
- * not guarantee for extensionless files under `/.well-known/`.
+ * Domain plan:
+ *   www.inkling.ink → marketing site (GitHub Pages, unchanged)
+ *   inkling.ink     → app domain
+ *                       /.well-known/apple-app-site-association  (served here)
+ *                       /<anything>  → universal link / App Clip invocation
+ *                       /            → fallback landing for non-iOS visitors
  *
- * Two special paths are intercepted:
- *   /.well-known/apple-app-site-association   (universal links + App Clip)
- *   /apple-app-site-association               (legacy fallback Apple also probes)
+ * The Worker's job is narrow:
+ *   1. Serve the AASA file at the apex with Content-Type: application/json,
+ *      which GitHub Pages will not do. Universal links tolerate the wrong
+ *      type; App Clip invocation does not.
+ *   2. Transparently proxy everything else to GitHub Pages so the marketing
+ *      site keeps rendering unchanged at www.inkling.ink.
  *
- * Both are returned as `application/json` with no redirects, no HTML wrapper,
- * and no trailing-slash games. Everything else is transparently proxied to
- * the GitHub Pages origin so the static site keeps working unchanged.
- *
- * Deploy target: a Worker route bound to `inkling.ink/*` (and optionally
- * `www.inkling.ink/*`) with Cloudflare DNS proxying the apex to the Worker.
+ * Deploy target: Worker routes bound to
+ *   inkling.ink/*
+ *   www.inkling.ink/*
+ * with Cloudflare proxying (orange cloud) the apex and www DNS records.
  */
 
-// Inline the AASA JSON so it is served from the edge with zero origin round-trip.
-// Keep this file in sync with the App Clip bundle identifier and team ID.
-// Replace TEAMID and bundle identifiers before deploying.
+// ---------------------------------------------------------------------------
+// AASA — inlined so we serve from the edge with zero origin round-trip.
+// Replace TEAMID with the real 10-char Apple Team ID before deploy.
+// ---------------------------------------------------------------------------
 const AASA = {
   applinks: {
-    apps: [],
     details: [
       {
-        // Full app
+        // Full app — every path on the apex opens the app if installed.
         appIDs: ["TEAMID.ink.lings.Inkling"],
         components: [
-          {
-            "/": "/inkling",
-            comment: "Inkling product page → opens app if installed"
-          },
-          {
-            "/": "/inkling/*",
-            comment: "Any inkling subpath"
-          }
-        ]
-      },
-      {
-        // App Clip
-        appIDs: ["TEAMID.ink.lings.Inkling.Clip"],
-        components: [
-          {
-            "/": "/",
-            comment: "Root invocation URL for the App Clip"
-          },
-          {
-            "/": "/inkling",
-            comment: "Product page invocation"
-          },
-          {
-            "/": "/inkling/*"
-          }
+          { "/": "/*", comment: "All apex paths are universal links" }
         ]
       }
     ]
   },
   appclips: {
-    // Apple consults this list to decide which bundle IDs may be served as Clips
-    // from this domain. Must match the App Clip's appID exactly.
+    // Whitelist of bundle IDs allowed to be served as App Clips from this
+    // domain. Must match the App Clip target's bundle ID exactly.
     apps: ["TEAMID.ink.lings.Inkling.Clip"]
   },
   webcredentials: {
@@ -71,22 +51,30 @@ const AASA_BODY = JSON.stringify(AASA);
 
 const AASA_HEADERS = {
   "content-type": "application/json",
-  // Apple's fetcher caches aggressively; a short TTL keeps rollouts sane
-  // without hammering the edge. Apple itself caches for up to 24h regardless.
+  // Apple caches AASA at its CDN (app-site-association.cdn-apple.com)
+  // aggressively; this just controls the origin TTL, not Apple's cache.
   "cache-control": "public, max-age=3600",
-  // Defensive: block any accidental HTML sniffing.
   "x-content-type-options": "nosniff"
 };
 
-// GitHub Pages origin. Cloudflare proxy mode lets us send the request straight
-// to Pages while keeping the custom hostname intact via the Host header.
+// ---------------------------------------------------------------------------
+// GitHub Pages origin. The Worker proxies all non-AASA traffic here.
+// Pages routes by Host header matching a repo's custom domain, so we preserve
+// the incoming hostname when forwarding.
+// ---------------------------------------------------------------------------
 const ORIGIN = "https://inklings-inc.github.io";
+
+// Hosts we're authoritative for. Anything else hitting this worker is odd
+// and gets proxied as-is (safe default).
+const MARKETING_HOST = "www.inkling.ink";
+const APP_HOST = "inkling.ink";
 
 export default {
   async fetch(request) {
     const url = new URL(request.url);
 
-    // Serve AASA directly from the Worker — no origin hop, no MIME surprises.
+    // AASA paths: serve the inlined JSON. Apple checks two locations; handle
+    // both so a typo or legacy configuration still works.
     if (
       url.pathname === "/.well-known/apple-app-site-association" ||
       url.pathname === "/apple-app-site-association"
@@ -94,19 +82,16 @@ export default {
       return new Response(AASA_BODY, { status: 200, headers: AASA_HEADERS });
     }
 
-    // Everything else: transparent proxy to GitHub Pages.
-    // GitHub Pages routes by Host header; because the custom domain is set on
-    // the Pages repo, the request must carry the custom hostname, not the
-    // github.io one. Fetching the *.github.io URL with a preserved Host works
-    // and is the pattern Cloudflare recommends for Pages fronting.
+    // Everything else: proxy to GitHub Pages. We forward with the original
+    // Host header intact so Pages serves from the repo matching that host.
+    // Pages itself handles routing www ↔ apex based on the repo's CNAME file.
     const upstream = new URL(url.pathname + url.search, ORIGIN);
     const proxied = new Request(upstream.toString(), request);
     proxied.headers.set("host", url.hostname);
 
     const response = await fetch(proxied, { redirect: "manual" });
 
-    // Pass the response through, but strip hop-by-hop headers Cloudflare
-    // sometimes complains about when re-emitting.
+    // Strip hop-by-hop headers Cloudflare sometimes refuses to re-emit.
     const headers = new Headers(response.headers);
     headers.delete("transfer-encoding");
     headers.delete("connection");
