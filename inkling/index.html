@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inkling</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐙</text></svg>">
-  <meta name="description" content="A safe, voice-driven tool for looking things up, learning, and exploring. Available May 1.">
+  <meta name="description" content="Private, on-device AI that never phones home. No accounts. No data collection. Accessible, voice-first, and safe for the whole family.">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="Inkling">
-  <meta property="og:description" content="A safe, voice-driven tool for looking things up, learning, and exploring. Available May 1.">
+  <meta property="og:description" content="Private, on-device AI that never phones home. Accessible, voice-first, and safe for the whole family.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://inkling.ink/inkling/">
   <meta property="og:site_name" content="Inklings">
@@ -126,7 +126,7 @@
 
     .hero-availability {
       margin-top: 2rem;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -153,7 +153,7 @@
     }
 
     .section-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-size: clamp(1.0625rem, 2.5vw, 1.375rem);
       color: var(--color-text-secondary);
       text-align: center;
       max-width: 600px;
@@ -200,7 +200,7 @@
     }
 
     .feature-card p {
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       color: var(--color-text-secondary);
       line-height: 1.7;
     }
@@ -222,7 +222,7 @@
       display: block;
       text-align: center;
       margin-top: 1.5rem;
-      font-size: 0.9375rem;
+      font-size: 1rem;
     }
 
     .quote-link a {
@@ -237,45 +237,61 @@
     /* ===== App Mockup ===== */
 
     .app-frame {
-      max-width: 380px;
+      max-width: 720px;
       margin: 0 auto;
       background: var(--color-bg-light);
       border-radius: 2.5rem;
-      padding: 2rem 1.25rem 1.5rem;
+      padding: 2rem 1.5rem 1.5rem;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
       position: relative;
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      grid-template-rows: 1fr auto;
+      gap: 1.25rem;
     }
 
     .app-header {
+      grid-column: 1;
+      grid-row: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 1.25rem;
+      justify-content: center;
+    }
+
+    .app-cards {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .app-mic {
+      grid-column: 1 / -1;
+      grid-row: 2;
     }
 
     .app-otto {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 3.5rem;
+      margin-bottom: 0.75rem;
     }
 
     /* --- Bubble area (Otto) --- */
     .app-bubbles {
       position: relative;
-      min-height: 2rem;
+      min-height: 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
     }
 
     .app-bubble {
-      font-size: 0.8125rem;
+      font-size: 0.9375rem;
       color: var(--color-text);
       text-align: center;
       background: var(--color-bg);
-      padding: 0.5rem 1rem;
-      border-radius: 9999px;
-      white-space: nowrap;
+      padding: 0.625rem 1.125rem;
+      border-radius: 1rem;
+      line-height: 1.4;
     }
 
     /* Streaming word animation */
@@ -395,7 +411,7 @@
     .mic-words {
       position: absolute;
       white-space: nowrap;
-      font-size: 0.8125rem;
+      font-size: 0.9375rem;
       color: var(--color-text);
     }
 
@@ -442,7 +458,6 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      margin-bottom: 1.25rem;
     }
 
     .app-card {
@@ -450,16 +465,17 @@
       align-items: center;
       gap: 0.75rem;
       padding: 0.875rem 1.25rem;
-      border-radius: 9999px;
+      border-radius: 1.25rem;
       color: #fff;
-      font-size: 1.0625rem;
+      font-size: 1.125rem;
       font-weight: 600;
       font-family: var(--font-rounded);
       letter-spacing: -0.01em;
     }
 
     .app-card-icon {
-      font-size: 1.125rem;
+      font-size: 1.25rem;
+      flex-shrink: 0;
       opacity: 0.9;
     }
 
@@ -475,7 +491,7 @@
     .app-card-slot {
       position: relative;
       overflow: hidden;
-      border-radius: 9999px;
+      border-radius: 1.25rem;
     }
 
     .app-card-slot .app-card-out {
@@ -484,7 +500,10 @@
 
     .app-card-slot .app-card-in {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      min-height: 100%;
       transform: translateX(110%);
       animation: slot-in 0.5s ease var(--slot-t, 7s) forwards;
     }
@@ -560,7 +579,7 @@
     }
 
     .footer-link {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       color: var(--color-text-secondary);
       transition: color 0.2s ease;
     }
@@ -571,7 +590,7 @@
 
     .footer-copy {
       width: 100%;
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       color: var(--color-text-secondary);
       text-align: center;
       margin-top: 1rem;
@@ -618,6 +637,33 @@
         flex-direction: column;
         text-align: center;
       }
+
+      /* Phone layout: stack Otto above cards */
+      .app-frame {
+        max-width: 400px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        padding: 1.5rem 1.25rem;
+      }
+
+      .app-header {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .app-cards {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .app-mic {
+        grid-column: 1;
+        grid-row: 3;
+      }
+
+      .app-otto {
+        font-size: 2.5rem;
+      }
     }
 
     /* ===== Accessibility: Reduce Motion ===== */
@@ -650,8 +696,8 @@
       <div class="hero-icon" aria-hidden="true">🐙</div>
       <h1 class="hero-name">Inkling</h1>
       <p class="hero-tagline">
-        An accessible, agentic AI focused on keeping things simple (and safe).
-        For any age.
+        Private, on-device AI that never phones home. No accounts. No data collection.
+        So useful you'll want it for yourself. So safe you'll trust it with your family.
       </p>
       <p class="hero-availability">Available May 1</p>
     </div>
@@ -717,8 +763,8 @@
     <div class="section-inner">
       <h2 class="section-title">How It Works</h2>
       <p class="section-subtitle">
-        A safe, voice-driven tool for looking things up, learning, and exploring.
-        Designed for kids and adults who benefit from hands-free, accessible interaction.
+        A voice-driven tool for looking things up, learning, and exploring.
+        Fully accessible, completely private, and designed for everyone who benefits from hands-free interaction.
       </p>
 
       <div class="features-grid">
@@ -730,7 +776,7 @@
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🔒</span>
           <h3>Completely Private</h3>
-          <p>No servers. No accounts. No analytics. All processing happens on-device with Apple Intelligence. Your conversations never leave your hands.</p>
+          <p>No servers. No accounts. No analytics. All processing happens on-device with Apple Intelligence. Nothing is sent anywhere. Ever.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">📡</span>
@@ -743,14 +789,14 @@
           <p>VoiceOver, Voice Control, Dynamic Type, Reduced Motion. Built for people with autism, dyslexia, and motor disabilities. Everyone benefits from the same interface.</p>
         </div>
         <div class="feature-card">
-          <span class="feature-icon" aria-hidden="true">🧒</span>
-          <h3>Safe for Kids</h3>
-          <p>No ads. No in-app purchases. No social features. No links out. COPPA-compliant by architecture because there is no data to collect.</p>
+          <span class="feature-icon" aria-hidden="true">👨‍👩‍👧‍👦</span>
+          <h3>Family Sharing</h3>
+          <p>One subscription, the whole family. No accounts, no profiles, no data to mix up. Everyone gets the same private, safe experience. Share it with Family Sharing.</p>
         </div>
         <div class="feature-card">
-          <span class="feature-icon" aria-hidden="true">🧑</span>
-          <h3>Useful for Adults</h3>
-          <p>Not a toy. A genuinely useful hands-free tool for anyone who benefits from voice-first, accessible interaction.</p>
+          <span class="feature-icon" aria-hidden="true">🛡️</span>
+          <h3>The Anti-ChatGPT</h3>
+          <p>No internet connection. No cloud. No conversation logs sent to anyone. Unlike other AI tools, nothing your family says to Inkling ever leaves your device.</p>
         </div>
       </div>
     </div>
@@ -774,14 +820,14 @@
     <div class="section-inner">
       <h2 class="section-title">Built on Principles</h2>
       <p class="section-subtitle">
-        Montessori-aligned. Research-backed. Deliberately calm.
+        Research-backed. Deliberately calm. Designed to earn your trust.
       </p>
 
       <div class="features-grid">
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🪵</span>
           <h3>Deliberately Quiet</h3>
-          <p>No notifications begging for attention. No streaks. No dark patterns. Soft-spoken software that respects your time and your child's attention.</p>
+          <p>No notifications. No streaks. No dark patterns. Soft-spoken software that respects your time and your family's attention.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🧪</span>
@@ -802,7 +848,7 @@
         <a href="/accessibility/" class="footer-link">Accessibility</a>
         <a href="/science/" class="footer-link">The Science</a>
       </div>
-      <p class="footer-copy">Made for kids. Loved by adults.</p>
+      <p class="footer-copy">Private AI for the whole family.</p>
     </div>
   </footer>
 
