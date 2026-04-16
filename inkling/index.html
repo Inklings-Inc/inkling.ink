@@ -126,7 +126,7 @@
 
     .hero-availability {
       margin-top: 2rem;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -153,7 +153,7 @@
     }
 
     .section-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-size: clamp(1.0625rem, 2.5vw, 1.375rem);
       color: var(--color-text-secondary);
       text-align: center;
       max-width: 600px;
@@ -200,7 +200,7 @@
     }
 
     .feature-card p {
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       color: var(--color-text-secondary);
       line-height: 1.7;
     }
@@ -222,7 +222,7 @@
       display: block;
       text-align: center;
       margin-top: 1.5rem;
-      font-size: 0.9375rem;
+      font-size: 1rem;
     }
 
     .quote-link a {
@@ -243,39 +243,50 @@
       border-radius: 2.5rem;
       padding: 2rem 1.25rem 1.5rem;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-      position: relative;
-      overflow: hidden;
     }
 
     .app-header {
+      position: relative;
       display: flex;
-      flex-direction: column;
+      flex-direction: column-reverse;
       align-items: center;
+      justify-content: center;
       margin-bottom: 1.25rem;
+      border-radius: 1.5rem;
+      padding: 1rem 0;
+      gap: 0.75rem;
     }
 
     .app-otto {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 3.5rem;
+      line-height: 1;
     }
 
-    /* --- Bubble area (Otto) --- */
+    /* --- Bubble — always above Otto via column-reverse --- */
     .app-bubbles {
       position: relative;
-      min-height: 2rem;
+      min-height: 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
     }
 
     .app-bubble {
-      font-size: 0.8125rem;
+      font-size: 0.9375rem;
       color: var(--color-text);
       text-align: center;
-      background: var(--color-bg);
-      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 0.5px solid rgba(255, 255, 255, 0.7);
+      box-shadow:
+        0 2px 16px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      padding: 0.5rem 1.125rem;
       border-radius: 9999px;
-      white-space: nowrap;
+      white-space: normal;
+      max-width: 100%;
     }
 
     /* Streaming word animation */
@@ -294,32 +305,32 @@
 
     /* Otto greeting — fades out before user speaks */
     .app-bubble-hi {
-      animation: fade-out 0.3s ease 3.5s forwards;
+      animation: fade-out 0.3s ease 4.5s forwards;
     }
 
     @keyframes fade-out {
       to { opacity: 0; transform: scale(0.95); }
     }
 
-    /* Otto reply 1 — fades in, then fades out before user speaks again */
+    /* Otto reply 1 — fades in after user speaks, out before next question */
     .app-bubble-reply1 {
       position: absolute;
       opacity: 0;
-      animation: fade-in 0.3s ease 5.5s forwards, fade-out 0.3s ease 11s forwards;
+      animation: fade-in 0.3s ease 9.0s forwards, fade-out 0.3s ease 12.0s forwards;
     }
 
-    /* Otto reply 2 — fades in, then fades out before user speaks again */
+    /* Otto reply 2 — fades in after user speaks, out before next question */
     .app-bubble-reply2 {
       position: absolute;
       opacity: 0;
-      animation: fade-in 0.3s ease 13.5s forwards, fade-out 0.3s ease 18s forwards;
+      animation: fade-in 0.3s ease 15.5s forwards, fade-out 0.3s ease 18.75s forwards;
     }
 
     /* Otto reply 3 — fades in and stays */
     .app-bubble-reply3 {
       position: absolute;
       opacity: 0;
-      animation: fade-in 0.3s ease 21s forwards;
+      animation: fade-in 0.3s ease 22.5s forwards;
     }
 
     @keyframes fade-in {
@@ -330,6 +341,9 @@
     .app-mic {
       display: flex;
       justify-content: center;
+      opacity: 0;
+      transform: translateY(0.5rem);
+      animation: card-enter 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.42s forwards;
     }
 
     .app-mic-morph {
@@ -341,101 +355,107 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      animation: morph 24s ease-in-out forwards;
+      animation: morph 28s ease-in-out forwards;
     }
 
-    /* 24s — three morph cycles: mic → expand → mic × 3 */
+    /* 28s — beat → three morph cycles (tap → pop → expand with text → shrink) */
+    /* Cycle 1: tap 5.5s | Cycle 2: tap 12.5s | Cycle 3: tap 19s        */
     @keyframes morph {
-      0%, 11%   { width: 4rem; transform: scale(1); }
-      11.5%     { transform: scale(1.1); }
-      12%       { transform: scale(1); }
-      13%       { width: 4rem; }
-      16%       { width: 17rem; }
-      20%       { width: 17rem; }
-      22%       { width: 4rem; }
-      44%       { width: 4rem; transform: scale(1); }
-      44.5%     { transform: scale(1.1); }
-      45%       { transform: scale(1); }
-      46%       { width: 4rem; }
-      49%       { width: 12rem; }
-      53%       { width: 12rem; }
-      55%       { width: 4rem; }
-      74%       { width: 4rem; transform: scale(1); }
-      74.5%     { transform: scale(1.1); }
-      75%       { transform: scale(1); }
-      76%       { width: 4rem; }
-      79%       { width: 21rem; }
-      84%       { width: 21rem; }
-      86%       { width: 4rem; }
-      100%      { width: 4rem; }
+      0%, 19%    { width: 4rem; transform: scale(1); }
+      /* Cycle 1 — 5.5s */
+      19.5%      { transform: scale(1.1); width: 4rem; }
+      20%        { transform: scale(1); width: 5.5rem; }
+      20.5%      { width: 5.5rem; }
+      25%        { width: 17rem; }
+      30.5%      { width: 17rem; }
+      31.5%      { width: 4rem; }
+      /* Idle */
+      44%        { width: 4rem; transform: scale(1); }
+      /* Cycle 2 — 12.5s */
+      44.5%      { transform: scale(1.1); width: 4rem; }
+      45%        { transform: scale(1); width: 5.5rem; }
+      45.5%      { width: 5.5rem; }
+      50%        { width: 12rem; }
+      53%        { width: 12rem; }
+      54%        { width: 4rem; }
+      /* Idle */
+      67.5%      { width: 4rem; transform: scale(1); }
+      /* Cycle 3 — 19s */
+      68%        { transform: scale(1.1); width: 4rem; }
+      68.5%      { transform: scale(1); width: 5.5rem; }
+      69%        { width: 5.5rem; }
+      75%        { width: 21rem; }
+      79%        { width: 21rem; }
+      80%        { width: 4rem; }
+      100%       { width: 4rem; }
     }
 
     .mic-icon {
       font-size: 1.125rem;
       flex-shrink: 0;
-      animation: mic-icon 24s ease forwards;
+      animation: mic-icon 28s ease forwards;
     }
 
     @keyframes mic-icon {
-      0%, 12%   { opacity: 1; }
-      13%       { opacity: 0; }
-      21%       { opacity: 0; }
-      22%       { opacity: 1; }
-      45%       { opacity: 1; }
-      46%       { opacity: 0; }
-      54%       { opacity: 0; }
-      55%       { opacity: 1; }
-      75%       { opacity: 1; }
-      76%       { opacity: 0; }
-      85%       { opacity: 0; }
-      86%       { opacity: 1; }
-      100%      { opacity: 1; }
+      0%, 20%    { opacity: 1; }
+      20.5%      { opacity: 0; }
+      31%        { opacity: 0; }
+      31.5%      { opacity: 1; }
+      44.5%      { opacity: 1; }
+      45%        { opacity: 0; }
+      53.5%      { opacity: 0; }
+      54%        { opacity: 1; }
+      68%        { opacity: 1; }
+      68.5%      { opacity: 0; }
+      79.5%      { opacity: 0; }
+      80%        { opacity: 1; }
+      100%       { opacity: 1; }
     }
 
     .mic-words {
       position: absolute;
       white-space: nowrap;
-      font-size: 0.8125rem;
+      font-size: 0.9375rem;
       color: var(--color-text);
     }
 
     .mic-words1 {
       opacity: 0;
-      animation: mic-w1 24s ease forwards;
+      animation: mic-w1 28s ease forwards;
     }
 
     @keyframes mic-w1 {
-      0%, 12%  { opacity: 0; }
-      13%      { opacity: 1; }
-      21%      { opacity: 1; }
-      22%      { opacity: 0; }
-      100%     { opacity: 0; }
+      0%, 20%    { opacity: 0; }
+      20.5%      { opacity: 1; }
+      31%        { opacity: 1; }
+      31.5%      { opacity: 0; }
+      100%       { opacity: 0; }
     }
 
     .mic-words2 {
       opacity: 0;
-      animation: mic-w2 24s ease forwards;
+      animation: mic-w2 28s ease forwards;
     }
 
     @keyframes mic-w2 {
-      0%, 45%  { opacity: 0; }
-      46%      { opacity: 1; }
-      54%      { opacity: 1; }
-      55%      { opacity: 0; }
-      100%     { opacity: 0; }
+      0%, 44.5%  { opacity: 0; }
+      45%        { opacity: 1; }
+      53.5%      { opacity: 1; }
+      54%        { opacity: 0; }
+      100%       { opacity: 0; }
     }
 
     .mic-words3 {
       opacity: 0;
-      animation: mic-w3 24s ease forwards;
+      animation: mic-w3 28s ease forwards;
     }
 
     @keyframes mic-w3 {
-      0%, 75%  { opacity: 0; }
-      76%      { opacity: 1; }
-      85%      { opacity: 1; }
-      86%      { opacity: 0; }
-      100%     { opacity: 0; }
+      0%, 68%    { opacity: 0; }
+      68.5%      { opacity: 1; }
+      79.5%      { opacity: 1; }
+      80%        { opacity: 0; }
+      100%       { opacity: 0; }
     }
 
     .app-cards {
@@ -443,6 +463,18 @@
       flex-direction: column;
       gap: 0.5rem;
       margin-bottom: 1.25rem;
+    }
+
+    /* Staggered entrance — bouncy spring like LazyVStack */
+    .app-cards > * {
+      opacity: 0;
+      transform: translateY(1rem);
+      animation: card-enter 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation-delay: calc(var(--i, 0) * 0.06s);
+    }
+
+    @keyframes card-enter {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .app-card {
@@ -510,15 +542,49 @@
     .app-replay {
       display: flex;
       justify-content: center;
+      width: 100%;
       margin-top: 1.5rem;
       opacity: 0;
-      animation: fade-in 0.5s ease 24.5s forwards;
+      animation: fade-in 0.5s ease 28.5s forwards;
       color: var(--color-text-secondary);
       transition: color 0.2s ease;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
     }
 
     .app-replay:hover {
       color: var(--color-accent);
+    }
+
+    /* Wide layout: Otto left, cards right — only at genuinely wide viewports */
+    @media (min-width: 1200px) {
+      .app-frame {
+        max-width: 720px;
+        padding: 2rem 1.5rem 1.5rem;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+        grid-template-rows: 1fr auto;
+        gap: 1.25rem;
+      }
+
+      .app-header {
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 0;
+      }
+
+      .app-cards {
+        grid-column: 2;
+        grid-row: 1;
+        margin-bottom: 0;
+      }
+
+      .app-mic {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
     }
 
     /* ===== Inline Link ===== */
@@ -602,6 +668,16 @@
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
       }
 
+      .app-bubble {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.25);
+        box-shadow:
+          0 2px 16px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        color: #f5f5f7;
+      }
+
+
       .footer {
         border-top-color: rgba(255, 255, 255, 0.08);
       }
@@ -609,9 +685,20 @@
 
     /* ===== Responsive ===== */
 
+    /* Center lone card when it falls alone at the end of a row */
+    .features-grid > *:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      width: calc(50% - 1rem);
+      margin-inline: auto;
+    }
+
     @media (max-width: 768px) {
       .features-grid {
         grid-template-columns: 1fr;
+      }
+
+      .features-grid > *:last-child:nth-child(odd) {
+        width: 100%;
       }
 
       .footer-inner {
@@ -619,6 +706,7 @@
         text-align: center;
       }
     }
+
 
     /* ===== Accessibility: Reduce Motion ===== */
 
@@ -650,8 +738,8 @@
       <div class="hero-icon" aria-hidden="true">🐙</div>
       <h1 class="hero-name">Inkling</h1>
       <p class="hero-tagline">
-        An accessible, agentic AI focused on keeping things simple (and safe).
-        For any age.
+        An accessible, agentic AI focused on keeping things simple.
+        Safe enough for the whole family.
       </p>
       <p class="hero-availability">Available May 1</p>
     </div>
@@ -670,45 +758,45 @@
         <div class="app-header">
           <span class="app-otto">🐙</span>
           <div class="app-bubbles">
-            <p class="app-bubble app-bubble-hi"><span class="w" style="--w:0;--t:0.6s">Hi!</span> <span class="w" style="--w:1;--t:0.6s">I'm</span> <span class="w" style="--w:2;--t:0.6s">Otto.</span> <span class="w" style="--w:3;--t:0.6s">Ask</span> <span class="w" style="--w:4;--t:0.6s">me</span> <span class="w" style="--w:5;--t:0.6s">anything.</span></p>
-            <p class="app-bubble app-bubble-reply1"><span class="w" style="--w:0;--t:5.5s">Dinosaurs</span> <span class="w" style="--w:1;--t:5.5s">were</span> <span class="w" style="--w:2;--t:5.5s">large</span> <span class="w" style="--w:3;--t:5.5s">reptiles</span> <span class="w" style="--w:4;--t:5.5s">that</span> <span class="w" style="--w:5;--t:5.5s">lived</span> <span class="w" style="--w:6;--t:5.5s">long</span> <span class="w" style="--w:7;--t:5.5s">ago...</span></p>
-            <p class="app-bubble app-bubble-reply2"><span class="w" style="--w:0;--t:13.5s">Here's</span> <span class="w" style="--w:1;--t:13.5s">a</span> <span class="w" style="--w:2;--t:13.5s">cool</span> <span class="w" style="--w:3;--t:13.5s">dinosaur</span> <span class="w" style="--w:4;--t:13.5s">drawing</span> <span class="w" style="--w:5;--t:13.5s">for</span> <span class="w" style="--w:6;--t:13.5s">you!</span></p>
-            <p class="app-bubble app-bubble-reply3"><span class="w" style="--w:0;--t:21s">No,</span> <span class="w" style="--w:1;--t:21s">London</span> <span class="w" style="--w:2;--t:21s">should</span> <span class="w" style="--w:3;--t:21s">be</span> <span class="w" style="--w:4;--t:21s">nice</span> <span class="w" style="--w:5;--t:21s">tomorrow</span> <span class="w" style="--w:6;--t:21s">with</span> <span class="w" style="--w:7;--t:21s">a</span> <span class="w" style="--w:8;--t:21s">high</span> <span class="w" style="--w:9;--t:21s">of</span> <span class="w" style="--w:10;--t:21s">62.</span></p>
+            <p class="app-bubble app-bubble-hi"><span class="w" style="--w:0;--t:2.0s">Hi!</span> <span class="w" style="--w:1;--t:2.0s">I'm</span> <span class="w" style="--w:2;--t:2.0s">Otto.</span> <span class="w" style="--w:3;--t:2.0s">Ask</span> <span class="w" style="--w:4;--t:2.0s">me</span> <span class="w" style="--w:5;--t:2.0s">anything.</span></p>
+            <p class="app-bubble app-bubble-reply1"><span class="w" style="--w:0;--t:9.0s">Dinosaurs</span> <span class="w" style="--w:1;--t:9.0s">were</span> <span class="w" style="--w:2;--t:9.0s">large</span> <span class="w" style="--w:3;--t:9.0s">reptiles</span> <span class="w" style="--w:4;--t:9.0s">that</span> <span class="w" style="--w:5;--t:9.0s">lived</span> <span class="w" style="--w:6;--t:9.0s">long</span> <span class="w" style="--w:7;--t:9.0s">ago...</span></p>
+            <p class="app-bubble app-bubble-reply2"><span class="w" style="--w:0;--t:15.5s">Here's</span> <span class="w" style="--w:1;--t:15.5s">a</span> <span class="w" style="--w:2;--t:15.5s">cool</span> <span class="w" style="--w:3;--t:15.5s">dinosaur</span> <span class="w" style="--w:4;--t:15.5s">drawing</span> <span class="w" style="--w:5;--t:15.5s">for</span> <span class="w" style="--w:6;--t:15.5s">you!</span></p>
+            <p class="app-bubble app-bubble-reply3"><span class="w" style="--w:0;--t:22.5s">London</span> <span class="w" style="--w:1;--t:22.5s">should</span> <span class="w" style="--w:2;--t:22.5s">be</span> <span class="w" style="--w:3;--t:22.5s">nice</span> <span class="w" style="--w:4;--t:22.5s">tomorrow,</span> <span class="w" style="--w:5;--t:22.5s">high</span> <span class="w" style="--w:6;--t:22.5s">of</span> <span class="w" style="--w:7;--t:22.5s">62°.</span> <span class="w" style="--w:8;--t:22.5s">No</span> <span class="w" style="--w:9;--t:22.5s">raincoat</span> <span class="w" style="--w:10;--t:22.5s">needed.</span></p>
           </div>
         </div>
         <div class="app-cards">
-          <div class="app-card app-card-today"><span class="app-card-icon">📅</span> Today</div>
-          <div class="app-card app-card-ottomatic"><span class="app-card-icon">↕️</span> Ottomatic</div>
-          <div class="app-card-slot" style="--slot-t:6s">
+          <div class="app-card app-card-today" style="--i:0"><span class="app-card-icon">📅</span> Today</div>
+          <div class="app-card app-card-ottomatic" style="--i:1"><span class="app-card-icon">↕️</span> Ottomatic</div>
+          <div class="app-card-slot" style="--i:2;--slot-t:10.5s">
             <div class="app-card app-card-inklings app-card-out"><span class="app-card-icon">✨</span> Inklings</div>
             <div class="app-card app-card-inklings app-card-in"><span class="app-card-icon">🦕</span> <span class="app-card-label">Dinosaurs</span></div>
           </div>
-          <div class="app-card-slot" style="--slot-t:21.5s">
+          <div class="app-card-slot" style="--i:3;--slot-t:24.0s">
             <div class="app-card app-card-weather app-card-out"><span class="app-card-icon">☁️</span> Ottopilot</div>
             <div class="app-card app-card-weather app-card-in"><span class="app-card-icon">☀️</span> <span class="app-card-label">London 62°</span></div>
           </div>
-          <div class="app-card app-card-people"><span class="app-card-icon">👤</span> Connections</div>
-          <div class="app-card app-card-ottotune"><span class="app-card-icon">🎵</span> Ottotune</div>
-          <div class="app-card-slot" style="--slot-t:14s">
+          <div class="app-card app-card-people" style="--i:4"><span class="app-card-icon">👤</span> Connections</div>
+          <div class="app-card app-card-ottotune" style="--i:5"><span class="app-card-icon">🎵</span> Ottotune</div>
+          <div class="app-card-slot" style="--i:6;--slot-t:17.0s">
             <div class="app-card app-card-sketches app-card-out"><span class="app-card-icon">🎨</span> Sketches</div>
-            <div class="app-card app-card-sketches app-card-in"><span class="app-card-icon">🦖</span> <span class="app-card-label">Green Dinosaur Near a Volcano</span></div>
+            <div class="app-card app-card-sketches app-card-in"><span class="app-card-icon">🦖</span> <span class="app-card-label">Green Dinosaur</span></div>
           </div>
         </div>
         <div class="app-mic">
           <div class="app-mic-morph">
             <span class="mic-icon">🎙️</span>
-            <span class="mic-words mic-words1"><span class="w" style="--w:0;--t:3.3s">Tell</span> <span class="w" style="--w:1;--t:3.3s">me</span> <span class="w" style="--w:2;--t:3.3s">about</span> <span class="w" style="--w:3;--t:3.3s">dinosaurs</span></span>
-            <span class="mic-words mic-words2"><span class="w" style="--w:0;--t:11.1s">Can</span> <span class="w" style="--w:1;--t:11.1s">you</span> <span class="w" style="--w:2;--t:11.1s">draw</span> <span class="w" style="--w:3;--t:11.1s">one?</span></span>
-            <span class="mic-words mic-words3"><span class="w" style="--w:0;--t:18.3s">Will</span> <span class="w" style="--w:1;--t:18.3s">I</span> <span class="w" style="--w:2;--t:18.3s">need</span> <span class="w" style="--w:3;--t:18.3s">a</span> <span class="w" style="--w:4;--t:18.3s">raincoat</span> <span class="w" style="--w:5;--t:18.3s">in</span> <span class="w" style="--w:6;--t:18.3s">London</span> <span class="w" style="--w:7;--t:18.3s">tomorrow?</span></span>
+            <span class="mic-words mic-words1"><span class="w" style="--w:0;--t:6.0s">Tell</span> <span class="w" style="--w:1;--t:6.0s">me</span> <span class="w" style="--w:2;--t:6.0s">about</span> <span class="w" style="--w:3;--t:6.0s">dinosaurs</span></span>
+            <span class="mic-words mic-words2"><span class="w" style="--w:0;--t:13.0s">Can</span> <span class="w" style="--w:1;--t:13.0s">you</span> <span class="w" style="--w:2;--t:13.0s">draw</span> <span class="w" style="--w:3;--t:13.0s">one?</span></span>
+            <span class="mic-words mic-words3"><span class="w" style="--w:0;--t:19.5s">Will</span> <span class="w" style="--w:1;--t:19.5s">I</span> <span class="w" style="--w:2;--t:19.5s">need</span> <span class="w" style="--w:3;--t:19.5s">a</span> <span class="w" style="--w:4;--t:19.5s">raincoat</span> <span class="w" style="--w:5;--t:19.5s">in</span> <span class="w" style="--w:6;--t:19.5s">London</span> <span class="w" style="--w:7;--t:19.5s">tomorrow?</span></span>
           </div>
         </div>
       </div>
-      <a href="/inkling/" class="app-replay" aria-label="Replay animation">
+      <button class="app-replay" aria-label="Replay animation" onclick="var d=document.getElementById('demo'),b=this;d.replaceWith(d.cloneNode(true));b.style.animation='none';b.style.opacity='';void b.offsetWidth;b.style.animation=''">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
           <polyline points="23 4 23 10 17 10"/>
           <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
         </svg>
-      </a>
+      </button>
     </div>
   </section>
 
@@ -717,30 +805,25 @@
     <div class="section-inner">
       <h2 class="section-title">How It Works</h2>
       <p class="section-subtitle">
-        A safe, voice-driven tool for looking things up, learning, and exploring.
-        Designed for kids and adults who benefit from hands-free, accessible interaction.
+        A beautiful tool for looking things up, learning, and exploring safely.
+        Designed for kids and adults who benefit from voice-first, accessible interaction.
       </p>
 
       <div class="features-grid">
-        <div class="feature-card">
-          <span class="feature-icon" aria-hidden="true">🎙️</span>
-          <h3>Voice-First</h3>
-          <p>Talk to Inkling like you'd talk to a person. No keyboard. No menus. Just speak.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon" aria-hidden="true">🔒</span>
-          <h3>Completely Private</h3>
-          <p>No servers. No accounts. No analytics. All processing happens on-device with Apple Intelligence. Your conversations never leave your hands.</p>
-        </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">📡</span>
           <h3>Works Offline</h3>
           <p>No internet required. No WiFi. No cell data. Instant install, under 10 MB. Everything your device needs is already there.</p>
         </div>
         <div class="feature-card">
-          <span class="feature-icon" aria-hidden="true"><svg style="width:1em;height:1em;vertical-align:middle;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="5.5" r="1.75" fill="currentColor"/><path fill="currentColor" d="M12 9c-3 0-5.25.75-5.25.75l.75 2s1.75-.6 3.25-.75v3l-2.5 5 1.75.85L12 15.25l2 4.6 1.75-.85-2.5-5v-3c1.5.15 3.25.75 3.25.75l.75-2S15 9 12 9z"/></svg></span>
-          <h3>Accessible First</h3>
-          <p>VoiceOver, Voice Control, Dynamic Type, Reduced Motion. Built for people with autism, dyslexia, and motor disabilities. Everyone benefits from the same interface.</p>
+          <span class="feature-icon" aria-hidden="true">🎙️</span>
+          <h3>Voice-First</h3>
+          <p>Talk to Otto like you'd talk to a person. No keyboard. No menus. Just speak.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🔒</span>
+          <h3>Completely Private</h3>
+          <p>No servers. No accounts. No analytics. All processing happens on-device with Apple Intelligence. Your conversations never leave your hands.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🧒</span>
@@ -749,7 +832,7 @@
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🧑</span>
-          <h3>Useful for Adults</h3>
+          <h3>Loved by Adults</h3>
           <p>Not a toy. A genuinely useful hands-free tool for anyone who benefits from voice-first, accessible interaction.</p>
         </div>
       </div>
