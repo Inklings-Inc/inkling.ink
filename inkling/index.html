@@ -207,6 +207,28 @@
       line-height: 1.7;
     }
 
+    .demo-caption {
+      max-width: 560px;
+      margin: 1.75rem auto 0;
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .features-footnote {
+      max-width: 640px;
+      margin: 2.5rem auto 0;
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .features-footnote sup {
+      margin-right: 0.125rem;
+    }
+
     /* ===== Quote ===== */
 
     .quote {
@@ -883,8 +905,8 @@
       <div class="hero-icon" aria-hidden="true">🐙</div>
       <h1 class="hero-name">Inkling</h1>
       <p class="hero-tagline">
-        An accessible, agentic AI focused on keeping things simple.
-        Safe enough for the whole family.
+        An accessible AI agent focused on keeping things simple.
+        Made for the whole family.
       </p>
       <p class="hero-availability">Available May 1</p>
     </div>
@@ -895,8 +917,7 @@
     <div class="section-inner">
       <h2 class="section-title">Meet Otto</h2>
       <p class="section-subtitle">
-        Otto the Autodidact knows a little bit about everything.
-        Ask anything, or tap the big colorful buttons to do things yourself.
+        Otto the Autodidact taught himself a little bit about everything, so he doesn't need to look anything up on the web.
       </p>
 
       <div id="demo" class="app-frame" aria-label="Inkling app interface preview">
@@ -939,6 +960,10 @@
           </div>
         </div>
       </div>
+      <p class="demo-caption">
+        Ask Otto anything. He replies in short spoken snippets and drops colorful cards you can tap to explore further. He's a bit of an artist, too. Eight arms makes him a natural multitasker.
+      </p>
+
       <button class="app-replay" aria-label="Replay animation" onclick="var d=document.getElementById('demo'),b=this;d.replaceWith(d.cloneNode(true));b.style.animation='none';b.style.opacity='';void b.offsetWidth;b.style.animation=''">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
           <polyline points="23 4 23 10 17 10"/>
@@ -1147,15 +1172,14 @@
     <div class="section-inner">
       <h2 class="section-title">How It Works</h2>
       <p class="section-subtitle">
-        A beautiful tool for looking things up, learning, and exploring safely.
-        Designed for kids and adults who benefit from voice-first, accessible interaction.
+        Designed for anyone who wants an assistant that's simpler, calmer, and more accessible than most.
       </p>
 
       <div class="features-grid">
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">📡</span>
           <h3>Works Offline</h3>
-          <p>No internet required. No WiFi. No cell data. Instant install, under 10 MB. Everything your device needs is already there.</p>
+          <p>Under 10 MB. Opens instantly from an App Clip, with no install prompt, no Side Button, no waiting. Everything's on the device and curated, not streamed from the open web.<sup>*</sup></p>
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🎙️</span>
@@ -1175,13 +1199,17 @@
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🧑</span>
           <h3>Loved by Adults</h3>
-          <p>Not a toy. A genuinely useful hands-free tool for anyone who benefits from voice-first, accessible interaction.</p>
+          <p>Feels like a toy. Works like a tool. Made to be fun for everyone.</p>
         </div>
       </div>
+
+      <p class="features-footnote">
+        <sup>*</sup> Otto runs on Apple Intelligence. Weather comes from Apple WeatherKit. Ottotune requires an Apple Music subscription. None of these route through a web browser.
+      </p>
     </div>
   </section>
 
-  <!-- Quote -->
+  <!-- Quote — hidden until v2 (learning tools); kept in source for scrapers
   <section class="section section-dark">
     <div class="section-inner">
       <blockquote class="quote">
@@ -1193,6 +1221,7 @@
       </p>
     </div>
   </section>
+  -->
 
   <!-- Principles -->
   <section class="section section-light">
