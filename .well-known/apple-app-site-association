@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["TEAMID.ink.lings.Inkling"],
+        "components": [
+          { "/": "/l/*", "comment": "Shareable deep links" }
+        ]
+      }
+    ]
+  },
+  "appclips": {
+    "apps": ["TEAMID.ink.lings.Inkling.Clip"]
+  },
+  "webcredentials": {
+    "apps": ["TEAMID.ink.lings.Inkling"]
+  }
+}
