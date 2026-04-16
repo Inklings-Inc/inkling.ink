@@ -34,6 +34,8 @@
       --color-accent-hover: #0077ed;
       --color-border: #d2d2d7;
       --max-width: 980px;
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --spring-soft: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     html {
@@ -260,6 +262,26 @@
     .app-otto {
       font-size: 3.5rem;
       line-height: 1;
+      cursor: pointer;
+      display: inline-block;
+      transform-origin: 50% 80%;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .app-otto.wiggle {
+      animation: otto-wiggle 1.1s ease-out;
+    }
+
+    @keyframes otto-wiggle {
+      0%   { transform: rotate(0deg) scale(1); }
+      10%  { transform: rotate(-9deg) scale(1.04); }
+      24%  { transform: rotate(10deg) scale(1.08); }
+      40%  { transform: rotate(-7deg) scale(1.05); }
+      55%  { transform: rotate(5deg) scale(1.03); }
+      70%  { transform: rotate(-3deg) scale(1.02); }
+      84%  { transform: rotate(1.5deg) scale(1.01); }
+      100% { transform: rotate(0deg) scale(1); }
     }
 
     /* --- Bubble — always above Otto via column-reverse --- */
@@ -293,48 +315,57 @@
     .w {
       display: inline-block;
       opacity: 0;
-      transform: translateY(0.3em);
+      transform: translateY(0.4em) scale(0.85);
       filter: blur(2px);
-      animation: word-in 0.35s ease forwards;
+      animation: word-in 0.5s var(--spring) forwards;
       animation-delay: calc(var(--w) * 0.1s + var(--t, 0s));
     }
 
     @keyframes word-in {
-      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
 
-    /* Otto greeting — fades out before user speaks */
+    /* Otto greeting — springs in, fades out before user speaks */
     .app-bubble-hi {
-      animation: fade-out 0.3s ease 4.5s forwards;
+      opacity: 0;
+      animation:
+        bubble-in 0.5s var(--spring) 0.3s forwards,
+        bubble-out 0.4s var(--spring) 4.5s forwards;
     }
 
-    @keyframes fade-out {
-      to { opacity: 0; transform: scale(0.95); }
+    @keyframes bubble-in {
+      from { opacity: 0; transform: scale(0.7) translateY(0.5rem); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* Otto reply 1 — fades in after user speaks, out before next question */
+    @keyframes bubble-out {
+      to { opacity: 0; transform: scale(0.85) translateY(0.25rem); }
+    }
+
+    /* Legacy fade alias for replay button */
+    @keyframes fade-in {
+      to { opacity: 1; }
+    }
+
+    /* Otto reply 1 — springs in after user speaks, out before next question */
     .app-bubble-reply1 {
       position: absolute;
       opacity: 0;
-      animation: fade-in 0.3s ease 9.0s forwards, fade-out 0.3s ease 12.0s forwards;
+      animation: bubble-in 0.5s var(--spring) 9.0s forwards, bubble-out 0.4s var(--spring) 12.0s forwards;
     }
 
-    /* Otto reply 2 — fades in after user speaks, out before next question */
+    /* Otto reply 2 — springs in after user speaks, out before next question */
     .app-bubble-reply2 {
       position: absolute;
       opacity: 0;
-      animation: fade-in 0.3s ease 15.5s forwards, fade-out 0.3s ease 18.75s forwards;
+      animation: bubble-in 0.5s var(--spring) 15.5s forwards, bubble-out 0.4s var(--spring) 18.75s forwards;
     }
 
-    /* Otto reply 3 — fades in and stays */
+    /* Otto reply 3 — springs in and stays */
     .app-bubble-reply3 {
       position: absolute;
       opacity: 0;
-      animation: fade-in 0.3s ease 22.5s forwards;
-    }
-
-    @keyframes fade-in {
-      to { opacity: 1; }
+      animation: bubble-in 0.5s var(--spring) 22.5s forwards;
     }
 
     /* --- Mic morph --- */
@@ -342,8 +373,8 @@
       display: flex;
       justify-content: center;
       opacity: 0;
-      transform: translateY(0.5rem);
-      animation: card-enter 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.42s forwards;
+      transform: translateY(0.5rem) scale(0.9);
+      animation: card-enter 0.5s var(--spring) 0.42s forwards;
     }
 
     .app-mic-morph {
@@ -355,7 +386,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      animation: morph 28s ease-in-out forwards;
+      animation: morph 28s var(--spring) forwards;
     }
 
     /* 28s — beat → three morph cycles (tap → pop → expand with text → shrink) */
@@ -468,13 +499,13 @@
     /* Staggered entrance — bouncy spring like LazyVStack */
     .app-cards > * {
       opacity: 0;
-      transform: translateY(1rem);
-      animation: card-enter 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      transform: translateY(1rem) scale(0.9);
+      animation: card-enter 0.5s var(--spring) forwards;
       animation-delay: calc(var(--i, 0) * 0.06s);
     }
 
     @keyframes card-enter {
-      to { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .app-card {
@@ -488,6 +519,13 @@
       font-weight: 600;
       font-family: var(--font-rounded);
       letter-spacing: -0.01em;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.35s var(--spring);
+    }
+
+    .app-card:active {
+      transform: scale(0.94);
     }
 
     .app-card-icon {
@@ -511,14 +549,14 @@
     }
 
     .app-card-slot .app-card-out {
-      animation: slot-out 0.5s ease var(--slot-t, 7s) forwards;
+      animation: slot-out 0.55s var(--spring) var(--slot-t, 7s) forwards;
     }
 
     .app-card-slot .app-card-in {
       position: absolute;
       inset: 0;
       transform: translateX(110%);
-      animation: slot-in 0.5s ease var(--slot-t, 7s) forwards;
+      animation: slot-in 0.55s var(--spring) var(--slot-t, 7s) forwards;
     }
 
     .app-card-slot .app-card-in .app-card-label {
@@ -556,6 +594,113 @@
 
     .app-replay:hover {
       color: var(--color-accent);
+    }
+
+    /* --- Mock sheet — simple zoom from tapped card --- */
+    .app-sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+      z-index: 90;
+    }
+
+    .app-sheet-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .app-sheet {
+      position: fixed;
+      border-radius: 1.75rem;
+      color: #fff;
+      font-family: var(--font-rounded);
+      display: flex;
+      flex-direction: column;
+      padding: 1.25rem 1.5rem 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transform-origin: top left;
+      transition:
+        opacity 0.22s ease,
+        transform 0.48s var(--spring-soft);
+      box-shadow: 0 -12px 50px rgba(0, 0, 0, 0.28);
+      z-index: 100;
+      overflow: hidden;
+      letter-spacing: -0.01em;
+      will-change: transform;
+    }
+
+    .app-sheet.closing {
+      transition:
+        opacity 0.5s ease,
+        transform 0.55s var(--spring);
+    }
+
+    .app-sheet-header,
+    .app-sheet-body {
+      transition: opacity 0.2s ease;
+    }
+
+    .app-sheet.closing .app-sheet-header,
+    .app-sheet.closing .app-sheet-body {
+      opacity: 0;
+    }
+
+    .app-sheet::before {
+      content: '';
+      position: absolute;
+      top: 0.5rem;
+      left: 50%;
+      width: 2.25rem;
+      height: 0.25rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.45);
+      transform: translateX(-50%);
+    }
+
+    .app-sheet.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .app-sheet-header {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      margin-top: 0.75rem;
+    }
+
+    .app-sheet-header-icon {
+      font-size: 1.125rem;
+      opacity: 0.92;
+    }
+
+    .app-sheet-header-title {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    .app-sheet-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-sheet-icon {
+      font-size: 5.5rem;
+      line-height: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .app-sheet,
+      .app-sheet-backdrop {
+        transition: opacity 0.15s ease;
+      }
     }
 
     /* Wide layout: Otto left, cards right — only at genuinely wide viewports */
@@ -765,7 +910,10 @@
           </div>
         </div>
         <div class="app-cards">
-          <div class="app-card app-card-today" style="--i:0"><span class="app-card-icon">📅</span> Today</div>
+          <div class="app-card-slot" style="--i:0;--slot-t:23.2s">
+            <div class="app-card app-card-today app-card-out"><span class="app-card-icon">📅</span> Today</div>
+            <div class="app-card app-card-today app-card-in"><span class="app-card-icon">📅</span> <span class="app-card-label">Tomorrow</span></div>
+          </div>
           <div class="app-card app-card-ottomatic" style="--i:1"><span class="app-card-icon">↕️</span> Ottomatic</div>
           <div class="app-card-slot" style="--i:2;--slot-t:10.5s">
             <div class="app-card app-card-inklings app-card-out"><span class="app-card-icon">✨</span> Inklings</div>
@@ -797,8 +945,202 @@
           <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
         </svg>
       </button>
+
+      <div class="app-sheet-backdrop" aria-hidden="true"></div>
+      <div class="app-sheet" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="app-sheet-header">
+          <span class="app-sheet-header-icon"></span>
+          <span class="app-sheet-header-title"></span>
+        </div>
+        <div class="app-sheet-body">
+          <span class="app-sheet-icon"></span>
+        </div>
+      </div>
     </div>
   </section>
+
+  <script>
+    (function () {
+      const backdrop = document.querySelector('.app-sheet-backdrop');
+      const sheet = document.querySelector('.app-sheet');
+      const headerIconEl = sheet.querySelector('.app-sheet-header-icon');
+      const headerTitleEl = sheet.querySelector('.app-sheet-header-title');
+      const iconEl = sheet.querySelector('.app-sheet-icon');
+      let isOpen = false;
+      let animating = false;
+      let sourceRect = null;
+      let restRectSaved = null;
+
+      function restRect() {
+        const demo = document.getElementById('demo');
+        if (!demo) return null;
+        const cards = demo.querySelector('.app-cards');
+        const r = demo.getBoundingClientRect();
+        const cardsRect = cards ? cards.getBoundingClientRect() : null;
+        const baseWidth = cardsRect ? cardsRect.width : r.width;
+        const width = Math.min(baseWidth * 1.3, r.width - 20, 480);
+        const height = Math.min(r.height * 0.6, 360);
+        const cx = r.left + r.width / 2;
+        const left = cx - width / 2;
+        const bottomInset = 12;
+        const top = r.bottom - height - bottomInset;
+        return { left, top, width, height };
+      }
+
+      function cardDisplayParts(card) {
+        const iconSpan = card.querySelector('.app-card-icon');
+        const labelSpan = card.querySelector('.app-card-label');
+        const icon = iconSpan ? iconSpan.textContent : '';
+        let title;
+        if (labelSpan) {
+          title = labelSpan.textContent.trim();
+        } else {
+          title = card.textContent.replace(icon, '').trim();
+        }
+        const bg = getComputedStyle(card).backgroundColor;
+        return { icon, title, bg };
+      }
+
+      function openFrom(card) {
+        if (isOpen || animating) return;
+        const rest = restRect();
+        if (!rest) return;
+        const cardRect = card.getBoundingClientRect();
+        if (cardRect.width === 0 || cardRect.height === 0) return;
+
+        const { icon, title, bg } = cardDisplayParts(card);
+        sheet.style.background = bg;
+        headerIconEl.textContent = icon;
+        headerTitleEl.textContent = title;
+        iconEl.textContent = icon;
+
+        sheet.style.left = rest.left + 'px';
+        sheet.style.top = rest.top + 'px';
+        sheet.style.width = rest.width + 'px';
+        sheet.style.height = rest.height + 'px';
+
+        sourceRect = {
+          left: cardRect.left,
+          top: cardRect.top,
+          width: cardRect.width,
+          height: cardRect.height
+        };
+        restRectSaved = rest;
+
+        const dx = cardRect.left - rest.left;
+        const dy = cardRect.top - rest.top;
+        const sx = cardRect.width / rest.width;
+        const sy = cardRect.height / rest.height;
+
+        animating = true;
+        sheet.classList.remove('closing');
+        sheet.style.transition = 'none';
+        sheet.style.transformOrigin = 'top left';
+        sheet.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+        sheet.style.opacity = '0';
+        sheet.style.borderRadius = '9999px';
+        void sheet.offsetWidth;
+
+        sheet.style.transition = '';
+        sheet.classList.add('open');
+        backdrop.classList.add('open');
+        sheet.setAttribute('aria-hidden', 'false');
+        sheet.style.transform = 'translate(0, 0) scale(1, 1)';
+        sheet.style.opacity = '';
+        sheet.style.borderRadius = '';
+        isOpen = true;
+
+        sheet.addEventListener('transitionend', function done(e) {
+          if (e.propertyName !== 'transform') return;
+          animating = false;
+          sheet.removeEventListener('transitionend', done);
+        });
+      }
+
+      function close() {
+        if (!isOpen || animating) return;
+        if (!sourceRect || !restRectSaved) {
+          sheet.classList.remove('open');
+          backdrop.classList.remove('open');
+          isOpen = false;
+          return;
+        }
+
+        const rest = restRectSaved;
+        const dx = sourceRect.left - rest.left;
+        const dy = sourceRect.top - rest.top;
+        const sx = sourceRect.width / rest.width;
+        const sy = sourceRect.height / rest.height;
+
+        animating = true;
+        sheet.setAttribute('aria-hidden', 'true');
+        backdrop.classList.remove('open');
+        sheet.classList.add('closing');
+        sheet.style.transformOrigin = 'top left';
+        sheet.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+        sheet.style.opacity = '0';
+
+        sheet.addEventListener('transitionend', function done(e) {
+          if (e.propertyName !== 'transform') return;
+          sheet.classList.remove('open');
+          sheet.classList.remove('closing');
+          sheet.style.transform = '';
+          sheet.style.opacity = '';
+          sheet.style.transformOrigin = '';
+          sheet.style.borderRadius = '';
+          isOpen = false;
+          animating = false;
+          sourceRect = null;
+          restRectSaved = null;
+          sheet.removeEventListener('transitionend', done);
+        });
+      }
+
+      document.addEventListener('click', (e) => {
+        const otto = e.target.closest('.app-otto');
+        if (otto) {
+          otto.classList.remove('wiggle');
+          void otto.offsetWidth;
+          otto.classList.add('wiggle');
+          return;
+        }
+        if (isOpen) {
+          close();
+          return;
+        }
+        if (e.target.closest('.app-replay')) return;
+        const card = e.target.closest('.app-card');
+        if (!card) return;
+        const demo = document.getElementById('demo');
+        if (!demo || !demo.contains(card)) return;
+        e.preventDefault();
+        openFrom(card);
+      });
+
+      window.addEventListener('resize', () => { if (isOpen) close(); });
+      window.addEventListener('scroll', () => { if (isOpen) close(); }, { passive: true });
+
+      function wiggleOtto() {
+        const otto = document.querySelector('#demo .app-otto');
+        if (!otto) return;
+        otto.classList.remove('wiggle');
+        void otto.offsetWidth;
+        otto.classList.add('wiggle');
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(wiggleOtto, 600));
+      } else {
+        setTimeout(wiggleOtto, 600);
+      }
+
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.app-replay')) {
+          setTimeout(wiggleOtto, 600);
+        }
+      });
+    })();
+  </script>
 
   <!-- How It Works -->
   <section class="section">
