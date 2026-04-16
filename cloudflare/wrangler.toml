@@ -1,0 +1,22 @@
+# Wrangler config for the inkling.ink edge worker.
+# Deploy with: npx wrangler deploy
+#
+# Prereqs:
+#   1. Cloudflare account with inkling.ink as a zone (add DNS at registrar
+#      to Cloudflare's nameservers, or use partial CNAME setup).
+#   2. DNS record for the apex: proxied (orange cloud) AAAA/A → GitHub Pages
+#      IPs, OR a proxied CNAME flattening to inklings-inc.github.io.
+#   3. Route binding below tells Cloudflare to run the Worker for every
+#      request to the zone before the origin is hit.
+
+name = "inkling-ink-edge"
+main = "worker.js"
+compatibility_date = "2025-04-01"
+
+# Run the worker on every request to the apex and www subdomain.
+routes = [
+  { pattern = "inkling.ink/*", zone_name = "inkling.ink" },
+  { pattern = "www.inkling.ink/*", zone_name = "inkling.ink" }
+]
+
+# No KV, no Durable Objects, no env vars required. AASA is inlined for speed.
