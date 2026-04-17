@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inkling — Meet Otto</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐙</text></svg>">
+  <link rel="apple-touch-icon" href="/inkling/apple-touch-icon.png">
   <meta name="description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home May 7.">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
@@ -14,6 +15,7 @@
   <meta property="og:url" content="https://inkling.ink/inkling/">
   <meta property="og:site_name" content="Inklings">
   <meta property="og:image" content="https://inkling.ink/inkling/og.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Inkling. Meet Otto.">
@@ -23,6 +25,29 @@
   <meta name="twitter:image" content="https://inkling.ink/inkling/og.png">
   <link rel="canonical" href="https://inkling.ink/inkling/">
   <meta name="apple-itunes-app" content="app-id=6748263839, app-clip-bundle-id=ink.lings.Inkling.Clip">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Inkling",
+    "description": "Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family.",
+    "url": "https://inkling.ink/inkling/",
+    "image": "https://inkling.ink/inkling/og.png",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "iOS 26",
+    "datePublished": "2026-05-07",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Inklings, Inc.",
+      "url": "https://inkling.ink/"
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -225,9 +250,11 @@
       100% { transform: rotate(0deg); }
     }
 
-    .hero-icon,
-    .hero-name {
-      animation: home-wiggle 1.1s ease-in-out 0.35s 1 both;
+    .hero-home {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: home-wiggle 1.43s ease-in-out 0.35s 1 both;
       transform-origin: center center;
     }
 
@@ -1384,8 +1411,8 @@
       .mic-words3 { opacity: 1 !important; }
       .mic-icon { opacity: 0 !important; }
 
-      /* Hero: hero-icon and hero-name settle at rest, no wiggle */
-      .hero-icon, .hero-name { transform: none !important; }
+      /* Hero: home-screen wiggle settles at rest */
+      .hero-home { transform: none !important; }
     }
 
     /* ===== Accessibility: Reduce Transparency ===== */
@@ -1475,8 +1502,10 @@
   <main id="main">
   <section class="hero" aria-labelledby="hero-name">
     <div class="hero-inner">
-      <div class="hero-icon" aria-hidden="true"><span class="hero-icon-mono">🐙</span></div>
-      <h1 class="hero-name" id="hero-name">Inkling</h1>
+      <div class="hero-home">
+        <a href="https://apps.apple.com/app/id6748263839" class="hero-icon" aria-label="Download Inkling on the App Store"><span class="hero-icon-mono" aria-hidden="true">🐙</span></a>
+        <h1 class="hero-name" id="hero-name">Inkling</h1>
+      </div>
       <p class="hero-tagline">
         An accessible AI agent focused on keeping things simple.
         Made for the whole family.

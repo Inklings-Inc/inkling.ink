@@ -23,14 +23,17 @@
 
 // ---------------------------------------------------------------------------
 // AASA — inlined so we serve from the edge with zero origin round-trip.
-// Replace TEAMID with the real 10-char Apple Team ID before deploy.
+// Team ID MJ367HY999 is the legacy Inklings Inc. team; swap in the new team
+// ID once the account migration lands and re-sign the app to match.
 // ---------------------------------------------------------------------------
+const TEAM_ID = "MJ367HY999";
+
 const AASA = {
   applinks: {
     details: [
       {
         // Full app — every path on the apex opens the app if installed.
-        appIDs: ["TEAMID.ink.lings.Inkling"],
+        appIDs: [`${TEAM_ID}.ink.lings.Inkling`],
         components: [
           { "/": "/*", comment: "All apex paths are universal links" }
         ]
@@ -40,10 +43,10 @@ const AASA = {
   appclips: {
     // Whitelist of bundle IDs allowed to be served as App Clips from this
     // domain. Must match the App Clip target's bundle ID exactly.
-    apps: ["TEAMID.ink.lings.Inkling.Clip"]
+    apps: [`${TEAM_ID}.ink.lings.Inkling.Clip`]
   },
   webcredentials: {
-    apps: ["TEAMID.ink.lings.Inkling"]
+    apps: [`${TEAM_ID}.ink.lings.Inkling`]
   }
 };
 
