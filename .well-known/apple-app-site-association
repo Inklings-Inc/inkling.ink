@@ -2,17 +2,17 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["TEAMID.ink.lings.Inkling"],
+        "appIDs": ["MJ367HY999.ink.lings.Inkling"],
         "components": [
-          { "/": "/l/*", "comment": "Shareable deep links" }
+          { "/": "/*", "comment": "All apex paths are universal links" }
         ]
       }
     ]
   },
   "appclips": {
-    "apps": ["TEAMID.ink.lings.Inkling.Clip"]
+    "apps": ["MJ367HY999.ink.lings.Inkling.Clip"]
   },
   "webcredentials": {
-    "apps": ["TEAMID.ink.lings.Inkling"]
+    "apps": ["MJ367HY999.ink.lings.Inkling"]
   }
 }
