@@ -3,16 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inkling</title>
+  <title>Inkling — Meet Otto</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐙</text></svg>">
-  <meta name="description" content="A safe, voice-driven tool for looking things up, learning, and exploring. Available May 1.">
+  <meta name="description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home May 7.">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-  <meta property="og:title" content="Inkling">
-  <meta property="og:description" content="A safe, voice-driven tool for looking things up, learning, and exploring. Available May 1.">
+  <meta property="og:title" content="Inkling — Meet Otto">
+  <meta property="og:description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home May 7.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://inkling.ink/inkling/">
   <meta property="og:site_name" content="Inklings">
+  <meta property="og:image" content="https://inkling.ink/inkling/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Inkling. Meet Otto.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Inkling — Meet Otto">
+  <meta name="twitter:description" content="A voice-first AI agent that keeps things simple. Bring Otto home May 7.">
+  <meta name="twitter:image" content="https://inkling.ink/inkling/og.png">
+  <link rel="canonical" href="https://inkling.ink/inkling/">
+  <meta name="apple-itunes-app" content="app-id=6748263839, app-clip-bundle-id=ink.lings.Inkling.Clip">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -89,6 +99,40 @@
       text-decoration: none;
     }
 
+    /* Skip link — hidden until keyboard focus */
+    .skip-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0.625rem 1rem;
+      background: #1d1d1f;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 0 0 8px 0;
+      transform: translateY(-110%);
+      transition: transform 0.2s ease;
+      z-index: 1000;
+    }
+
+    .skip-link:focus-visible {
+      transform: translateY(0);
+      outline: 2px solid #0a84ff;
+      outline-offset: 2px;
+    }
+
+    /* Focus-visible ring for all interactive elements */
+    :where(a, button, [role="button"], [tabindex="0"]):focus-visible {
+      outline: 2px solid #0a84ff;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :where(a, button, [role="button"], [tabindex="0"]):focus-visible {
+        outline-color: #64d2ff;
+      }
+    }
+
     /* ===== Nav ===== */
 
     .nav {
@@ -138,14 +182,18 @@
       width: clamp(112px, 22vw, 160px);
       height: clamp(112px, 22vw, 160px);
       border-radius: 26.5%;
-      background: var(--color-bg-light);
+      background: #e5e5ea;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: clamp(3.5rem, 9vw, 5rem);
       line-height: 1;
       margin-bottom: 1.25rem;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+      box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+        0 1px 2px rgba(0, 0, 0, 0.08),
+        0 8px 20px rgba(0, 0, 0, 0.08);
+      transform-origin: center center;
     }
 
     .hero-icon-mono {
@@ -156,11 +204,31 @@
     @media (prefers-color-scheme: dark) {
       .hero-icon {
         background: #1c1c1e;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+          0 2px 12px rgba(0, 0, 0, 0.3);
       }
       .hero-icon-mono {
         filter: brightness(0) invert(1);
       }
+    }
+
+    /* Home-screen wiggle — plays once on load like a freshly-installed app */
+    @keyframes home-wiggle {
+      0%   { transform: rotate(0deg); }
+      12%  { transform: rotate(-2deg); }
+      24%  { transform: rotate(2deg); }
+      36%  { transform: rotate(-2deg); }
+      48%  { transform: rotate(2deg); }
+      60%  { transform: rotate(-1.2deg); }
+      72%  { transform: rotate(1.2deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .hero-icon,
+    .hero-name {
+      animation: home-wiggle 1.1s ease-in-out 0.35s 1 both;
+      transform-origin: center center;
     }
 
     .hero-name {
@@ -790,15 +858,22 @@
       align-items: center;
       gap: 0.75rem;
       padding: 0.875rem 1.25rem;
+      border: none;
       border-radius: 9999px;
       color: #fff;
       font-size: 1.0625rem;
       font-weight: 600;
       font-family: var(--font-rounded);
       letter-spacing: -0.01em;
+      text-align: left;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       transition: transform 0.35s var(--spring);
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      box-sizing: border-box;
+      align-self: stretch;
     }
 
     .app-card:active {
@@ -1139,7 +1214,7 @@
     }
 
     /* Wide layout: Otto left, cards right — only at genuinely wide viewports */
-    @media (min-width: 1200px) {
+    @media (min-width: 1180px) {
       .app-frame {
         max-width: 720px;
         padding: 2rem 1.5rem 1.5rem;
@@ -1299,6 +1374,45 @@
       html {
         scroll-behavior: auto;
       }
+
+      /* Demo: show the final "in-state" frame instead of animating */
+      .app-card-out { display: none !important; }
+      .app-card-in { opacity: 1 !important; transform: none !important; }
+      .app-bubble { opacity: 1 !important; transform: none !important; }
+      .app-mic-morph { animation: none !important; width: 17rem !important; }
+      .mic-words1, .mic-words2 { opacity: 0 !important; }
+      .mic-words3 { opacity: 1 !important; }
+      .mic-icon { opacity: 0 !important; }
+
+      /* Hero: hero-icon and hero-name settle at rest, no wiggle */
+      .hero-icon, .hero-name { transform: none !important; }
+    }
+
+    /* ===== Accessibility: Reduce Transparency ===== */
+    /* iOS/macOS users who prefer reduced transparency get solid fills */
+    @media (prefers-reduced-transparency: reduce) {
+      .app-bubble,
+      .app-mic-morph,
+      .app-sheet-bullet,
+      .info-popover,
+      .app-store-button {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+      .app-bubble { background: #ffffff; }
+      .app-mic-morph { background: #1d1d1f; }
+      .info-popover { background: #2c2c2e; }
+    }
+
+    /* ===== Accessibility: Increased Contrast ===== */
+    @media (prefers-contrast: more) {
+      :root {
+        --color-text-secondary: #3a3a3c;
+      }
+      .section-subtitle,
+      .feature-card p,
+      .hero-tagline { color: #1d1d1f; }
+      .app-bubble { border-color: rgba(0, 0, 0, 0.4); }
     }
   </style>
 </head>
@@ -1347,18 +1461,22 @@
 </svg>
 
 
+  <!-- Skip link for keyboard + VoiceOver users -->
+  <a href="#main" class="skip-link">Skip to content</a>
+
   <!-- Nav -->
-  <nav class="nav">
+  <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">Inklings</a>
+      <a href="/" class="nav-logo" aria-label="Inklings home">Inklings</a>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
+  <main id="main">
+  <section class="hero" aria-labelledby="hero-name">
     <div class="hero-inner">
       <div class="hero-icon" aria-hidden="true"><span class="hero-icon-mono">🐙</span></div>
-      <h1 class="hero-name">Inkling</h1>
+      <h1 class="hero-name" id="hero-name">Inkling</h1>
       <p class="hero-tagline">
         An accessible AI agent focused on keeping things simple.
         Made for the whole family.
@@ -1389,23 +1507,23 @@
         </div>
         <div class="app-cards">
           <div class="app-card-slot" style="--i:0;--slot-t:23.2s">
-            <div class="app-card app-card-today app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-today"/></svg></span> Today</div>
-            <div class="app-card app-card-today app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-tomorrow"/></svg></span> <span class="app-card-label">Tomorrow</span></div>
+            <button type="button" class="app-card app-card-today app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-today"/></svg></span> Today</button>
+            <button type="button" class="app-card app-card-today app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-tomorrow"/></svg></span> <span class="app-card-label">Tomorrow</span></button>
           </div>
-          <div class="app-card app-card-ottomatic" style="--i:1"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottomatic"/></svg></span> Ottomatic</div>
+          <button type="button" class="app-card app-card-ottomatic" style="--i:1"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottomatic"/></svg></span> Ottomatic</button>
           <div class="app-card-slot" style="--i:2;--slot-t:10.5s">
-            <div class="app-card app-card-inklings app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> Inklings</div>
-            <div class="app-card app-card-inklings app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> <span class="app-card-label">Dinosaurs</span></div>
+            <button type="button" class="app-card app-card-inklings app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> Inklings</button>
+            <button type="button" class="app-card app-card-inklings app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> <span class="app-card-label">Dinosaurs</span></button>
           </div>
           <div class="app-card-slot" style="--i:3;--slot-t:24.0s">
-            <div class="app-card app-card-weather app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottopilot"/></svg></span> <span class="app-card-label">London 59°</span></div>
-            <div class="app-card app-card-weather app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-forecast"/></svg></span> <span class="app-card-label">London 62°</span></div>
+            <button type="button" class="app-card app-card-weather app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottopilot"/></svg></span> <span class="app-card-label">London 59°</span></button>
+            <button type="button" class="app-card app-card-weather app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-forecast"/></svg></span> <span class="app-card-label">London 62°</span></button>
           </div>
-          <div class="app-card app-card-people" style="--i:4"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-connections"/></svg></span> Connections</div>
-          <div class="app-card app-card-ottotune" style="--i:5"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottotune"/></svg></span> Ottotune</div>
+          <button type="button" class="app-card app-card-people" style="--i:4"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-connections"/></svg></span> Connections</button>
+          <button type="button" class="app-card app-card-ottotune" style="--i:5"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottotune"/></svg></span> Ottotune</button>
           <div class="app-card-slot" style="--i:6;--slot-t:17.0s">
-            <div class="app-card app-card-sketches app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> Sketches</div>
-            <div class="app-card app-card-sketches app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> <span class="app-card-label">Green Dinosaur</span></div>
+            <button type="button" class="app-card app-card-sketches app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> Sketches</button>
+            <button type="button" class="app-card app-card-sketches app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> <span class="app-card-label">Green Dinosaur</span></button>
           </div>
         </div>
         <div class="app-mic">
@@ -1429,13 +1547,13 @@
       </button>
 
       <div class="app-sheet-backdrop" aria-hidden="true"></div>
-      <div class="app-sheet" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="app-sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="app-sheet-title" tabindex="-1">
         <div class="app-sheet-header">
-          <span class="app-sheet-header-icon"></span>
-          <span class="app-sheet-header-title"></span>
+          <span class="app-sheet-header-icon" aria-hidden="true"></span>
+          <span class="app-sheet-header-title" id="app-sheet-title"></span>
         </div>
         <div class="app-sheet-body is-default">
-          <span class="app-sheet-icon"></span>
+          <span class="app-sheet-icon" aria-hidden="true"></span>
           <span class="app-sheet-drawing" aria-hidden="true"></span>
           <div class="app-sheet-bullets" role="list"></div>
           <p class="app-sheet-blurb"></p>
@@ -1673,6 +1791,7 @@
       window.addEventListener('resize', () => { if (isOpen) close(); });
       window.addEventListener('scroll', () => { if (isOpen) close(); }, { passive: true });
 
+
       function wiggleOtto() {
         const otto = document.querySelector('#demo .app-otto');
         if (!otto) return;
@@ -1813,11 +1932,12 @@
 
   <!-- CTA -->
   <section class="cta">
-    <a href="#" class="app-store-button">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-      <span>Bring Otto Home May 1</span>
+    <a href="https://apps.apple.com/app/id6748263839" class="app-store-button" aria-label="Bring Otto home May 7 — download on the App Store">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.543 12.826c-.03-3.02 2.473-4.485 2.588-4.555-1.41-2.063-3.606-2.346-4.387-2.38-1.869-.189-3.643 1.099-4.59 1.099-.949 0-2.407-1.072-3.957-1.042-2.036.03-3.917 1.183-4.966 3.003-2.12 3.673-.541 9.11 1.518 12.095 1.007 1.459 2.207 3.097 3.78 3.04 1.519-.061 2.093-.984 3.929-.984 1.835 0 2.352.984 3.955.95 1.633-.03 2.668-1.486 3.665-2.95 1.156-1.694 1.632-3.33 1.661-3.414-.036-.015-3.188-1.223-3.219-4.862zM14.49 4.086c.835-1.01 1.395-2.417 1.242-3.811-1.202.048-2.653.798-3.512 1.806-.772.894-1.447 2.321-1.263 3.692 1.337.104 2.7-.678 3.534-1.687z"/></svg>
+      <span>Bring Otto Home May 7</span>
     </a>
   </section>
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
