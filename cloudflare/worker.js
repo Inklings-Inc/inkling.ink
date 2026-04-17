@@ -61,11 +61,11 @@ const AASA_HEADERS = {
 };
 
 // ---------------------------------------------------------------------------
-// GitHub Pages origin. The Worker proxies all non-AASA traffic here.
-// Pages routes by Host header matching a repo's custom domain, so we preserve
-// the incoming hostname when forwarding.
+// GitHub Pages origin. The Worker proxies all non-AASA traffic here via
+// cf.resolveOverride — the Host header stays inkling.ink so Pages routes
+// to the correct repo by its CNAME, but DNS resolves to Pages' IPs.
 // ---------------------------------------------------------------------------
-const ORIGIN = "https://inklings-inc.github.io";
+const ORIGIN_HOST = "inklings-inc.github.io";
 
 // Hosts we're authoritative for. Anything else hitting this worker is odd
 // and gets proxied as-is (safe default).
@@ -85,14 +85,20 @@ export default {
       return new Response(AASA_BODY, { status: 200, headers: AASA_HEADERS });
     }
 
-    // Everything else: proxy to GitHub Pages. We forward with the original
-    // Host header intact so Pages serves from the repo matching that host.
-    // Pages itself handles routing www ↔ apex based on the repo's CNAME file.
-    const upstream = new URL(url.pathname + url.search, ORIGIN);
-    const proxied = new Request(upstream.toString(), request);
-    proxied.headers.set("host", url.hostname);
-
-    const response = await fetch(proxied, { redirect: "manual" });
+    // Everything else: proxy to GitHub Pages. Pages routes by Host header,
+    // so we keep the original inkling.ink / www.inkling.ink in the URL and
+    // use cf.resolveOverride to tell Cloudflare's DNS to hit Pages' IPs.
+    // NOTE: setting the Host header manually on a Worker fetch() is silently
+    // ignored by the Cloudflare runtime — resolveOverride is the only way
+    // to proxy under a different hostname while Pages still sees the real
+    // Host. Without this, Pages returns its generic "Site not found" page.
+    const response = await fetch(request.url, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body,
+      redirect: "manual",
+      cf: { resolveOverride: ORIGIN_HOST }
+    });
 
     // Strip hop-by-hop headers Cloudflare sometimes refuses to re-emit.
     const headers = new Headers(response.headers);
