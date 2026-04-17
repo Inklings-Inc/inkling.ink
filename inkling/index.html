@@ -24,7 +24,16 @@
   <meta name="twitter:description" content="A voice-first AI agent that keeps things simple. Bring Otto home May 7.">
   <meta name="twitter:image" content="https://inkling.ink/inkling/og.png">
   <link rel="canonical" href="https://inkling.ink/inkling/">
-  <meta name="apple-itunes-app" content="app-id=6748263839, app-clip-bundle-id=ink.lings.Inkling.Clip">
+  <!-- Smart App Banner: disabled until Inkling's real App Store ID lands.
+       Halo's id (6748263839) would point users to the wrong app and
+       break App Clip invocation (iOS requires app-id to own the clip
+       bundle). Re-enable with: app-id=<REAL>, app-clip-bundle-id=ink.lings.Inkling.Clip
+  <meta name="apple-itunes-app" content="app-id=TBD, app-clip-bundle-id=ink.lings.Inkling.Clip">
+  -->
+  <!-- TODO(launch): swap Halo's 6748263839 for Inkling's real App Store ID in:
+       - hero-icon <a href>
+       - .app-store-button <a href>
+       - og:image / JSON-LD if referencing the listing -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
