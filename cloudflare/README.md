@@ -18,11 +18,12 @@ Every other path is proxied to GitHub Pages unchanged.
 www.inkling.ink → marketing site (GitHub Pages)
 inkling.ink     → app domain
    /.well-known/apple-app-site-association   served by this worker
-   /<anything>                                universal link / App Clip
+   /ink/<anything>                            Ink universal links
+   /<anything>                                Otto / legacy Inkling universal links
    /                                          non-iOS fallback landing
 ```
 
-Shareable deep links take the shape `inkling.ink/<id>` — no path prefix.
+Ink shareable deep links take the shape `inkling.ink/ink/<route>`.
 
 ## Files
 
@@ -57,11 +58,12 @@ DKIM CNAME) must stay **DNS only** (grey cloud).
 Open `worker.js`, replace every `TEAMID` with the 10-character ID from
 developer.apple.com → Membership → Team ID.
 
-### 4. App Store Connect (Inkling app)
+### 4. App Store Connect (apps)
 
-- Associated Domains entitlement: `applinks:inkling.ink` and
+- Ink associated domains entitlement: `applinks:inkling.ink`.
+- Otto associated domains entitlement: `applinks:inkling.ink` and
   `appclips:inkling.ink`.
-- App Clip target: bundle ID `ink.lings.Inkling.Clip`.
+- App Clip target: bundle ID `ink.lings.Otto.Clip`.
 - App Clip default invocation URL: `https://inkling.ink/`.
 - Optional Advanced App Clip Experiences: add specific URL patterns under
   `https://inkling.ink/` if you want dedicated Clip cards for certain
@@ -73,7 +75,7 @@ Add to the marketing `<head>`:
 
 ```html
 <meta name="apple-itunes-app"
-      content="app-id=YOUR_APP_ID, app-clip-bundle-id=ink.lings.Inkling.Clip">
+      content="app-id=YOUR_APP_ID, app-clip-bundle-id=ink.lings.Otto.Clip">
 ```
 
 This is what makes the App Clip card appear at the top of Safari when iOS

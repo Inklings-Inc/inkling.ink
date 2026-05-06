@@ -32,10 +32,22 @@ const AASA = {
   applinks: {
     details: [
       {
-        // Full app — every path on the apex opens the app if installed.
-        appIDs: [`${TEAM_ID}.ink.lings.Inkling`],
+        // Ink app — coloring page routes live under /ink/.
+        appIDs: [`${TEAM_ID}.ink.lings.Ink`],
         components: [
-          { "/": "/*", comment: "All apex paths are universal links" }
+          { "/": "/ink/*", comment: "Ink coloring page routes" }
+        ]
+      },
+      {
+        // Otto is the current Inkling app bundle; keep the legacy Inkling
+        // bundle associated too so already-installed builds still resolve.
+        appIDs: [
+          `${TEAM_ID}.ink.lings.Otto`,
+          `${TEAM_ID}.ink.lings.Inkling`
+        ],
+        components: [
+          { "/": "/ink/*", exclude: true, comment: "Ink owns coloring page routes" },
+          { "/": "/*", comment: "All other apex paths are universal links" }
         ]
       }
     ]
@@ -43,10 +55,16 @@ const AASA = {
   appclips: {
     // Whitelist of bundle IDs allowed to be served as App Clips from this
     // domain. Must match the App Clip target's bundle ID exactly.
-    apps: [`${TEAM_ID}.ink.lings.Inkling.Clip`]
+    apps: [
+      `${TEAM_ID}.ink.lings.Otto.Clip`,
+      `${TEAM_ID}.ink.lings.Inkling.Clip`
+    ]
   },
   webcredentials: {
-    apps: [`${TEAM_ID}.ink.lings.Inkling`]
+    apps: [
+      `${TEAM_ID}.ink.lings.Otto`,
+      `${TEAM_ID}.ink.lings.Inkling`
+    ]
   }
 };
 

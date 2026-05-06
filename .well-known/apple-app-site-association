@@ -2,17 +2,33 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["MJ367HY999.ink.lings.Inkling"],
+        "appIDs": ["MJ367HY999.ink.lings.Ink"],
         "components": [
-          { "/": "/*", "comment": "All apex paths are universal links" }
+          { "/": "/ink/*", "comment": "Ink coloring page routes" }
+        ]
+      },
+      {
+        "appIDs": [
+          "MJ367HY999.ink.lings.Otto",
+          "MJ367HY999.ink.lings.Inkling"
+        ],
+        "components": [
+          { "/": "/ink/*", "exclude": true, "comment": "Ink owns coloring page routes" },
+          { "/": "/*", "comment": "All other apex paths are universal links" }
         ]
       }
     ]
   },
   "appclips": {
-    "apps": ["MJ367HY999.ink.lings.Inkling.Clip"]
+    "apps": [
+      "MJ367HY999.ink.lings.Otto.Clip",
+      "MJ367HY999.ink.lings.Inkling.Clip"
+    ]
   },
   "webcredentials": {
-    "apps": ["MJ367HY999.ink.lings.Inkling"]
+    "apps": [
+      "MJ367HY999.ink.lings.Otto",
+      "MJ367HY999.ink.lings.Inkling"
+    ]
   }
 }
