@@ -177,17 +177,6 @@
       pointer-events: none;
     }
 
-    .hero-icon {
-      position: absolute;
-      width: clamp(170px, 24vw, 320px);
-      height: clamp(170px, 24vw, 320px);
-      right: clamp(1.5rem, 8vw, 8rem);
-      top: clamp(6.5rem, 18vw, 12rem);
-      border-radius: 28%;
-      box-shadow: 0 28px 80px rgba(17, 17, 19, 0.2);
-      transform: rotate(4deg);
-    }
-
     .paper-page {
       position: absolute;
       width: clamp(220px, 35vw, 460px);
@@ -308,7 +297,7 @@
       margin: 0 auto;
       padding: 0.9rem 1.25rem;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1px;
       background: rgba(17, 17, 19, 0.08);
       border-left: 1px solid rgba(17, 17, 19, 0.08);
@@ -393,10 +382,6 @@
 
     .step:nth-child(2) .step-mark {
       background: var(--pink);
-    }
-
-    .step:nth-child(3) .step-mark {
-      background: var(--green);
     }
 
     .step h3 {
@@ -519,7 +504,15 @@
         background: #111114;
       }
 
+      .button {
+        background: #f6f6f8;
+        color: #09090b;
+        border-color: rgba(246, 246, 248, 0.2);
+      }
+
       .button.secondary {
+        background: rgba(246, 246, 248, 0.08);
+        color: #f6f6f8;
         border-color: rgba(246, 246, 248, 0.2);
       }
 
@@ -551,13 +544,6 @@
 
       .hero-copy {
         max-width: 560px;
-      }
-
-      .hero-icon {
-        right: -2.5rem;
-        top: auto;
-        bottom: 4rem;
-        opacity: 0.2;
       }
 
       .paper-page {
@@ -628,7 +614,6 @@
     <section class="hero">
       <div class="hero-scene" aria-hidden="true">
         <div class="paper-page"></div>
-        <img class="hero-icon" src="/ink/icon.svg" alt="">
       </div>
       <div class="hero-inner">
         <div class="hero-copy">
@@ -636,9 +621,9 @@
           <h1>Ink</h1>
           <p class="hero-subtitle">Turn an idea into a coloring page, then make it yours.</p>
           <p class="hero-text">
-            Ink is a family coloring app for iPhone and iPad. Draw a starting shape
-            or type a prompt, tap the wand, and color the line art with simple tools
-            made for small hands and quiet moments.
+            Ink is a family coloring book maker for iPhone and iPad. Type an idea
+            or sketch a starting shape, tap the wand, and get private line art
+            generated locally on supported devices.
           </p>
           <div class="actions" aria-label="Ink links">
             <a class="button" href="/ink/privacy/">Privacy Policy</a>
@@ -659,35 +644,30 @@
         <span>Built for family use, not attention capture.</span>
       </div>
       <div class="status-item">
-        <strong>No Inklings servers</strong>
-        <span>Your pages stay with your device and Apple system services.</span>
+        <strong>Local AI</strong>
+        <span>Prompts and pages are generated and stored on your device.</span>
       </div>
     </div>
 
     <section class="section">
       <div class="section-inner">
         <div class="section-heading">
-          <h2>Three taps from blank page to coloring page.</h2>
+          <h2>Two actions from idea to coloring page.</h2>
           <p>
-            Ink is meant to feel immediate. It keeps the surface small: make a page,
-            pick a background, color, erase, and start again.
+            Ink is meant to feel immediate. Give it an idea, tap the wand,
+            and get a safe coloring page made for your family.
           </p>
         </div>
         <div class="steps">
           <article class="step">
             <div class="step-mark" aria-hidden="true">1</div>
-            <h3>Start with a spark</h3>
-            <p>Sketch a shape or type an idea like a rocket, a castle, or a sleepy robot.</p>
+            <h3>Give Ink an idea</h3>
+            <p>Type a prompt or sketch a starting shape like a rocket, a castle, or a sleepy robot.</p>
           </article>
           <article class="step">
             <div class="step-mark" aria-hidden="true">2</div>
             <h3>Tap the wand</h3>
-            <p>On supported devices, Apple image creation helps Ink make fresh line art.</p>
-          </article>
-          <article class="step">
-            <div class="step-mark" aria-hidden="true">3</div>
-            <h3>Color your page</h3>
-            <p>Use simple drawing tools and paper colors to finish the page your way.</p>
+            <p>Ink turns the idea into fresh line art locally on supported devices.</p>
           </article>
         </div>
       </div>
@@ -699,8 +679,8 @@
           <h2>Private by design.</h2>
           <p>
             Ink does not have accounts, ads, tracking SDKs, analytics SDKs, or
-            Inklings-operated cloud storage. The app uses Apple first-party
-            frameworks for image creation on supported devices.
+            Inklings-operated cloud storage. Image generation is local on
+            supported devices.
           </p>
           <div class="actions">
             <a class="button secondary" href="/ink/privacy/">Read the full policy</a>
@@ -717,7 +697,7 @@
           </div>
           <div class="privacy-point">
             <strong>Local-first pages</strong>
-            <span>Coloring pages and settings are stored on your device and handled by Apple backups if enabled.</span>
+            <span>Coloring pages and settings are stored on your device.</span>
           </div>
         </div>
       </div>
