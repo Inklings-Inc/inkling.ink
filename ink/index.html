@@ -195,32 +195,79 @@
       transform: rotate(-7deg);
     }
 
-    .paper-page::before {
-      content: "";
+    .paper-art {
       position: absolute;
-      left: 12%;
-      right: 12%;
-      top: 16%;
-      bottom: 18%;
-      border: 8px solid var(--page-line);
-      border-top-color: transparent;
-      border-radius: 50% 50% 42% 42%;
-      opacity: 0.88;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
 
-    .paper-page::after {
-      content: "";
-      position: absolute;
-      width: 34%;
-      height: 22%;
-      left: 33%;
-      top: 30%;
-      border: 7px solid var(--page-line);
-      border-bottom-color: transparent;
-      border-left-color: transparent;
-      border-radius: 50%;
-      opacity: 0.88;
-      transform: rotate(-18deg);
+    .paper-art .art-sketch,
+    .paper-art .art-clean,
+    .paper-art .art-crayon {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      opacity: 0;
+    }
+
+    .paper-art .art-sketch {
+      animation: art-sketch 11s ease-in-out infinite;
+    }
+
+    .paper-art .art-clean {
+      animation: art-clean 11s ease-in-out infinite;
+    }
+
+    .paper-art .art-crayon {
+      opacity: 0.85;
+      animation: art-crayon 11s ease-in-out infinite;
+    }
+
+    .paper-art .art-spark {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: art-spark 11s ease-in-out infinite;
+    }
+
+    /* 1) kid scribbles a wobbly heart in pencil */
+    @keyframes art-sketch {
+      0% { stroke-dashoffset: 100; opacity: 1; }
+      20% { stroke-dashoffset: 0; opacity: 1; }
+      32% { stroke-dashoffset: 0; opacity: 1; }
+      40% { stroke-dashoffset: 0; opacity: 0; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+
+    /* 2) it snaps into a clean heart line drawing */
+    @keyframes art-clean {
+      0% { stroke-dashoffset: 100; opacity: 0; }
+      34% { stroke-dashoffset: 100; opacity: 0; }
+      37% { stroke-dashoffset: 100; opacity: 1; }
+      48% { stroke-dashoffset: 0; opacity: 1; }
+      92% { stroke-dashoffset: 0; opacity: 1; }
+      98% { stroke-dashoffset: 0; opacity: 0; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+
+    /* 3) sloppy red crayon scribbles it in */
+    @keyframes art-crayon {
+      0% { stroke-dashoffset: 100; opacity: 0; }
+      52% { stroke-dashoffset: 100; opacity: 0; }
+      55% { stroke-dashoffset: 100; opacity: 0.85; }
+      82% { stroke-dashoffset: 0; opacity: 0.85; }
+      92% { stroke-dashoffset: 0; opacity: 0.85; }
+      98% { stroke-dashoffset: 0; opacity: 0; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+
+    /* the wand sparkle at the moment it turns clean */
+    @keyframes art-spark {
+      0% { opacity: 0; transform: scale(0.3); }
+      32% { opacity: 0; transform: scale(0.3); }
+      37% { opacity: 1; transform: scale(1); }
+      45% { opacity: 0; transform: scale(1.4); }
+      100% { opacity: 0; transform: scale(1.4); }
     }
 
     .hero-inner {
@@ -507,6 +554,25 @@
       color: var(--ink);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .paper-art .art-sketch,
+      .paper-art .art-spark {
+        display: none;
+      }
+
+      .paper-art .art-clean {
+        animation: none;
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+
+      .paper-art .art-crayon {
+        animation: none;
+        stroke-dashoffset: 0;
+        opacity: 0.85;
+      }
+    }
+
     @media (prefers-color-scheme: dark) {
       :root {
         --ink: #f6f6f8;
@@ -653,7 +719,47 @@
   <main>
     <section class="hero">
       <div class="hero-scene" aria-hidden="true">
-        <div class="paper-page"></div>
+        <div class="paper-page">
+          <svg class="paper-art" viewBox="0 0 100 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="art-sketch-rough" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.02 0.03" numOctaves="2" seed="3" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+              <filter id="art-crayon-rough" x="-25%" y="-25%" width="150%" height="150%">
+                <feTurbulence type="turbulence" baseFrequency="0.04 0.06" numOctaves="2" seed="8" result="n2"/>
+                <feDisplacementMap in="SourceGraphic" in2="n2" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+              <clipPath id="art-heart-clip">
+                <path d="M50 40 C50 33 43 26 34 26 C22 26 18 37 18 45 C18 57 32 68 50 80 C68 68 82 57 82 45 C82 37 78 26 66 26 C57 26 50 33 50 40 Z"/>
+              </clipPath>
+            </defs>
+
+            <!-- 3) sloppy red crayon fill, clipped to the heart -->
+            <g clip-path="url(#art-heart-clip)">
+              <path class="art-crayon" pathLength="100"
+                d="M14 32 L86 41 L14 49 L86 57 L14 65 L86 73 L48 82 L22 71"
+                stroke="#e8423a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"
+                filter="url(#art-crayon-rough)"/>
+            </g>
+
+            <!-- 1) kid's wobbly pencil heart -->
+            <path class="art-sketch" pathLength="100"
+              d="M49 41 C49 32 41 24 32 25 C19 26 16 38 19 46 C22 58 34 67 50 81 C67 69 81 56 82 45 C83 37 77 25 66 27 C56 28 51 34 49 41"
+              stroke="var(--page-line)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+              filter="url(#art-sketch-rough)"/>
+
+            <!-- 2) clean heart line drawing -->
+            <path class="art-clean" pathLength="100"
+              d="M50 40 C50 33 43 26 34 26 C22 26 18 37 18 45 C18 57 32 68 50 80 C68 68 82 57 82 45 C82 37 78 26 66 26 C57 26 50 33 50 40 Z"
+              stroke="var(--page-line)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- the "tap the wand" sparkle at the moment it turns clean -->
+            <path class="art-spark"
+              d="M71 20 l1.5 4.6 4.6 1.5 -4.6 1.5 -1.5 4.6 -1.5 -4.6 -4.6 -1.5 4.6 -1.5 z"
+              fill="#8e49f5"/>
+          </svg>
+        </div>
       </div>
       <div class="hero-inner">
         <div class="hero-copy">
