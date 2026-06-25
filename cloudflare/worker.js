@@ -32,10 +32,13 @@ const AASA = {
   applinks: {
     details: [
       {
-        // Ink app — coloring page routes live under /ink/.
+        // Ink app — app routes live under /ink/, while /ink/ itself is
+        // a normal marketing page.
         appIDs: [`${TEAM_ID}.ink.lings.Ink`],
         components: [
-          { "/": "/ink/*", comment: "Ink coloring page routes" }
+          { "/": "/ink/create", comment: "Ink create route" },
+          { "/": "/ink/gallery", comment: "Ink gallery route" },
+          { "/": "/ink/page/*", comment: "Ink shared coloring page routes" }
         ]
       },
       {
@@ -46,7 +49,7 @@ const AASA = {
           `${TEAM_ID}.ink.lings.Inkling`
         ],
         components: [
-          { "/": "/ink/*", exclude: true, comment: "Ink owns coloring page routes" },
+          { "/": "/ink/*", exclude: true, comment: "Ink web and app routes are not Otto links" },
           { "/": "/*", comment: "All other apex paths are universal links" }
         ]
       }

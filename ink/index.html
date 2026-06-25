@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ink | Magical Coloring Books</title>
+  <meta name="description" content="Ink makes magical coloring pages for families. Draw or type an idea, tap the wand, and color a new page on iPhone or iPad.">
+  <meta name="theme-color" content="#fffdf8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Ink | Magical Coloring Books">
+  <meta property="og:description" content="Draw or type an idea, tap the wand, and color a new page on iPhone or iPad.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://inkling.ink/ink/">
+  <meta property="og:site_name" content="Inklings">
+  <meta property="og:image" content="https://inkling.ink/ink/icon.svg">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Ink app icon">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ink | Magical Coloring Books">
+  <meta name="twitter:description" content="Draw or type an idea, tap the wand, and color a new page on iPhone or iPad.">
+  <meta name="twitter:image" content="https://inkling.ink/ink/icon.svg">
+  <link rel="canonical" href="https://inkling.ink/ink/">
+  <link rel="icon" href="/ink/icon.svg" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ink",
+    "alternateName": "Ink: Magical Coloring Books",
+    "description": "Ink makes magical coloring pages for families on iPhone and iPad.",
+    "url": "https://inkling.ink/ink/",
+    "image": "https://inkling.ink/ink/icon.svg",
+    "applicationCategory": "PhotographyApplication",
+    "operatingSystem": "iOS 26",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Inklings, LLC",
+      "url": "https://inkling.ink/"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --ink: #111113;
+      --muted: #62626a;
+      --paper: #fffdf8;
+      --paper-2: #f7f7fb;
+      --line: #d9d9e2;
+      --blue: #1677ff;
+      --pink: #ff5b86;
+      --green: #2fbf71;
+      --yellow: #f4b400;
+      --max: 1080px;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      font: -apple-system-body;
+      font-family: var(--font);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--font);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "kern" 1, "liga" 1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: rgba(255, 253, 248, 0.84);
+      border-bottom: 1px solid rgba(17, 17, 19, 0.08);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    }
+
+    .nav-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0.875rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-weight: 800;
+    }
+
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      color: var(--muted);
+      font-size: 0.9375rem;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 84svh;
+      overflow: hidden;
+      display: grid;
+      align-items: center;
+      padding: 7rem 1.25rem 4rem;
+      border-bottom: 1px solid rgba(17, 17, 19, 0.08);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(17, 17, 19, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 17, 19, 0.055) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black 0%, black 62%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-scene {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-icon {
+      position: absolute;
+      width: clamp(170px, 24vw, 320px);
+      height: clamp(170px, 24vw, 320px);
+      right: clamp(1.5rem, 8vw, 8rem);
+      top: clamp(6.5rem, 18vw, 12rem);
+      border-radius: 28%;
+      box-shadow: 0 28px 80px rgba(17, 17, 19, 0.2);
+      transform: rotate(4deg);
+    }
+
+    .paper-page {
+      position: absolute;
+      width: clamp(220px, 35vw, 460px);
+      aspect-ratio: 4 / 5;
+      right: clamp(-2rem, 3vw, 6rem);
+      bottom: clamp(-8rem, -4vw, -2rem);
+      background: #ffffff;
+      border: 1px solid rgba(17, 17, 19, 0.12);
+      box-shadow: 0 24px 60px rgba(17, 17, 19, 0.12);
+      transform: rotate(-7deg);
+    }
+
+    .paper-page::before {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 16%;
+      bottom: 18%;
+      border: 8px solid var(--ink);
+      border-top-color: transparent;
+      border-radius: 50% 50% 42% 42%;
+      opacity: 0.88;
+    }
+
+    .paper-page::after {
+      content: "";
+      position: absolute;
+      width: 34%;
+      height: 22%;
+      left: 33%;
+      top: 30%;
+      border: 7px solid var(--ink);
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-radius: 50%;
+      opacity: 0.88;
+      transform: rotate(-18deg);
+    }
+
+    .hero-inner {
+      position: relative;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.7fr);
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .hero-copy {
+      max-width: 660px;
+    }
+
+    .eyebrow {
+      color: var(--pink);
+      font-size: 0.8125rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(4.5rem, 16vw, 10rem);
+      line-height: 0.86;
+      letter-spacing: 0;
+      font-weight: 800;
+      margin-bottom: 1.35rem;
+    }
+
+    .hero-subtitle {
+      max-width: 620px;
+      color: #27272d;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.22;
+      font-weight: 700;
+      text-wrap: balance;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.1875rem);
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      border: 1px solid rgba(17, 17, 19, 0.14);
+      padding: 0.75rem 1rem;
+      font-size: 0.9375rem;
+      font-weight: 800;
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--ink);
+    }
+
+    .status-row {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0.9rem 1.25rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      background: rgba(17, 17, 19, 0.08);
+      border-left: 1px solid rgba(17, 17, 19, 0.08);
+      border-right: 1px solid rgba(17, 17, 19, 0.08);
+    }
+
+    .status-item {
+      background: var(--paper);
+      padding: 1rem;
+    }
+
+    .status-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .status-item span {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .section {
+      padding: 5.5rem 1.25rem;
+    }
+
+    .section.alt {
+      background: var(--paper-2);
+    }
+
+    .section-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 2.25rem;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.03;
+      letter-spacing: 0;
+      margin-bottom: 0.85rem;
+      text-wrap: balance;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.1875rem);
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .step {
+      min-height: 190px;
+      border: 1px solid rgba(17, 17, 19, 0.12);
+      border-radius: 8px;
+      padding: 1.25rem;
+      background: #ffffff;
+    }
+
+    .step-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #ffffff;
+      background: var(--blue);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+
+    .step:nth-child(2) .step-mark {
+      background: var(--pink);
+    }
+
+    .step:nth-child(3) .step-mark {
+      background: var(--green);
+    }
+
+    .step h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .step p {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .privacy-band {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.6fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .privacy-points {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .privacy-point {
+      border-left: 5px solid var(--yellow);
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 8px 28px rgba(17, 17, 19, 0.06);
+    }
+
+    .privacy-point:nth-child(2) {
+      border-left-color: var(--blue);
+    }
+
+    .privacy-point:nth-child(3) {
+      border-left-color: var(--green);
+    }
+
+    .privacy-point strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .privacy-point span {
+      color: var(--muted);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(17, 17, 19, 0.1);
+      padding: 2rem 1.25rem;
+      background: #ffffff;
+    }
+
+    .footer-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.9375rem;
+    }
+
+    .footer-brand {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--ink);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #f6f6f8;
+        --muted: #b2b2bb;
+        --paper: #09090b;
+        --paper-2: #141418;
+        --line: #33333a;
+      }
+
+      .nav {
+        background: rgba(9, 9, 11, 0.84);
+        border-bottom-color: rgba(246, 246, 248, 0.12);
+      }
+
+      .hero {
+        border-bottom-color: rgba(246, 246, 248, 0.12);
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(rgba(246, 246, 248, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(246, 246, 248, 0.06) 1px, transparent 1px);
+      }
+
+      .hero-text,
+      .hero-subtitle {
+        color: #f1f1f4;
+      }
+
+      .button.secondary,
+      .status-item,
+      .step,
+      .privacy-point,
+      .footer {
+        background: #111114;
+      }
+
+      .button.secondary {
+        border-color: rgba(246, 246, 248, 0.2);
+      }
+
+      .paper-page {
+        background: #fbfbff;
+      }
+
+      .status-row {
+        background: rgba(246, 246, 248, 0.12);
+        border-color: rgba(246, 246, 248, 0.12);
+      }
+
+      .step,
+      .footer {
+        border-color: rgba(246, 246, 248, 0.12);
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        min-height: 82svh;
+        padding-top: 6rem;
+      }
+
+      .hero-inner,
+      .privacy-band {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        max-width: 560px;
+      }
+
+      .hero-icon {
+        right: -2.5rem;
+        top: auto;
+        bottom: 4rem;
+        opacity: 0.2;
+      }
+
+      .paper-page {
+        right: -6rem;
+        bottom: -6rem;
+        opacity: 0.65;
+      }
+
+      .status-row,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav-inner {
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        gap: 0.85rem;
+        font-size: 0.875rem;
+      }
+
+      .hero {
+        min-height: 80svh;
+        padding-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: clamp(4rem, 28vw, 7.5rem);
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .section {
+        padding: 4rem 1rem;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="nav-logo" href="/ink/" aria-label="Ink home">
+        <img src="/ink/icon.svg" alt="">
+        <span>Ink</span>
+      </a>
+      <div class="nav-links">
+        <a href="/ink/privacy/">Privacy</a>
+        <a href="mailto:ottoreply@inkling.ink">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-scene" aria-hidden="true">
+        <div class="paper-page"></div>
+        <img class="hero-icon" src="/ink/icon.svg" alt="">
+      </div>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Magical coloring books</p>
+          <h1>Ink</h1>
+          <p class="hero-subtitle">Turn an idea into a coloring page, then make it yours.</p>
+          <p class="hero-text">
+            Ink is a family coloring app for iPhone and iPad. Draw a starting shape
+            or type a prompt, tap the wand, and color the line art with simple tools
+            made for small hands and quiet moments.
+          </p>
+          <div class="actions" aria-label="Ink links">
+            <a class="button" href="/ink/privacy/">Privacy Policy</a>
+            <a class="button secondary" href="mailto:ottoreply@inkling.ink">Contact Support</a>
+          </div>
+        </div>
+        <div aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <div class="status-row" aria-label="Ink app highlights">
+      <div class="status-item">
+        <strong>No accounts</strong>
+        <span>Open the app and start coloring.</span>
+      </div>
+      <div class="status-item">
+        <strong>No ads</strong>
+        <span>Built for family use, not attention capture.</span>
+      </div>
+      <div class="status-item">
+        <strong>No Inklings servers</strong>
+        <span>Your pages stay with your device and Apple system services.</span>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>Three taps from blank page to coloring page.</h2>
+          <p>
+            Ink is meant to feel immediate. It keeps the surface small: make a page,
+            pick a background, color, erase, and start again.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-mark" aria-hidden="true">1</div>
+            <h3>Start with a spark</h3>
+            <p>Sketch a shape or type an idea like a rocket, a castle, or a sleepy robot.</p>
+          </article>
+          <article class="step">
+            <div class="step-mark" aria-hidden="true">2</div>
+            <h3>Tap the wand</h3>
+            <p>On supported devices, Apple image creation helps Ink make fresh line art.</p>
+          </article>
+          <article class="step">
+            <div class="step-mark" aria-hidden="true">3</div>
+            <h3>Color your page</h3>
+            <p>Use simple drawing tools and paper colors to finish the page your way.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="section-inner privacy-band">
+        <div class="section-heading">
+          <h2>Private by design.</h2>
+          <p>
+            Ink does not have accounts, ads, tracking SDKs, analytics SDKs, or
+            Inklings-operated cloud storage. The app uses Apple first-party
+            frameworks for image creation on supported devices.
+          </p>
+          <div class="actions">
+            <a class="button secondary" href="/ink/privacy/">Read the full policy</a>
+          </div>
+        </div>
+        <div class="privacy-points" aria-label="Privacy summary">
+          <div class="privacy-point">
+            <strong>No sign-in</strong>
+            <span>Ink does not ask for a name, email address, or account.</span>
+          </div>
+          <div class="privacy-point">
+            <strong>No behavioral tracking</strong>
+            <span>No third-party analytics, ads, or tracking pixels are built into the app.</span>
+          </div>
+          <div class="privacy-point">
+            <strong>Local-first pages</strong>
+            <span>Coloring pages and settings are stored on your device and handled by Apple backups if enabled.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-brand">Ink by Inklings</p>
+      <div class="footer-links">
+        <a href="/">Inklings</a>
+        <a href="/ink/privacy/">Privacy</a>
+        <a href="mailto:ottoreply@inkling.ink">Contact</a>
+      </div>
+      <p>&copy; 2026 Inklings, LLC. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

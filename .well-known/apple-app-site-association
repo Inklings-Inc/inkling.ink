@@ -4,7 +4,9 @@
       {
         "appIDs": ["MJ367HY999.ink.lings.Ink"],
         "components": [
-          { "/": "/ink/*", "comment": "Ink coloring page routes" }
+          { "/": "/ink/create", "comment": "Ink create route" },
+          { "/": "/ink/gallery", "comment": "Ink gallery route" },
+          { "/": "/ink/page/*", "comment": "Ink shared coloring page routes" }
         ]
       },
       {
@@ -13,7 +15,7 @@
           "MJ367HY999.ink.lings.Inkling"
         ],
         "components": [
-          { "/": "/ink/*", "exclude": true, "comment": "Ink owns coloring page routes" },
+          { "/": "/ink/*", "exclude": true, "comment": "Ink web and app routes are not Otto links" },
           { "/": "/*", "comment": "All other apex paths are universal links" }
         ]
       }

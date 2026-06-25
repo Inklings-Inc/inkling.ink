@@ -18,12 +18,13 @@ Every other path is proxied to GitHub Pages unchanged.
 www.inkling.ink → marketing site (GitHub Pages)
 inkling.ink     → app domain
    /.well-known/apple-app-site-association   served by this worker
-   /ink/<anything>                            Ink universal links
+   /ink/create, /ink/gallery, /ink/page/*     Ink universal links
+   /ink/, /ink/privacy/                       Ink web pages
    /<anything>                                Otto / legacy Inkling universal links
    /                                          non-iOS fallback landing
 ```
 
-Ink shareable deep links take the shape `inkling.ink/ink/<route>`.
+Ink shareable deep links take the shape `inkling.ink/ink/page/<id>`.
 
 ## Files
 
