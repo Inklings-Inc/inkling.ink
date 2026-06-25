@@ -192,6 +192,23 @@
       color: var(--color-text);
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-text);
+    }
+
     /* ===== Hero ===== */
 
     .hero {
@@ -1504,6 +1521,9 @@
   <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="Inklings home">Inklings</a>
+      <div class="nav-links">
+        <a href="/ink/">Ink</a>
+      </div>
     </div>
   </nav>
 
@@ -1983,6 +2003,7 @@
       <a href="/" class="footer-logo">Inklings</a>
       <div class="footer-links">
         <a href="mailto:ottoreply@inkling.ink" class="footer-link">Contact</a>
+        <a href="/ink/" class="footer-link">Ink</a>
         <a href="/privacy/" class="footer-link">Privacy</a>
         <a href="/accessibility/" class="footer-link">Accessibility</a>
         <a href="/science/" class="footer-link">The Science</a>
