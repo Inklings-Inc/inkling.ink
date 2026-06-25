@@ -12,17 +12,24 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://inkling.ink/ink/">
   <meta property="og:site_name" content="Inklings">
-  <meta property="og:image" content="https://inkling.ink/ink/icon.svg">
-  <meta property="og:image:type" content="image/svg+xml">
-  <meta property="og:image:width" content="1024">
-  <meta property="og:image:height" content="1024">
-  <meta property="og:image:alt" content="Ink app icon">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://inkling.ink/ink/og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ink: magical coloring books">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ink | Magical Coloring Books">
   <meta name="twitter:description" content="Draw or type an idea, tap the wand, and color a new page on iPhone or iPad.">
-  <meta name="twitter:image" content="https://inkling.ink/ink/icon.svg">
+  <meta name="twitter:image" content="https://inkling.ink/ink/og.png">
   <link rel="canonical" href="https://inkling.ink/ink/">
+  <!-- Smart App Banner: enable when Ink's real App Store ID lands. A placeholder
+       or another app's id would send users to the wrong app and break App Clip
+       invocation (iOS requires app-id to own the clip bundle). Re-enable with the
+       real numeric id, and swap the #get-ink CTA href for the live App Store URL.
+  <meta name="apple-itunes-app" content="app-id=TBD, app-clip-bundle-id=ink.lings.Ink.Clip">
+  -->
   <link rel="icon" href="/ink/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/ink/apple-touch-icon.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -31,8 +38,9 @@
     "alternateName": "Ink: Magical Coloring Books",
     "description": "Ink makes magical coloring pages for families on iPhone and iPad.",
     "url": "https://inkling.ink/ink/",
-    "image": "https://inkling.ink/ink/icon.svg",
-    "applicationCategory": "PhotographyApplication",
+    "image": "https://inkling.ink/ink/og.png",
+    "applicationCategory": "EntertainmentApplication",
+    "applicationSubCategory": "Coloring book",
     "operatingSystem": "iOS 26",
     "publisher": {
       "@type": "Organization",
@@ -56,12 +64,14 @@
     :root {
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       --ink: #111113;
+      --page-line: #111113;
       --muted: #62626a;
       --paper: #fffdf8;
       --paper-2: #f7f7fb;
       --line: #d9d9e2;
       --blue: #1677ff;
       --pink: #ff5b86;
+      --pink-text: #d23a64;
       --green: #2fbf71;
       --yellow: #f4b400;
       --max: 1080px;
@@ -196,7 +206,7 @@
       right: 12%;
       top: 16%;
       bottom: 18%;
-      border: 8px solid var(--ink);
+      border: 8px solid var(--page-line);
       border-top-color: transparent;
       border-radius: 50% 50% 42% 42%;
       opacity: 0.88;
@@ -209,7 +219,7 @@
       height: 22%;
       left: 33%;
       top: 30%;
-      border: 7px solid var(--ink);
+      border: 7px solid var(--page-line);
       border-bottom-color: transparent;
       border-left-color: transparent;
       border-radius: 50%;
@@ -221,10 +231,6 @@
       position: relative;
       width: min(100%, var(--max));
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.7fr);
-      align-items: center;
-      gap: 2rem;
     }
 
     .hero-copy {
@@ -232,7 +238,7 @@
     }
 
     .eyebrow {
-      color: var(--pink);
+      color: var(--pink-text);
       font-size: 0.8125rem;
       font-weight: 800;
       letter-spacing: 0.12em;
@@ -288,7 +294,7 @@
     }
 
     .button.secondary {
-      background: rgba(255, 255, 255, 0.68);
+      background: var(--paper);
       color: var(--ink);
     }
 
@@ -297,7 +303,7 @@
       margin: 0 auto;
       padding: 0.9rem 1.25rem;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1px;
       background: rgba(17, 17, 19, 0.08);
       border-left: 1px solid rgba(17, 17, 19, 0.08);
@@ -356,7 +362,7 @@
 
     .steps {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
     }
 
@@ -433,6 +439,37 @@
       line-height: 1.6;
     }
 
+    .cta {
+      text-align: center;
+      background:
+        radial-gradient(130% 130% at 50% -10%, rgba(142, 73, 245, 0.1), transparent 55%),
+        var(--paper);
+    }
+
+    .cta-inner {
+      max-width: 600px;
+    }
+
+    .cta-text {
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.1875rem);
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+
+    .cta .actions {
+      margin-top: 0;
+      justify-content: center;
+    }
+
+    .cta-note {
+      margin-top: 1.25rem;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
     .footer {
       border-top: 1px solid rgba(17, 17, 19, 0.1);
       padding: 2rem 1.25rem;
@@ -474,6 +511,7 @@
         --paper: #09090b;
         --paper-2: #141418;
         --line: #33333a;
+        --pink-text: #ff5b86;
       }
 
       .nav {
@@ -496,7 +534,6 @@
         color: #f1f1f4;
       }
 
-      .button.secondary,
       .status-item,
       .step,
       .privacy-point,
@@ -622,15 +659,14 @@
           <p class="hero-subtitle">Turn an idea into a coloring page, then make it yours.</p>
           <p class="hero-text">
             Ink is a family coloring book maker for iPhone and iPad. Type an idea
-            or sketch a starting shape, tap the wand, and get private line art
-            generated locally on supported devices.
+            or sketch a starting shape, tap the wand, and Apple Intelligence turns
+            it into a private coloring page, created right on your device.
           </p>
-          <div class="actions" aria-label="Ink links">
-            <a class="button" href="/ink/privacy/">Privacy Policy</a>
-            <a class="button secondary" href="mailto:ottoreply@inkling.ink">Contact Support</a>
+          <div class="actions" aria-label="Get Ink">
+            <a class="button" href="#get-ink">Coming to the App Store</a>
+            <a class="button secondary" href="/ink/privacy/">How your data stays yours</a>
           </div>
         </div>
-        <div aria-hidden="true"></div>
       </div>
     </section>
 
@@ -644,8 +680,8 @@
         <span>Built for family use, not attention capture.</span>
       </div>
       <div class="status-item">
-        <strong>Local AI</strong>
-        <span>Prompts and pages are generated and stored on your device.</span>
+        <strong>Apple Intelligence</strong>
+        <span>Coloring pages are created privately on your device, not on our servers.</span>
       </div>
     </div>
 
@@ -667,7 +703,7 @@
           <article class="step">
             <div class="step-mark" aria-hidden="true">2</div>
             <h3>Tap the wand</h3>
-            <p>Ink turns the idea into fresh line art locally on supported devices.</p>
+            <p>Apple Intelligence turns your idea into fresh line art, created right on your device.</p>
           </article>
         </div>
       </div>
@@ -679,8 +715,8 @@
           <h2>Private by design.</h2>
           <p>
             Ink does not have accounts, ads, tracking SDKs, analytics SDKs, or
-            Inklings-operated cloud storage. Image generation is local on
-            supported devices.
+            Inklings-operated cloud storage. Coloring pages are created on your
+            device with Apple Intelligence.
           </p>
           <div class="actions">
             <a class="button secondary" href="/ink/privacy/">Read the full policy</a>
@@ -696,10 +732,24 @@
             <span>No third-party analytics, ads, or tracking pixels are built into the app.</span>
           </div>
           <div class="privacy-point">
-            <strong>Local-first pages</strong>
-            <span>Coloring pages and settings are stored on your device.</span>
+            <strong>Your iCloud, not ours</strong>
+            <span>Pages stay on your device and sync through your own private iCloud. Inklings never sees them.</span>
           </div>
         </div>
+      </div>
+    </section>
+    <section class="section cta" id="get-ink">
+      <div class="section-inner cta-inner">
+        <p class="eyebrow">Coming soon</p>
+        <h2>Ink is almost here.</h2>
+        <p class="cta-text">
+          Magical coloring books for iPhone and iPad, on the way to the App Store.
+          Want a note the moment it lands?
+        </p>
+        <div class="actions" aria-label="Get Ink at launch">
+          <a class="button" href="mailto:ottoreply@inkling.ink?subject=Tell%20me%20when%20Ink%20launches">Email me at launch</a>
+        </div>
+        <p class="cta-note">No mailing list, no spam. Just one note when Ink ships.</p>
       </div>
     </section>
   </main>
