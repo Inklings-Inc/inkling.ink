@@ -202,7 +202,8 @@
       height: 100%;
     }
 
-    .paper-art .art-sketch,
+    .paper-art .art-sketch-left,
+    .paper-art .art-sketch-right,
     .paper-art .art-clean,
     .paper-art .art-crayon {
       stroke-dasharray: 100;
@@ -210,63 +211,72 @@
       opacity: 0;
     }
 
-    .paper-art .art-sketch {
-      animation: art-sketch 11s ease-in-out infinite;
+    .paper-art .art-sketch-left {
+      animation: art-sketch-left 7s ease-in-out forwards;
+    }
+
+    .paper-art .art-sketch-right {
+      animation: art-sketch-right 7s ease-in-out forwards;
     }
 
     .paper-art .art-clean {
-      animation: art-clean 11s ease-in-out infinite;
+      animation: art-clean 7s ease-in-out forwards;
     }
 
     .paper-art .art-crayon {
-      opacity: 0.85;
-      animation: art-crayon 11s ease-in-out infinite;
+      animation: art-crayon 7s ease-in-out forwards;
     }
 
     .paper-art .art-spark {
       opacity: 0;
       transform-box: fill-box;
       transform-origin: center;
-      animation: art-spark 11s ease-in-out infinite;
+      animation: art-spark 7s ease-in-out forwards;
     }
 
-    /* 1) kid scribbles a wobbly heart in pencil */
-    @keyframes art-sketch {
+    /* 1a) kid draws the left half: from the center, out left, down to the point */
+    @keyframes art-sketch-left {
       0% { stroke-dashoffset: 100; opacity: 1; }
-      20% { stroke-dashoffset: 0; opacity: 1; }
-      32% { stroke-dashoffset: 0; opacity: 1; }
-      40% { stroke-dashoffset: 0; opacity: 0; }
+      15% { stroke-dashoffset: 0; opacity: 1; }
+      38% { stroke-dashoffset: 0; opacity: 1; }
+      44% { stroke-dashoffset: 0; opacity: 0; }
       100% { stroke-dashoffset: 0; opacity: 0; }
     }
 
-    /* 2) it snaps into a clean heart line drawing */
+    /* 1b) then the right half: from the top-center, out right, down to the point */
+    @keyframes art-sketch-right {
+      0% { stroke-dashoffset: 100; opacity: 1; }
+      15% { stroke-dashoffset: 100; opacity: 1; }
+      30% { stroke-dashoffset: 0; opacity: 1; }
+      38% { stroke-dashoffset: 0; opacity: 1; }
+      44% { stroke-dashoffset: 0; opacity: 0; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+
+    /* 2) it snaps into a clean heart line drawing (and stays) */
     @keyframes art-clean {
       0% { stroke-dashoffset: 100; opacity: 0; }
-      34% { stroke-dashoffset: 100; opacity: 0; }
-      37% { stroke-dashoffset: 100; opacity: 1; }
-      48% { stroke-dashoffset: 0; opacity: 1; }
-      92% { stroke-dashoffset: 0; opacity: 1; }
-      98% { stroke-dashoffset: 0; opacity: 0; }
-      100% { stroke-dashoffset: 0; opacity: 0; }
+      40% { stroke-dashoffset: 100; opacity: 0; }
+      43% { stroke-dashoffset: 100; opacity: 1; }
+      58% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
     }
 
-    /* 3) sloppy red crayon scribbles it in */
+    /* 3) sloppy red crayon scribbles it in (and stays) */
     @keyframes art-crayon {
       0% { stroke-dashoffset: 100; opacity: 0; }
-      52% { stroke-dashoffset: 100; opacity: 0; }
-      55% { stroke-dashoffset: 100; opacity: 0.85; }
-      82% { stroke-dashoffset: 0; opacity: 0.85; }
+      64% { stroke-dashoffset: 100; opacity: 0; }
+      66% { stroke-dashoffset: 100; opacity: 0.85; }
       92% { stroke-dashoffset: 0; opacity: 0.85; }
-      98% { stroke-dashoffset: 0; opacity: 0; }
-      100% { stroke-dashoffset: 0; opacity: 0; }
+      100% { stroke-dashoffset: 0; opacity: 0.85; }
     }
 
     /* the wand sparkle at the moment it turns clean */
     @keyframes art-spark {
       0% { opacity: 0; transform: scale(0.3); }
-      32% { opacity: 0; transform: scale(0.3); }
-      37% { opacity: 1; transform: scale(1); }
-      45% { opacity: 0; transform: scale(1.4); }
+      38% { opacity: 0; transform: scale(0.3); }
+      43% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0; transform: scale(1.4); }
       100% { opacity: 0; transform: scale(1.4); }
     }
 
@@ -555,7 +565,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .paper-art .art-sketch,
+      .paper-art .art-sketch-left,
+      .paper-art .art-sketch-right,
       .paper-art .art-spark {
         display: none;
       }
@@ -743,10 +754,14 @@
                 filter="url(#art-crayon-rough)"/>
             </g>
 
-            <!-- 1) kid's wobbly pencil heart -->
-            <path class="art-sketch" pathLength="100"
-              d="M49 41 C49 32 41 24 32 25 C19 26 16 38 19 46 C22 58 34 67 50 81 C67 69 81 56 82 45 C83 37 77 25 66 27 C56 28 51 34 49 41"
-              stroke="var(--page-line)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+            <!-- 1) kid's heart: two lopsided strokes, each from the top-center -->
+            <path class="art-sketch-left" pathLength="100"
+              d="M51 46 C48 33 39 22 29 24 C16 26 15 42 19 52 C23 65 36 76 47 86"
+              stroke="var(--page-line)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"
+              filter="url(#art-sketch-rough)"/>
+            <path class="art-sketch-right" pathLength="100"
+              d="M51 46 C54 36 63 28 71 31 C81 34 82 46 77 54 C72 65 61 74 53 82"
+              stroke="var(--page-line)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"
               filter="url(#art-sketch-rough)"/>
 
             <!-- 2) clean heart line drawing -->
