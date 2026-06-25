@@ -22,12 +22,7 @@
   <meta name="twitter:description" content="Draw or type an idea, tap the wand, and color a new page on iPhone or iPad.">
   <meta name="twitter:image" content="https://inkling.ink/ink/og.png">
   <link rel="canonical" href="https://inkling.ink/ink/">
-  <!-- Smart App Banner: enable when Ink's real App Store ID lands. A placeholder
-       or another app's id would send users to the wrong app and break App Clip
-       invocation (iOS requires app-id to own the clip bundle). Re-enable with the
-       real numeric id, and swap the #get-ink CTA href for the live App Store URL.
-  <meta name="apple-itunes-app" content="app-id=TBD, app-clip-bundle-id=ink.lings.Ink.Clip">
-  -->
+  <meta name="apple-itunes-app" content="app-id=6784289141">
   <link rel="icon" href="/ink/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/ink/apple-touch-icon.png">
   <script type="application/ld+json">
@@ -42,6 +37,7 @@
     "applicationCategory": "EntertainmentApplication",
     "applicationSubCategory": "Coloring book",
     "operatingSystem": "iOS 26",
+    "downloadUrl": "https://apps.apple.com/app/id6784289141",
     "publisher": {
       "@type": "Organization",
       "name": "Inklings, LLC",
@@ -284,6 +280,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.5rem;
       border-radius: 8px;
       border: 1px solid rgba(17, 17, 19, 0.14);
       padding: 0.75rem 1rem;
@@ -291,6 +288,12 @@
       font-weight: 800;
       background: var(--ink);
       color: #ffffff;
+    }
+
+    .apple-logo {
+      width: 1.15em;
+      height: 1.15em;
+      fill: currentColor;
     }
 
     .button.secondary {
@@ -663,7 +666,10 @@
             it into a private coloring page, created right on your device.
           </p>
           <div class="actions" aria-label="Get Ink">
-            <a class="button" href="#get-ink">Coming to the App Store</a>
+            <a class="button" href="https://apps.apple.com/app/id6784289141" aria-label="Download Ink on the App Store">
+              <svg class="apple-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.543 12.826c-.03-3.02 2.473-4.485 2.588-4.555-1.41-2.063-3.606-2.346-4.387-2.38-1.869-.189-3.643 1.099-4.59 1.099-.949 0-2.407-1.072-3.957-1.042-2.036.03-3.917 1.183-4.966 3.003-2.12 3.673-.541 9.11 1.518 12.095 1.007 1.459 2.207 3.097 3.78 3.04 1.519-.061 2.093-.984 3.929-.984 1.835 0 2.352.984 3.955.95 1.633-.03 2.668-1.486 3.665-2.95 1.156-1.694 1.632-3.33 1.661-3.414-.036-.015-3.188-1.223-3.219-4.862zM14.49 4.086c.835-1.01 1.395-2.417 1.242-3.811-1.202.048-2.653.798-3.512 1.806-.772.894-1.447 2.321-1.263 3.692 1.337.104 2.7-.678 3.534-1.687z"/></svg>
+              <span>Download on the App Store</span>
+            </a>
             <a class="button secondary" href="/ink/privacy/">How your data stays yours</a>
           </div>
         </div>
@@ -740,16 +746,18 @@
     </section>
     <section class="section cta" id="get-ink">
       <div class="section-inner cta-inner">
-        <p class="eyebrow">Coming soon</p>
-        <h2>Ink is almost here.</h2>
+        <p class="eyebrow">Get Ink</p>
+        <h2>Start your first coloring page.</h2>
         <p class="cta-text">
-          Magical coloring books for iPhone and iPad, on the way to the App Store.
-          Want a note the moment it lands?
+          Magical coloring books for iPhone and iPad. No accounts, no ads.
+          Just open it and start coloring.
         </p>
-        <div class="actions" aria-label="Get Ink at launch">
-          <a class="button" href="mailto:ottoreply@inkling.ink?subject=Tell%20me%20when%20Ink%20launches">Email me at launch</a>
+        <div class="actions" aria-label="Download Ink">
+          <a class="button" href="https://apps.apple.com/app/id6784289141" aria-label="Download Ink on the App Store">
+            <svg class="apple-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.543 12.826c-.03-3.02 2.473-4.485 2.588-4.555-1.41-2.063-3.606-2.346-4.387-2.38-1.869-.189-3.643 1.099-4.59 1.099-.949 0-2.407-1.072-3.957-1.042-2.036.03-3.917 1.183-4.966 3.003-2.12 3.673-.541 9.11 1.518 12.095 1.007 1.459 2.207 3.097 3.78 3.04 1.519-.061 2.093-.984 3.929-.984 1.835 0 2.352.984 3.955.95 1.633-.03 2.668-1.486 3.665-2.95 1.156-1.694 1.632-3.33 1.661-3.414-.036-.015-3.188-1.223-3.219-4.862zM14.49 4.086c.835-1.01 1.395-2.417 1.242-3.811-1.202.048-2.653.798-3.512 1.806-.772.894-1.447 2.321-1.263 3.692 1.337.104 2.7-.678 3.534-1.687z"/></svg>
+            <span>Download on the App Store</span>
+          </a>
         </div>
-        <p class="cta-note">No mailing list, no spam. Just one note when Ink ships.</p>
       </div>
     </section>
   </main>
