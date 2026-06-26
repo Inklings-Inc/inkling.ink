@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inkling — Meet Otto</title>
+  <title>Inkling - Otto, a Private AI Helper for Families</title>
   <link rel="icon" type="image/png" sizes="512x512" href="/inkling/icon-512.png">
   <link rel="icon" type="image/png" sizes="180x180" href="/inkling/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/inkling/apple-touch-icon.png">
-  <meta name="description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home This Fall.">
+  <meta name="description" content="Inkling gives families Otto: a private voice-first helper for questions, weather, math, music, and drawing without ads, accounts, or the open web.">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-  <meta property="og:title" content="Inkling — Meet Otto">
-  <meta property="og:description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home This Fall.">
+  <meta property="og:title" content="Inkling - Otto, a Private AI Helper for Families">
+  <meta property="og:description" content="A private voice-first helper for questions, weather, math, music, and drawing without ads, accounts, or the open web.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://inkling.ink/inkling/">
   <meta property="og:site_name" content="Inklings">
@@ -21,8 +21,8 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Inkling. Meet Otto.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Inkling — Meet Otto">
-  <meta name="twitter:description" content="A voice-first AI agent that keeps things simple. Bring Otto home This Fall.">
+  <meta name="twitter:title" content="Inkling - Otto, a Private AI Helper for Families">
+  <meta name="twitter:description" content="A private voice-first helper for family questions, creative prompts, weather, math, music, and drawing.">
   <meta name="twitter:image" content="https://inkling.ink/inkling/og.png">
   <link rel="canonical" href="https://inkling.ink/inkling/">
   <!-- Smart App Banner: disabled until Inkling's real App Store ID lands.
@@ -40,7 +40,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Inkling",
-    "description": "Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family.",
+    "description": "Inkling gives families Otto: a private voice-first helper for questions, weather, math, music, and drawing.",
     "url": "https://inkling.ink/inkling/",
     "image": "https://inkling.ink/inkling/og.png",
     "applicationCategory": "LifestyleApplication",
@@ -932,7 +932,12 @@
 
     .mic-words {
       position: absolute;
+      top: 50%;
+      left: 50%;
+      display: inline-block;
+      transform: translate(-50%, -50%);
       white-space: nowrap;
+      text-align: center;
       font-size: 0.9375rem;
       max-width: calc(100% - 1.4rem);
       color: rgba(255, 255, 255, 0.96);
@@ -1654,8 +1659,8 @@
         <h1 class="hero-name" id="hero-name">Inkling</h1>
       </div>
       <p class="hero-tagline">
-        An accessible AI agent focused on keeping things simple.
-        Made for the whole family.
+        A private voice-first helper for curious kids, busy parents, and
+        anyone who needs a calmer way to ask.
       </p>
     </div>
   </section>
@@ -1665,7 +1670,7 @@
     <div class="section-inner">
       <h2 class="section-title">Meet <span class="ai-word">Otto</span></h2>
       <p class="section-subtitle">
-        Otto the Autodidact taught himself a little bit about everything, so he doesn't need to look anything up on the web.<button class="info-trigger" popovertarget="otto-sources" aria-label="How Otto knows what he knows"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13Zm0 1.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5ZM8 6.75a.75.75 0 0 1 .75.75v3.25a.75.75 0 0 1-1.5 0V7.5A.75.75 0 0 1 8 6.75Zm0-2.5a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/></svg></button>
+        Otto answers with short spoken help, simple cards, and kid-safe context without sending families into search results or social feeds.<button class="info-trigger" popovertarget="otto-sources" aria-label="How Otto knows what he knows"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13Zm0 1.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5ZM8 6.75a.75.75 0 0 1 .75.75v3.25a.75.75 0 0 1-1.5 0V7.5A.75.75 0 0 1 8 6.75Zm0-2.5a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/></svg></button>
       </p>
       <div id="otto-sources" popover class="info-popover">
         Otto runs on Apple Intelligence. Weather comes from Apple WeatherKit. Ottotune requires an Apple Music subscription. None of these open a browser or show uncurated web content.
@@ -1714,7 +1719,7 @@
         </div>
       </div>
       <p class="demo-caption">
-        Ask Otto anything. He replies in short spoken snippets and drops colorful cards you can tap to explore further. He's a bit of an artist, too. Eight arms makes him a natural multitasker.
+        Ask a question, get a spoken answer, then tap a card when you want more. Otto can explain, draw, calculate, check weather, and help keep family moments moving.
       </p>
 
       <button class="app-replay" aria-label="Replay animation" onclick="var d=document.getElementById('demo'),b=this;d.replaceWith(d.cloneNode(true));b.style.animation='none';b.style.opacity='';void b.offsetWidth;b.style.animation=''">
@@ -2043,34 +2048,34 @@
     <div class="section-inner">
       <h2 class="section-title">How Inkling Works</h2>
       <p class="section-subtitle">
-        Designed for anyone who wants an assistant that's simpler, calmer, and more accessible than most.
+        A calmer assistant for everyday questions, creative prompts, and family routines.
       </p>
 
       <div class="features-grid">
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">📡</span>
-          <h3>Works Offline</h3>
-          <p>Under 10 MB. Opens instantly from an App Clip, with no install prompt, no Side Button, no waiting. Everything's on the device and curated, not streamed from the open web.<sup>*</sup></p>
+          <h3>No open web rabbit holes</h3>
+          <p>Otto uses on-device intelligence and curated Apple services for focused answers. Kids can ask questions without being dropped into search results, ads, comments, or autoplay.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🎙️</span>
           <h3>Voice-First</h3>
-          <p>Talk to Otto like you'd talk to a person. No keyboard. No menus. Just speak.</p>
+          <p>Ask out loud. Otto answers in short spoken snippets and shows simple cards when there is more to explore.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🔒</span>
           <h3>Completely Private</h3>
-          <p>No servers. No accounts. No analytics. All processing happens on-device with Apple Intelligence. Your conversations never leave your hands.</p>
+          <p>No accounts, no analytics, no Inklings servers for your conversations. On-device work stays on the device.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🧒</span>
           <h3>Safe for Kids</h3>
-          <p>No ads. No in-app purchases. No social features. No links out. COPPA-compliant by architecture because there is no data to collect.</p>
+          <p>No ads, no social feed, no endless scroll, no outbound web links. Built for shared family use, not attention capture.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon" aria-hidden="true">🧑</span>
           <h3>Loved by Adults</h3>
-          <p>Feels like a toy. Works like a tool. Made to be fun for everyone.</p>
+          <p>Useful for quick questions, conversions, weather, music, and small creative moments that keep a family day moving.</p>
         </div>
       </div>
 
@@ -2134,7 +2139,7 @@
         <a href="/accessibility/" class="footer-link">Accessibility</a>
         <a href="/science/" class="footer-link">The Science</a>
       </div>
-      <p class="footer-copy">Made for kids. Loved by adults.</p>
+      <p class="footer-copy">Private family apps from Inklings.</p>
     </div>
   </footer>
 
