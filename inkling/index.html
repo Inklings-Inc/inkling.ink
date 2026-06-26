@@ -632,6 +632,7 @@
     /* ===== App Mockup ===== */
 
     .app-frame {
+      width: min(100%, 380px);
       max-width: 380px;
       margin: 0 auto;
       background: var(--color-bg-light);
@@ -765,10 +766,79 @@
       animation: bubble-in 0.5s var(--spring) 22.5s forwards;
     }
 
+    /* Sketch preview — keep Otto's dinosaur/volcano drawing visible in the demo */
+    .app-demo-drawing {
+      position: relative;
+      width: min(11rem, 72%);
+      aspect-ratio: 1 / 0.72;
+      max-height: 0;
+      margin: -0.25rem auto 0;
+      border-radius: 1.25rem;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.38)),
+        radial-gradient(circle at 50% 90%, rgba(52, 199, 89, 0.25), transparent 58%);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(0.45rem) scale(0.94);
+      pointer-events: none;
+      animation: demo-drawing-in 28s var(--spring) forwards;
+    }
+
+    .app-demo-drawing-scenic,
+    .app-demo-drawing-bg,
+    .app-demo-drawing-fg {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.16));
+    }
+
+    .app-demo-drawing-scenic {
+      top: 0.3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 4.6rem;
+      opacity: 0.7;
+    }
+
+    .app-demo-drawing-bg {
+      left: 0.7rem;
+      bottom: 0.3rem;
+      font-size: 3.4rem;
+    }
+
+    .app-demo-drawing-fg {
+      right: 0.55rem;
+      bottom: 0.15rem;
+      font-size: 4rem;
+    }
+
+    @keyframes demo-drawing-in {
+      0%, 57% {
+        opacity: 0;
+        max-height: 0;
+        margin-bottom: 0;
+        transform: translateY(0.45rem) scale(0.94);
+      }
+      60%, 100% {
+        opacity: 1;
+        max-height: 8rem;
+        margin-bottom: 0.25rem;
+        transform: translateY(0) scale(1);
+      }
+    }
+
     /* --- Mic morph --- */
     .app-mic {
       display: flex;
       justify-content: center;
+      width: 100%;
+      min-width: 0;
       opacity: 0;
       transform: translateY(0.5rem) scale(0.9);
       animation: card-enter 0.5s var(--spring) 0.42s forwards;
@@ -786,6 +856,7 @@
       color: rgba(255, 255, 255, 0.98);
       border-radius: 9999px;
       height: 2.5rem;
+      max-width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -819,8 +890,8 @@
       68%        { transform: scale(1.1); width: 4rem; }
       68.5%      { transform: scale(1); width: 5.5rem; }
       69%        { width: 5.5rem; }
-      75%        { width: 21rem; }
-      79%        { width: 21rem; }
+      75%        { width: min(22rem, 100%); }
+      79%        { width: min(22rem, 100%); }
       80%        { width: 4rem; }
       100%       { width: 4rem; }
     }
@@ -863,6 +934,7 @@
       position: absolute;
       white-space: nowrap;
       font-size: 0.9375rem;
+      max-width: calc(100% - 1.4rem);
       color: rgba(255, 255, 255, 0.96);
     }
 
@@ -894,6 +966,7 @@
 
     .mic-words3 {
       opacity: 0;
+      font-size: clamp(0.75rem, 2.7vw, 0.84rem);
       animation: mic-w3 28s ease forwards;
     }
 
@@ -1314,6 +1387,7 @@
     /* Wide layout: Otto left, cards right — only at genuinely wide viewports */
     @media (min-width: 1180px) {
       .app-frame {
+        width: min(100%, 720px);
         max-width: 720px;
         padding: 2rem 1.5rem 1.5rem;
         display: grid;
@@ -1600,6 +1674,11 @@
       <div id="demo" class="app-frame" aria-label="Inkling app interface preview">
         <div class="app-header">
           <span class="app-otto">🐙</span>
+          <div class="app-demo-drawing" aria-hidden="true">
+            <span class="app-demo-drawing-scenic">🌋</span>
+            <span class="app-demo-drawing-bg">🦕</span>
+            <span class="app-demo-drawing-fg">🦖</span>
+          </div>
           <div class="app-bubbles">
             <p class="app-bubble app-bubble-hi"><span class="w" style="--w:0;--t:2.0s">Hi!</span> <span class="w" style="--w:1;--t:2.0s">I'm</span> <span class="w" style="--w:2;--t:2.0s">Otto.</span> <span class="w" style="--w:3;--t:2.0s">Ask</span> <span class="w" style="--w:4;--t:2.0s">me</span> <span class="w" style="--w:5;--t:2.0s">anything.</span></p>
             <p class="app-bubble app-bubble-reply1"><span class="w" style="--w:0;--t:9.0s">Dinosaurs</span> <span class="w" style="--w:1;--t:9.0s">were</span> <span class="w" style="--w:2;--t:9.0s">large</span> <span class="w" style="--w:3;--t:9.0s">reptiles</span> <span class="w" style="--w:4;--t:9.0s">that</span> <span class="w" style="--w:5;--t:9.0s">lived</span> <span class="w" style="--w:6;--t:9.0s">long</span> <span class="w" style="--w:7;--t:9.0s">ago...</span></p>
@@ -1610,7 +1689,7 @@
         <div class="app-cards">
           <div class="app-card-slot" style="--i:0;--slot-t:23.2s">
             <button type="button" class="app-card app-card-today app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-today"/></svg></span> Today</button>
-            <button type="button" class="app-card app-card-today app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-forecast"/></svg></span> <span class="app-card-label">Tomorrow 62°</span></button>
+            <button type="button" class="app-card app-card-today app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-forecast"/></svg></span> <span class="app-card-label">Cloudy 62°</span></button>
           </div>
           <button type="button" class="app-card app-card-ottomatic" style="--i:1"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottomatic"/></svg></span> Ottomatic</button>
           <!-- Three states over time: starts as the "Inklings" lane, becomes
@@ -1679,7 +1758,7 @@
       // `inMode: 'drawing' | 'bullets'` swaps the body layout for the in-state.
       const pillConfig = {
         today:     { blurb: 'Ask Otto what\'s on today. Or tomorrow. Or next Tuesday.',
-                     inBlurb: 'Tomorrow in London: sunny, high of 62°. No raincoat needed.' },
+                     inBlurb: 'Tomorrow in London: cloudy, high of 62°. No raincoat needed.' },
         ottomatic: { blurb: 'Ask Otto to convert cups, miles, degrees. Or do the math, big or small.' },
         // 3-state Inklings row; card data-mode picks the body:
         //  default → blurb ("Inklings"), bullets → facts ("Dinosaurs"),
@@ -1691,7 +1770,7 @@
                        'Birds are modern dinosaurs.'
                      ],
                      inBlurb: 'Otto drew you a green dinosaur.',
-                     drawing: { scenic: '🌿', bg: '🦕', fg: '🦖' } },
+                     drawing: { scenic: '🌋', bg: '🦕', fg: '🦖' } },
         weather:   { blurb: 'Ask Otto what to wear, where to go, what the day will bring.' },
         people:    { blurb: 'Keep the people who matter close at hand. Ottoreply to stay in touch.' },
         ottotune:  { blurb: 'Ask Otto to play any style of music. Or change the vibe yourself here, skip a track, or find new music.' },
