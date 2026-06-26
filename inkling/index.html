@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inkling — Meet Otto</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐙</text></svg>">
+  <link rel="icon" type="image/png" sizes="512x512" href="/inkling/icon-512.png">
+  <link rel="icon" type="image/png" sizes="180x180" href="/inkling/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/inkling/apple-touch-icon.png">
-  <meta name="description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home May 7.">
+  <meta name="description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home This Fall.">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="Inkling — Meet Otto">
-  <meta property="og:description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home May 7.">
+  <meta property="og:description" content="Meet Otto. A voice-first AI agent that keeps things simple, made for the whole family. Bring Otto home This Fall.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://inkling.ink/inkling/">
   <meta property="og:site_name" content="Inklings">
@@ -21,7 +22,7 @@
   <meta property="og:image:alt" content="Inkling. Meet Otto.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Inkling — Meet Otto">
-  <meta name="twitter:description" content="A voice-first AI agent that keeps things simple. Bring Otto home May 7.">
+  <meta name="twitter:description" content="A voice-first AI agent that keeps things simple. Bring Otto home This Fall.">
   <meta name="twitter:image" content="https://inkling.ink/inkling/og.png">
   <link rel="canonical" href="https://inkling.ink/inkling/">
   <!-- Smart App Banner: disabled until Inkling's real App Store ID lands.
@@ -955,11 +956,9 @@
 
     .app-card-today     { background: #ff3b30; }
     .app-card-ottomatic { background: #ff9500; }
-    .app-card-inklings  { background: #ffcc00; }
-    .app-card-weather   { background: #34c759; }
+    .app-card-inklings  { background: #34c759; }
     .app-card-people    { background: #007aff; }
     .app-card-ottotune  { background: #af52de; }
-    .app-card-sketches  { background: #8e8ce6; }
 
     /* Animated card slot — out card stays in flow for natural height */
     .app-card-slot {
@@ -1521,9 +1520,6 @@
   <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="Inklings home">Inklings</a>
-      <div class="nav-links">
-        <a href="/ink/">Ink</a>
-      </div>
     </div>
   </nav>
 
@@ -1571,18 +1567,10 @@
           <button type="button" class="app-card app-card-ottomatic" style="--i:1"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottomatic"/></svg></span> Ottomatic</button>
           <div class="app-card-slot" style="--i:2;--slot-t:10.5s">
             <button type="button" class="app-card app-card-inklings app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> Inklings</button>
-            <button type="button" class="app-card app-card-inklings app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> <span class="app-card-label">Dinosaurs</span></button>
+            <button type="button" class="app-card app-card-inklings app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> <span class="app-card-label">Green Dinosaur</span></button>
           </div>
-          <div class="app-card-slot" style="--i:3;--slot-t:24.0s">
-            <button type="button" class="app-card app-card-weather app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottopilot"/></svg></span> <span class="app-card-label">London 59°</span></button>
-            <button type="button" class="app-card app-card-weather app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-forecast"/></svg></span> <span class="app-card-label">London 62°</span></button>
-          </div>
-          <button type="button" class="app-card app-card-people" style="--i:4"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-connections"/></svg></span> Connections</button>
-          <button type="button" class="app-card app-card-ottotune" style="--i:5"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottotune"/></svg></span> Ottotune</button>
-          <div class="app-card-slot" style="--i:6;--slot-t:17.0s">
-            <button type="button" class="app-card app-card-sketches app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> Sketches</button>
-            <button type="button" class="app-card app-card-sketches app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> <span class="app-card-label">Green Dinosaur</span></button>
-          </div>
+          <button type="button" class="app-card app-card-people" style="--i:3"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-connections"/></svg></span> Family</button>
+          <button type="button" class="app-card app-card-ottotune" style="--i:4"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottotune"/></svg></span> Ottotune</button>
         </div>
         <div class="app-mic">
           <div class="app-mic-morph">
@@ -1990,9 +1978,9 @@
 
   <!-- CTA -->
   <section class="cta">
-    <a href="https://apps.apple.com/app/id6748263839" class="app-store-button" aria-label="Bring Otto home May 7 — download on the App Store">
+    <a href="https://apps.apple.com/app/id6748263839" class="app-store-button" aria-label="Bring Otto home This Fall — download on the App Store">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.543 12.826c-.03-3.02 2.473-4.485 2.588-4.555-1.41-2.063-3.606-2.346-4.387-2.38-1.869-.189-3.643 1.099-4.59 1.099-.949 0-2.407-1.072-3.957-1.042-2.036.03-3.917 1.183-4.966 3.003-2.12 3.673-.541 9.11 1.518 12.095 1.007 1.459 2.207 3.097 3.78 3.04 1.519-.061 2.093-.984 3.929-.984 1.835 0 2.352.984 3.955.95 1.633-.03 2.668-1.486 3.665-2.95 1.156-1.694 1.632-3.33 1.661-3.414-.036-.015-3.188-1.223-3.219-4.862zM14.49 4.086c.835-1.01 1.395-2.417 1.242-3.811-1.202.048-2.653.798-3.512 1.806-.772.894-1.447 2.321-1.263 3.692 1.337.104 2.7-.678 3.534-1.687z"/></svg>
-      <span>Bring Otto Home May 7</span>
+      <span>Bring Otto Home This Fall</span>
     </a>
   </section>
   </main>
