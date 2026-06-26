@@ -234,6 +234,7 @@
       width: clamp(112px, 22vw, 160px);
       height: clamp(112px, 22vw, 160px);
       border-radius: 26.5%;
+      overflow: hidden;
       background: #e5e5ea;
       display: flex;
       align-items: center;
@@ -251,6 +252,13 @@
     .hero-icon-mono {
       filter: brightness(0);
       line-height: 1;
+    }
+
+    .hero-icon-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -1528,7 +1536,7 @@
   <section class="hero" aria-labelledby="hero-name">
     <div class="hero-inner">
       <div class="hero-home">
-        <a href="https://apps.apple.com/app/id6748263839" class="hero-icon" aria-label="Download Inkling on the App Store"><span class="hero-icon-mono" aria-hidden="true">🐙</span></a>
+        <a href="https://apps.apple.com/app/id6748263839" class="hero-icon" aria-label="Download Inkling on the App Store"><img class="hero-icon-img" src="/inkling/icon-512.png" width="512" height="512" alt="Inkling app icon" /></a>
         <h1 class="hero-name" id="hero-name">Inkling</h1>
       </div>
       <p class="hero-tagline">
@@ -1562,11 +1570,11 @@
         <div class="app-cards">
           <div class="app-card-slot" style="--i:0;--slot-t:23.2s">
             <button type="button" class="app-card app-card-today app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-today"/></svg></span> Today</button>
-            <button type="button" class="app-card app-card-today app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-tomorrow"/></svg></span> <span class="app-card-label">Tomorrow</span></button>
+            <button type="button" class="app-card app-card-today app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-forecast"/></svg></span> <span class="app-card-label">Tomorrow 62°</span></button>
           </div>
           <button type="button" class="app-card app-card-ottomatic" style="--i:1"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottomatic"/></svg></span> Ottomatic</button>
           <div class="app-card-slot" style="--i:2;--slot-t:10.5s">
-            <button type="button" class="app-card app-card-inklings app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> Inklings</button>
+            <button type="button" class="app-card app-card-inklings app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> <span class="app-card-label">Dinosaurs</span></button>
             <button type="button" class="app-card app-card-inklings app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> <span class="app-card-label">Green Dinosaur</span></button>
           </div>
           <button type="button" class="app-card app-card-people" style="--i:3"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-connections"/></svg></span> Family</button>
@@ -1626,15 +1634,14 @@
       // `inMode: 'drawing' | 'bullets'` swaps the body layout for the in-state.
       const pillConfig = {
         today:     { blurb: 'Ask Otto what\'s on today. Or tomorrow. Or next Tuesday.',
-                     inBlurb: 'Ask about any day. Otto keeps it simple and spoken.' },
+                     inBlurb: 'Tomorrow in London: sunny, high of 62°. No raincoat needed.' },
         ottomatic: { blurb: 'Ask Otto to convert cups, miles, degrees. Or do the math, big or small.' },
         inklings:  { blurb: 'Ask Otto about anything. There\'s always more to discover.',
                      inMode: 'bullets',
                      bullets: [
                        'Dinosaurs lived over 65 million years ago.',
-                       'T. rex had the strongest bite of any land animal.',
-                       'Birds are modern dinosaurs, cousins of velociraptors.',
-                       'Fossils form when buried bones turn to stone.'
+                       'T. rex had the strongest bite on land.',
+                       'Birds are modern dinosaurs.'
                      ] },
         weather:   { blurb: 'Ask Otto what to wear, where to go, what the day will bring.' },
         people:    { blurb: 'Keep the people who matter close at hand. Ottoreply to stay in touch.' },
