@@ -44,6 +44,7 @@
       -webkit-text-size-adjust: 100%;
       font: -apple-system-body;
       font-family: var(--font);
+      overflow-x: hidden;
     }
 
     body {
@@ -53,6 +54,9 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      /* No phantom horizontal scroll on mobile. */
+      overflow-x: hidden;
+      max-width: 100%;
     }
 
     a {
@@ -467,6 +471,8 @@
 
     .footer-links {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1.5rem;
     }
 

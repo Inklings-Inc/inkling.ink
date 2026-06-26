@@ -88,6 +88,7 @@
       -webkit-text-size-adjust: 100%;
       font: -apple-system-body;
       font-family: var(--font);
+      overflow-x: hidden;
     }
 
     body {
@@ -97,6 +98,10 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      /* No phantom horizontal scroll (off-screen demo cards sit past the
+         right edge during their slide animation). */
+      overflow-x: hidden;
+      max-width: 100%;
     }
 
     /* ===== Typography refinements ===== */
@@ -231,8 +236,8 @@
 
     /* App Store–style icon chrome — rounded square, monochrome emoji silhouette */
     .hero-icon {
-      width: clamp(112px, 22vw, 160px);
-      height: clamp(112px, 22vw, 160px);
+      width: clamp(168px, 44vw, 224px);
+      height: clamp(168px, 44vw, 224px);
       border-radius: 26.5%;
       overflow: hidden;
       background: #e5e5ea;
@@ -637,6 +642,10 @@
 
     .app-header {
       position: relative;
+      /* Full width so the bubble row doesn't shrink-wrap to the short
+         greeting — otherwise the long weather reply gets crushed into a
+         narrow column and clips on mobile. */
+      width: 100%;
       display: flex;
       flex-direction: column-reverse;
       align-items: center;
@@ -1001,6 +1010,35 @@
 
     @keyframes label-reveal {
       to { opacity: 1; }
+    }
+
+    /* Three-state slot: card-s1 slides out at --slot-t1; card-s2 slides in at
+       --slot-t1 then out at --slot-t2; card-s3 slides in at --slot-t2. */
+    .app-card-slot3 .app-card-s1 {
+      animation: slot-out 0.55s var(--spring) var(--slot-t1, 10s) forwards;
+    }
+    .app-card-slot3 .app-card-s2 {
+      position: absolute;
+      inset: 0;
+      transform: translateX(110%);
+      animation: slot-in 0.55s var(--spring) var(--slot-t1, 10s) forwards,
+                 slot-out 0.55s var(--spring) var(--slot-t2, 16.5s) forwards;
+    }
+    .app-card-slot3 .app-card-s3 {
+      position: absolute;
+      inset: 0;
+      transform: translateX(110%);
+      animation: slot-in 0.55s var(--spring) var(--slot-t2, 16.5s) forwards;
+    }
+    .app-card-slot3 .app-card-s2 .app-card-label,
+    .app-card-slot3 .app-card-s3 .app-card-label {
+      opacity: 0;
+    }
+    .app-card-slot3 .app-card-s2 .app-card-label {
+      animation: label-reveal 0.3s ease calc(var(--slot-t1, 10s) + 0.4s) forwards;
+    }
+    .app-card-slot3 .app-card-s3 .app-card-label {
+      animation: label-reveal 0.3s ease calc(var(--slot-t2, 16.5s) + 0.4s) forwards;
     }
 
     /* --- Replay button --- */
@@ -1438,6 +1476,8 @@
       /* Demo: show the final "in-state" frame instead of animating */
       .app-card-out { display: none !important; }
       .app-card-in { opacity: 1 !important; transform: none !important; }
+      .app-card-slot3 .app-card-s1, .app-card-slot3 .app-card-s2 { display: none !important; }
+      .app-card-slot3 .app-card-s3 { opacity: 1 !important; transform: none !important; }
       .app-bubble { opacity: 1 !important; transform: none !important; }
       .app-mic-morph { animation: none !important; width: 17rem !important; }
       .mic-words1, .mic-words2 { opacity: 0 !important; }
@@ -1573,9 +1613,14 @@
             <button type="button" class="app-card app-card-today app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-forecast"/></svg></span> <span class="app-card-label">Tomorrow 62°</span></button>
           </div>
           <button type="button" class="app-card app-card-ottomatic" style="--i:1"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottomatic"/></svg></span> Ottomatic</button>
-          <div class="app-card-slot" style="--i:2;--slot-t:10.5s">
-            <button type="button" class="app-card app-card-inklings app-card-out"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> <span class="app-card-label">Dinosaurs</span></button>
-            <button type="button" class="app-card app-card-inklings app-card-in"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> <span class="app-card-label">Green Dinosaur</span></button>
+          <!-- Three states over time: starts as the "Inklings" lane, becomes
+               "Dinosaurs" only AFTER Otto answers the dinosaurs question (reply1
+               ~9s), then "Green Dinosaur" only AFTER the "Can you draw one?"
+               reply (reply2 ~15.5s). The drawing must never precede the ask. -->
+          <div class="app-card-slot app-card-slot3" style="--i:2;--slot-t1:10s;--slot-t2:16.5s">
+            <button type="button" class="app-card app-card-inklings app-card-s1" data-mode="default"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> <span class="app-card-label">Inklings</span></button>
+            <button type="button" class="app-card app-card-inklings app-card-s2" data-mode="bullets"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-inklings"/></svg></span> <span class="app-card-label">Dinosaurs</span></button>
+            <button type="button" class="app-card app-card-inklings app-card-s3" data-mode="drawing"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-sketches"/></svg></span> <span class="app-card-label">Green Dinosaur</span></button>
           </div>
           <button type="button" class="app-card app-card-people" style="--i:3"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-connections"/></svg></span> Family</button>
           <button type="button" class="app-card app-card-ottotune" style="--i:4"><span class="app-card-icon"><svg aria-hidden="true"><use href="#icon-ottotune"/></svg></span> Ottotune</button>
@@ -1636,9 +1681,17 @@
         today:     { blurb: 'Ask Otto what\'s on today. Or tomorrow. Or next Tuesday.',
                      inBlurb: 'Tomorrow in London: sunny, high of 62°. No raincoat needed.' },
         ottomatic: { blurb: 'Ask Otto to convert cups, miles, degrees. Or do the math, big or small.' },
-        inklings:  { blurb: 'Ask Otto about anything. There\'s always more to discover.',
-                     inBlurb: 'Ask Otto to draw it, too — here\'s your green dinosaur.',
-                     inMode: 'drawing', drawing: { scenic: '🌿', bg: '🦕', fg: '🦖' } },
+        // 3-state Inklings row; card data-mode picks the body:
+        //  default → blurb ("Inklings"), bullets → facts ("Dinosaurs"),
+        //  drawing → green dino ("Green Dinosaur").
+        inklings:  { blurb: 'Ask Otto about anything — there\'s always more to discover.',
+                     bullets: [
+                       'Dinosaurs lived over 65 million years ago.',
+                       'T. rex had the strongest bite on land.',
+                       'Birds are modern dinosaurs.'
+                     ],
+                     inBlurb: 'Otto drew you a green dinosaur.',
+                     drawing: { scenic: '🌿', bg: '🦕', fg: '🦖' } },
         weather:   { blurb: 'Ask Otto what to wear, where to go, what the day will bring.' },
         people:    { blurb: 'Keep the people who matter close at hand. Ottoreply to stay in touch.' },
         ottotune:  { blurb: 'Ask Otto to play any style of music. Or change the vibe yourself here, skip a track, or find new music.' },
@@ -1709,8 +1762,11 @@
         const kind = pillKind(card);
         const cfg = pillConfig[kind] || {};
         const isInState = card.classList.contains('app-card-in');
-        const useInMode = isInState && cfg.inMode;
-        const mode = useInMode ? cfg.inMode : 'default';
+        // A card can declare its own body via data-mode (the 3-state Inklings
+        // row: default → bullets → drawing). Otherwise fall back to the 2-card
+        // out/in convention (outMode / inMode).
+        const mode = card.dataset.mode
+            || (isInState ? (cfg.inMode || 'default') : (cfg.outMode || 'default'));
 
         bodyEl.classList.remove('is-default', 'is-drawing', 'is-bullets');
         bodyEl.classList.add('is-' + mode);
@@ -1729,7 +1785,7 @@
           bulletsEl.innerHTML = (cfg.bullets || [])
             .map(b => '<span class="app-sheet-bullet" role="listitem">' + sparkleIcon + '<span>' + b + '</span></span>')
             .join('');
-          blurbEl.textContent = cfg.inBlurb || cfg.blurb || '';
+          blurbEl.textContent = (isInState ? (cfg.inBlurb || cfg.blurb) : cfg.blurb) || '';
         } else {
           blurbEl.textContent = (isInState && cfg.inBlurb) ? cfg.inBlurb : (cfg.blurb || '');
         }
